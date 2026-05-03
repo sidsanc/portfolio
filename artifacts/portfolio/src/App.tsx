@@ -1,6 +1,7 @@
 import { Switch, Route } from "wouter";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Layout } from "@/components/layout/layout";
+import { CustomCursor } from "@/components/custom-cursor";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import Home from "./pages/home";
@@ -19,6 +20,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
+        <CustomCursor />
         <Layout>
           <Switch>
             <Route path="/" component={Home} />

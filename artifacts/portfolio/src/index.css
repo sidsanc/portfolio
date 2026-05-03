@@ -220,6 +220,12 @@
     @apply font-sans antialiased bg-background text-foreground;
     scroll-behavior: smooth;
   }
+
+  @media (pointer: fine) {
+    *, *::before, *::after {
+      cursor: none !important;
+    }
+  }
 }
 
 @layer utilities {
@@ -290,7 +296,7 @@
   }
 
   .dark .gradient-text {
-    background: linear-gradient(135deg, #f5f5f7 0%, #d1d1d6 40%, #8e8e93 100%);
+    background: linear-gradient(135deg, #60a5fa 0%, #818cf8 40%, #c084fc 75%, #f472b6 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
