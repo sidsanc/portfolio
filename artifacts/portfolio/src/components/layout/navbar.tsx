@@ -47,9 +47,11 @@ export function Navbar({ onOpenCommand }: { onOpenCommand: () => void }) {
       >
         {/* Logo */}
         <Link href="/">
-          <span className="text-xl font-black tracking-tighter cursor-pointer gradient-accent select-none">
-            SS
-          </span>
+          <img
+            src="/logo.png"
+            alt="Siddhant Sancheti"
+            className="h-9 w-9 rounded-full cursor-pointer select-none object-cover"
+          />
         </Link>
 
         {/* Desktop links */}
