@@ -1,6 +1,6 @@
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { Link } from "wouter";
-import { ArrowRight, Download, Github, Linkedin, Mail, Sparkles } from "lucide-react";
+import { ArrowRight, BookOpen, Download, Github, Linkedin, Mail, Music2, Sparkles, Wrench } from "lucide-react";
 import { useRef, useEffect, useState } from "react";
 import { useTheme } from "@/components/theme-provider";
 
@@ -335,6 +335,83 @@ export default function Home() {
               <div className="w-1 h-1.5 rounded-full bg-muted-foreground/35" />
             </motion.div>
           </motion.div>
+        </motion.div>
+      </div>
+
+      {/* ── Status Strip ── */}
+      <div className="w-full max-w-4xl px-4 pb-12 -mt-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          className="neo-card p-1 rounded-2xl"
+        >
+          <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-border/50">
+
+            {/* Currently building */}
+            <div className="flex items-start gap-3 px-5 py-4">
+              <div className="mt-0.5 w-7 h-7 rounded-lg neo-inset flex items-center justify-center shrink-0">
+                <Wrench className="w-3.5 h-3.5 text-primary" />
+              </div>
+              <div className="min-w-0">
+                <p className="text-[10px] uppercase tracking-[0.15em] text-muted-foreground/45 font-semibold mb-0.5">
+                  Building
+                </p>
+                <p className="text-sm font-medium text-foreground leading-snug">
+                  Multi-agent code automation
+                </p>
+                <p className="text-xs text-muted-foreground/60 mt-0.5">@ Amazon Web Services</p>
+              </div>
+              <span className="ml-auto shrink-0 w-1.5 h-1.5 rounded-full bg-green-500 mt-1.5 animate-pulse" />
+            </div>
+
+            {/* Reading */}
+            <div className="flex items-start gap-3 px-5 py-4">
+              <div className="mt-0.5 w-7 h-7 rounded-lg neo-inset flex items-center justify-center shrink-0">
+                <BookOpen className="w-3.5 h-3.5 text-primary" />
+              </div>
+              <div className="min-w-0">
+                <p className="text-[10px] uppercase tracking-[0.15em] text-muted-foreground/45 font-semibold mb-0.5">
+                  Reading
+                </p>
+                <p className="text-sm font-medium text-foreground leading-snug truncate">
+                  Designing Data-Intensive Apps
+                </p>
+                <p className="text-xs text-muted-foreground/60 mt-0.5">Martin Kleppmann</p>
+              </div>
+            </div>
+
+            {/* Now playing — Spotify placeholder */}
+            <div className="flex items-start gap-3 px-5 py-4">
+              <div className="mt-0.5 w-7 h-7 rounded-lg neo-inset flex items-center justify-center shrink-0">
+                <Music2 className="w-3.5 h-3.5 text-[#1DB954]" />
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="text-[10px] uppercase tracking-[0.15em] text-muted-foreground/45 font-semibold mb-0.5">
+                  Listening
+                </p>
+                <div className="flex items-center gap-1.5">
+                  <p className="text-sm font-medium text-foreground/50 italic leading-snug">
+                    Connect Spotify
+                  </p>
+                </div>
+                <p className="text-xs text-muted-foreground/40 mt-0.5">to show now playing</p>
+              </div>
+              {/* Spotify soundwave bars animation */}
+              <div className="flex items-end gap-0.5 h-5 mt-1.5 shrink-0 opacity-30">
+                {[0.6, 1, 0.4, 0.8, 0.5].map((h, i) => (
+                  <motion.div
+                    key={i}
+                    className="w-0.5 rounded-full bg-[#1DB954]"
+                    animate={{ scaleY: [h, 1, h * 0.5, 1, h] }}
+                    transition={{ duration: 1.2, repeat: Infinity, delay: i * 0.12, ease: "easeInOut" }}
+                    style={{ height: "100%", transformOrigin: "bottom" }}
+                  />
+                ))}
+              </div>
+            </div>
+
+          </div>
         </motion.div>
       </div>
 

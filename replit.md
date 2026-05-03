@@ -61,6 +61,15 @@ The system prompt in `artifacts/api-server/src/routes/openai/index.ts` contains 
 - Instagram: https://www.instagram.com/sid_sanc4998_/
 - Blog: https://hashnode.com/@sidsanc
 
+## Spotify Integration (PENDING)
+
+Spotify OAuth connector (`connector:ccfg_spotify_01K49R1M6S088SR66BS9A0V4R7`) was proposed but dismissed.
+To enable the now-playing widget and playlists, Siddhant must either:
+1. Complete the Spotify OAuth flow via Replit Integrations panel, OR
+2. Provide `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, `SPOTIFY_REFRESH_TOKEN` as secrets
+
+The now-playing widget is rendered as a placeholder on the home page until Spotify is connected.
+
 ## Environment Variables
 
 - `AI_INTEGRATIONS_OPENAI_BASE_URL` — Replit AI Integrations proxy URL
