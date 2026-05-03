@@ -47,8 +47,12 @@ export default function About() {
           transition={{ delay: 0.1 }}
           className="neo-card p-8 flex flex-col items-center text-center"
         >
-          <div className="neo-inset w-32 h-32 rounded-full flex items-center justify-center mb-6">
-            <span className="text-5xl font-black gradient-text">SS</span>
+          <div className="neo-inset w-32 h-32 rounded-full flex items-center justify-center mb-6 overflow-hidden p-1.5">
+            <img
+              src="/avatar.png"
+              alt="Siddhant Sancheti"
+              className="w-full h-full object-cover rounded-full"
+            />
           </div>
           <h2 className="text-2xl font-bold mb-1">Siddhant Sancheti</h2>
           <p className="text-primary font-medium mb-3">SDE @ Amazon Web Services</p>
