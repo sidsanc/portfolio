@@ -158,6 +158,44 @@ export default function Home() {
   const metricsRef = useRef<HTMLDivElement>(null);
   const metricsInView = useInView(metricsRef, { once: true, margin: "-80px" });
 
+  // ── Spotify now-playing ──
+  type NowPlaying = {
+    isPlaying: boolean;
+    title: string;
+    artist: string;
+    album: string;
+    albumImageUrl: string | null;
+    songUrl: string;
+    playedAt?: string;
+  };
+  const [nowPlaying, setNowPlaying] = useState<NowPlaying | null>(null);
+  const [spotifyError, setSpotifyError] = useState(false);
+  useEffect(() => {
+    let alive = true;
+    const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+    const fetchNowPlaying = async () => {
+      try {
+        const res = await fetch(`${base}/api/spotify/now-playing`);
+        if (!alive) return;
+        if (!res.ok) {
+          setSpotifyError(true);
+          return;
+        }
+        const data = (await res.json()) as NowPlaying;
+        setNowPlaying(data);
+        setSpotifyError(false);
+      } catch {
+        if (alive) setSpotifyError(true);
+      }
+    };
+    fetchNowPlaying();
+    const interval = setInterval(fetchNowPlaying, 30_000);
+    return () => {
+      alive = false;
+      clearInterval(interval);
+    };
+  }, []);
+
   return (
     <div className="flex flex-col items-center">
 
@@ -381,35 +419,67 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Now playing — Spotify placeholder */}
-            <div className="flex items-start gap-3 px-5 py-4">
-              <div className="mt-0.5 w-7 h-7 rounded-lg neo-inset flex items-center justify-center shrink-0">
-                <Music2 className="w-3.5 h-3.5 text-[#1DB954]" />
-              </div>
+            {/* Now playing — Spotify */}
+            <a
+              href={nowPlaying?.songUrl ?? "https://open.spotify.com/user/"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-start gap-3 px-5 py-4 group transition-opacity hover:opacity-90"
+            >
+              {nowPlaying?.albumImageUrl ? (
+                <img
+                  src={nowPlaying.albumImageUrl}
+                  alt={nowPlaying.album}
+                  className="mt-0.5 w-7 h-7 rounded-lg object-cover shrink-0 shadow-sm"
+                />
+              ) : (
+                <div className="mt-0.5 w-7 h-7 rounded-lg neo-inset flex items-center justify-center shrink-0">
+                  <Music2 className="w-3.5 h-3.5 text-[#1DB954]" />
+                </div>
+              )}
               <div className="min-w-0 flex-1">
                 <p className="text-[10px] uppercase tracking-[0.15em] text-muted-foreground/45 font-semibold mb-0.5">
-                  Listening
+                  {nowPlaying?.isPlaying ? "Listening Now" : nowPlaying ? "Last Played" : "Listening"}
                 </p>
-                <div className="flex items-center gap-1.5">
-                  <p className="text-sm font-medium text-foreground/50 italic leading-snug">
-                    Connect Spotify
-                  </p>
-                </div>
-                <p className="text-xs text-muted-foreground/40 mt-0.5">to show now playing</p>
+                {nowPlaying ? (
+                  <>
+                    <p className="text-sm font-medium text-foreground leading-snug truncate group-hover:text-[#1DB954] transition-colors">
+                      {nowPlaying.title}
+                    </p>
+                    <p className="text-xs text-muted-foreground/60 mt-0.5 truncate">
+                      {nowPlaying.artist}
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-sm font-medium text-foreground/50 italic leading-snug">
+                      {spotifyError ? "Spotify unavailable" : "Loading…"}
+                    </p>
+                    <p className="text-xs text-muted-foreground/40 mt-0.5">to show now playing</p>
+                  </>
+                )}
               </div>
-              {/* Spotify soundwave bars animation */}
-              <div className="flex items-end gap-0.5 h-5 mt-1.5 shrink-0 opacity-30">
+              {/* Spotify soundwave bars — animate when actually playing */}
+              <div className={`flex items-end gap-0.5 h-5 mt-1.5 shrink-0 ${nowPlaying?.isPlaying ? "opacity-100" : "opacity-30"}`}>
                 {[0.6, 1, 0.4, 0.8, 0.5].map((h, i) => (
                   <motion.div
                     key={i}
                     className="w-0.5 rounded-full bg-[#1DB954]"
-                    animate={{ scaleY: [h, 1, h * 0.5, 1, h] }}
-                    transition={{ duration: 1.2, repeat: Infinity, delay: i * 0.12, ease: "easeInOut" }}
+                    animate={
+                      nowPlaying?.isPlaying
+                        ? { scaleY: [h, 1, h * 0.5, 1, h] }
+                        : { scaleY: h }
+                    }
+                    transition={
+                      nowPlaying?.isPlaying
+                        ? { duration: 1.2, repeat: Infinity, delay: i * 0.12, ease: "easeInOut" }
+                        : { duration: 0.3 }
+                    }
                     style={{ height: "100%", transformOrigin: "bottom" }}
                   />
                 ))}
               </div>
-            </div>
+            </a>
 
           </div>
         </motion.div>
