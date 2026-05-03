@@ -310,8 +310,16 @@ export default function Home() {
           </a>
 
           <Link href="/chat">
-            <span className="inline-flex items-center gap-2 px-6 py-3.5 text-sm font-medium text-muted-foreground hover:text-foreground cursor-pointer transition-colors">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+            <span className="group inline-flex items-center gap-2 px-6 py-3.5 text-sm font-medium text-muted-foreground hover:text-foreground cursor-pointer transition-colors">
+              <span className="relative inline-flex items-center justify-center w-5 h-5">
+                <motion.span
+                  aria-hidden
+                  className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 blur-md"
+                  animate={{ opacity: [0.45, 0.9, 0.45], scale: [0.85, 1.15, 0.85] }}
+                  transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+                />
+                <Sparkles className="relative w-4 h-4 gradient-stroke drop-shadow-[0_0_4px_rgba(168,85,247,0.6)]" />
+              </span>
               Chat with Jarvis
             </span>
           </Link>
