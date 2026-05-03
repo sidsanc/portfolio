@@ -163,9 +163,9 @@
   --background: 0 0% 9%;
   --foreground: 0 0% 92%;
   --border: 0 0% 16%;
-  --card: 0 0% 11%;
+  --card: 0 0% 15%;
   --card-foreground: 0 0% 92%;
-  --card-border: 0 0% 16%;
+  --card-border: 0 0% 20%;
   --sidebar: 0 0% 9%;
   --sidebar-foreground: 0 0% 92%;
   --sidebar-border: 0 0% 16%;
@@ -204,8 +204,9 @@
 
   /* Pure neutral neumorphism shadows — no blue cast */
   /* Stronger highlight + deeper shadow for visible dark neumorphism */
-  --shadow-color-light: rgba(255, 255, 255, 0.09);
-  --shadow-color-dark: rgba(0, 0, 0, 0.88);
+  --shadow-color-light: rgba(255, 255, 255, 0.13);
+  --shadow-color-dark: rgba(0, 0, 0, 0.55);
+  --neo-btn-bg: 0 0% 18%;
 
   --shadow-2xs: 2px 2px 5px var(--shadow-color-dark), -2px -2px 5px var(--shadow-color-light);
   --shadow-xs: 4px 4px 8px var(--shadow-color-dark), -4px -4px 8px var(--shadow-color-light);
@@ -256,7 +257,7 @@
   .neo-btn {
     box-shadow: 5px 5px 10px var(--shadow-color-dark), -5px -5px 10px var(--shadow-color-light);
     border-radius: var(--radius);
-    background: hsl(var(--card));
+    background: hsl(var(--neo-btn-bg, var(--card)));
     transition: all 0.2s ease-in-out;
   }
 
