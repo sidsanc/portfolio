@@ -80,7 +80,15 @@ export function Navbar({ onOpenCommand }: { onOpenCommand: () => void }) {
         <div className="flex items-center gap-2">
           <button
             onClick={onOpenCommand}
-            className="neo-btn p-2.5 rounded-xl text-foreground/50 hover:text-foreground transition-colors"
+            className="neo-btn hidden sm:inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-foreground/50 hover:text-foreground transition-colors text-xs font-medium"
+            aria-label="Open command bar"
+          >
+            <Command className="h-3.5 w-3.5" />
+            <span>K</span>
+          </button>
+          <button
+            onClick={onOpenCommand}
+            className="neo-btn sm:hidden p-2.5 rounded-xl text-foreground/50 hover:text-foreground transition-colors"
             aria-label="Open command bar"
           >
             <Command className="h-4 w-4" />
