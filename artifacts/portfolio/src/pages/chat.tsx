@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Send, Bot, User, Loader2, Terminal, RefreshCw } from "lucide-react";
+import { Send, User, Loader2, Sparkles, RefreshCw } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { getGetMessagesQueryKey } from "@workspace/api-client-react";
 
@@ -177,7 +177,7 @@ export default function Chat() {
       >
         <div className="flex items-center gap-4">
           <div className="neo-inset p-3 rounded-xl text-primary">
-            <Terminal className="w-5 h-5" />
+            <Sparkles className="w-5 h-5" />
           </div>
           <div>
             <h1 className="font-bold text-lg text-foreground">Jarvis</h1>
@@ -215,7 +215,7 @@ export default function Chat() {
           >
             <div className="neo-card p-8 text-center">
               <div className="neo-inset w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Bot className="w-8 h-8 text-primary" />
+                <Sparkles className="w-8 h-8 text-primary" />
               </div>
               <h3 className="font-semibold text-foreground mb-2">Hi, I'm Jarvis</h3>
               <p className="text-sm text-muted-foreground">
@@ -249,7 +249,7 @@ export default function Chat() {
               className={`flex gap-3 ${msg.role === "user" ? "flex-row-reverse" : "flex-row"}`}
             >
               <div className={`neo-inset p-2.5 rounded-xl h-fit shrink-0 ${msg.role === "user" ? "text-secondary" : "text-primary"}`}>
-                {msg.role === "user" ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
+                {msg.role === "user" ? <User className="w-4 h-4" /> : <Sparkles className="w-4 h-4" />}
               </div>
               <div
                 className={`neo-card px-5 py-4 max-w-[80%] text-sm leading-relaxed ${
