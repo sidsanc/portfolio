@@ -176,8 +176,8 @@ export default function Chat() {
         className="neo-card p-5 mb-4 flex items-center justify-between"
       >
         <div className="flex items-center gap-4">
-          <div className="neo-inset p-3 rounded-xl text-primary">
-            <Sparkles className="w-5 h-5" />
+          <div className="neo-inset p-3 rounded-xl">
+            <Sparkles className="w-5 h-5 gradient-stroke" />
           </div>
           <div>
             <h1 className="font-bold text-lg text-foreground">Jarvis</h1>
@@ -215,7 +215,7 @@ export default function Chat() {
           >
             <div className="neo-card p-8 text-center">
               <div className="neo-inset w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Sparkles className="w-8 h-8 text-primary" />
+                <Sparkles className="w-8 h-8 gradient-stroke" />
               </div>
               <h3 className="font-semibold text-foreground mb-2">Hi, I'm Jarvis</h3>
               <p className="text-sm text-muted-foreground">

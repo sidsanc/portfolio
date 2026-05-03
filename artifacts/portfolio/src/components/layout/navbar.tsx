@@ -30,7 +30,7 @@ export function Navbar({ onOpenCommand }: { onOpenCommand: () => void }) {
               ? "gradient-accent font-semibold"
               : "text-foreground/70 hover:text-foreground"
           }`}>
-            {link.icon && <Sparkles className="h-3.5 w-3.5" />}
+            {link.icon && <Sparkles className="h-3.5 w-3.5 gradient-stroke" />}
             {link.label}
           </span>
         </Link>
@@ -64,7 +64,7 @@ export function Navbar({ onOpenCommand }: { onOpenCommand: () => void }) {
                   ? "gradient-accent"
                   : "text-foreground/60 hover:text-foreground"
               }`}>
-                {link.icon && <Sparkles className="h-3.5 w-3.5" />}
+                {link.icon && <Sparkles className="h-3.5 w-3.5 gradient-stroke" />}
                 {link.label}
                 {location === link.href && (
                   <motion.span

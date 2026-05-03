@@ -346,6 +346,11 @@
     background-clip: text;
   }
 
+  /* Gradient stroke for Lucide icons — references <linearGradient id="aiGradient"> in layout.tsx */
+  .gradient-stroke {
+    stroke: url(#aiGradient);
+  }
+
   /* Warm accent — for @AWS label etc. */
   .gradient-warm {
     background: linear-gradient(135deg, #34d399 0%, #60a5fa 50%, #818cf8 100%);

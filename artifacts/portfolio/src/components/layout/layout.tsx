@@ -10,6 +10,17 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen bg-background text-foreground font-sans selection:bg-primary selection:text-white">
+      {/* Reusable SVG gradient defs for stroked icons (Sparkles for Jarvis, etc.) */}
+      <svg width="0" height="0" className="absolute" aria-hidden="true">
+        <defs>
+          <linearGradient id="aiGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#60a5fa" />
+            <stop offset="40%" stopColor="#818cf8" />
+            <stop offset="75%" stopColor="#c084fc" />
+            <stop offset="100%" stopColor="#f472b6" />
+          </linearGradient>
+        </defs>
+      </svg>
       <Navbar onOpenCommand={() => setCommandOpen(true)} />
       <CommandBar open={commandOpen} setOpen={setCommandOpen} />
       
