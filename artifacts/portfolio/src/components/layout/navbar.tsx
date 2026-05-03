@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link, useLocation } from "wouter";
-import { Moon, Sun, Command, Menu } from "lucide-react";
+import { Moon, Sun, Command, Menu, Sparkles } from "lucide-react";
 import { useTheme } from "@/components/theme-provider";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { useState } from "react";
@@ -18,18 +18,19 @@ export function Navbar({ onOpenCommand }: { onOpenCommand: () => void }) {
     { href: "/projects", label: "Projects" },
     { href: "/blog", label: "Blog" },
     { href: "/contact", label: "Contact" },
-    { href: "/chat", label: "AI Chat" },
+    { href: "/chat", label: "Jarvis", icon: true },
   ];
 
   const NavLinks = () => (
     <>
       {links.map((link) => (
         <Link key={link.href} href={link.href} onClick={() => setOpen(false)}>
-          <span className={`block px-4 py-2.5 rounded-lg text-sm transition-all cursor-pointer ${
+          <span className={`inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm transition-all cursor-pointer ${
             location === link.href
               ? "gradient-accent font-semibold"
               : "text-foreground/70 hover:text-foreground"
           }`}>
+            {link.icon && <Sparkles className="h-3.5 w-3.5" />}
             {link.label}
           </span>
         </Link>
@@ -58,11 +59,12 @@ export function Navbar({ onOpenCommand }: { onOpenCommand: () => void }) {
         <nav className="hidden md:flex items-center gap-0.5">
           {links.map((link) => (
             <Link key={link.href} href={link.href}>
-              <span className={`relative px-3.5 py-2 rounded-lg text-sm transition-all duration-200 cursor-pointer font-medium ${
+              <span className={`relative inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm transition-all duration-200 cursor-pointer font-medium ${
                 location === link.href
                   ? "gradient-accent"
                   : "text-foreground/60 hover:text-foreground"
               }`}>
+                {link.icon && <Sparkles className="h-3.5 w-3.5" />}
                 {link.label}
                 {location === link.href && (
                   <motion.span

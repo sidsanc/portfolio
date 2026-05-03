@@ -274,7 +274,7 @@ export default function Home() {
           <Link href="/chat">
             <span className="inline-flex items-center gap-2 px-6 py-3.5 text-sm font-medium text-muted-foreground hover:text-foreground cursor-pointer transition-colors">
               <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-              Chat with my AI
+              Chat with Jarvis
             </span>
           </Link>
         </motion.div>

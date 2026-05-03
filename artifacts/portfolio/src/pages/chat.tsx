@@ -180,8 +180,8 @@ export default function Chat() {
             <Terminal className="w-5 h-5" />
           </div>
           <div>
-            <h1 className="font-bold text-lg text-foreground">Siddhant's AI</h1>
-            <p className="text-xs text-muted-foreground">Ask me anything about Siddhant's work, skills, or background</p>
+            <h1 className="font-bold text-lg text-foreground">Jarvis</h1>
+            <p className="text-xs text-muted-foreground">Siddhant's AI assistant — ask me anything about his work, skills, or background</p>
           </div>
         </div>
         <div className="flex items-center gap-3">
@@ -217,9 +217,9 @@ export default function Chat() {
               <div className="neo-inset w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Bot className="w-8 h-8 text-primary" />
               </div>
-              <h3 className="font-semibold text-foreground mb-2">Hi, I'm Siddhant's AI assistant</h3>
+              <h3 className="font-semibold text-foreground mb-2">Hi, I'm Jarvis</h3>
               <p className="text-sm text-muted-foreground">
-                Ask me anything about Siddhant's experience, projects, skills, or background. I'll give you accurate, detailed answers.
+                Siddhant's AI assistant. Ask me anything about his experience, projects, skills, or background — I'll give you accurate, detailed answers.
               </p>
             </div>
             <p className="text-xs text-muted-foreground text-center font-medium uppercase tracking-wider">Try asking</p>

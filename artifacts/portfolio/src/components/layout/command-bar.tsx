@@ -81,7 +81,7 @@ export function CommandBar({
           </CommandItem>
           <CommandItem onSelect={() => runCommand(() => setLocation("/chat"))}>
             <MessageSquare className="mr-2 h-4 w-4" />
-            <span>AI Chat</span>
+            <span>Jarvis</span>
           </CommandItem>
           <CommandItem onSelect={() => runCommand(() => setLocation("/contact"))}>
             <Mail className="mr-2 h-4 w-4" />
