@@ -160,12 +160,12 @@
   --elevate-1: rgba(255,255,255, .03);
   --elevate-2: rgba(255,255,255, .07);
 
-  --background: 0 0% 10%;
+  --background: 0 0% 12%;
   --foreground: 0 0% 92%;
-  --border: 0 0% 20%;
-  --card: 0 0% 15%;
+  --border: 0 0% 18%;
+  --card: 0 0% 12%;
   --card-foreground: 0 0% 92%;
-  --card-border: 0 0% 22%;
+  --card-border: 0 0% 18%;
   --sidebar: 0 0% 9%;
   --sidebar-foreground: 0 0% 92%;
   --sidebar-border: 0 0% 16%;
@@ -202,10 +202,10 @@
   --chart-4: 40 90% 50%;
   --chart-5: 330 80% 60%;
 
-  /* Soft UI neumorphism: bg darker than card surfaces, strong shadows for embossed lift */
-  --shadow-color-light: rgba(255, 255, 255, 0.22);
-  --shadow-color-dark: rgba(0, 0, 0, 0.75);
-  --neo-btn-bg: 0 0% 19%;
+  /* True neumorphism: bg = card same color, strong shadows do all the embossing work */
+  --shadow-color-light: rgba(255, 255, 255, 0.28);
+  --shadow-color-dark: rgba(0, 0, 0, 0.85);
+  --neo-btn-bg: 0 0% 16%;
 
   --shadow-2xs: 2px 2px 5px var(--shadow-color-dark), -2px -2px 5px var(--shadow-color-light);
   --shadow-xs: 4px 4px 8px var(--shadow-color-dark), -4px -4px 8px var(--shadow-color-light);
@@ -242,7 +242,7 @@
 @layer utilities {
   /* ─── Neumorphism ─── */
   .neo-card {
-    box-shadow: 8px 8px 16px var(--shadow-color-dark), -8px -8px 16px var(--shadow-color-light);
+    box-shadow: 12px 12px 24px var(--shadow-color-dark), -12px -12px 24px var(--shadow-color-light);
     border-radius: var(--radius);
     background: hsl(var(--card));
   }
