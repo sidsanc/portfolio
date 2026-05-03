@@ -255,23 +255,23 @@
 
   /* ─── Liquid Glass — Apple visionOS style navbar ─── */
   .liquid-glass {
-    background: rgba(245, 245, 247, 0.72);
-    backdrop-filter: blur(24px) saturate(200%) brightness(1.05);
-    -webkit-backdrop-filter: blur(24px) saturate(200%) brightness(1.05);
-    border: 1px solid rgba(255, 255, 255, 0.55);
+    background: rgba(245, 245, 247, 0.48);
+    backdrop-filter: blur(36px) saturate(220%) brightness(1.08);
+    -webkit-backdrop-filter: blur(36px) saturate(220%) brightness(1.08);
+    border: 1px solid rgba(255, 255, 255, 0.62);
     box-shadow:
-      0 2px 24px rgba(0, 0, 0, 0.07),
-      0 1px 0 rgba(255, 255, 255, 0.8) inset;
+      0 2px 32px rgba(0, 0, 0, 0.06),
+      0 1px 0 rgba(255, 255, 255, 0.9) inset;
   }
 
   .dark .liquid-glass {
-    background: rgba(17, 17, 17, 0.70);
-    backdrop-filter: blur(24px) saturate(200%) brightness(0.95);
-    -webkit-backdrop-filter: blur(24px) saturate(200%) brightness(0.95);
-    border: 1px solid rgba(255, 255, 255, 0.07);
+    background: rgba(14, 14, 14, 0.48);
+    backdrop-filter: blur(36px) saturate(220%) brightness(0.92);
+    -webkit-backdrop-filter: blur(36px) saturate(220%) brightness(0.92);
+    border: 1px solid rgba(255, 255, 255, 0.06);
     box-shadow:
-      0 2px 24px rgba(0, 0, 0, 0.45),
-      0 1px 0 rgba(255, 255, 255, 0.05) inset;
+      0 2px 32px rgba(0, 0, 0, 0.5),
+      0 1px 0 rgba(255, 255, 255, 0.04) inset;
   }
 
   /* ─── Gradient Text ─────────────────────────────────────────────
