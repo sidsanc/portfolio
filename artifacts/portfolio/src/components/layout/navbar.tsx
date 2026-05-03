@@ -38,13 +38,13 @@ export function Navbar({ onOpenCommand }: { onOpenCommand: () => void }) {
   );
 
   return (
-    <motion.header
-      initial={{ y: -80, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className="fixed top-0 left-0 right-0 z-50 px-4 pt-4"
-    >
-      <div className="max-w-6xl mx-auto liquid-glass rounded-2xl px-5 py-3 flex items-center justify-between">
+    <header className="fixed top-0 left-0 right-0 z-50 px-4 pt-4">
+      <motion.div
+        initial={{ y: -80, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        className="max-w-6xl mx-auto liquid-glass rounded-2xl px-5 py-3 flex items-center justify-between"
+      >
         {/* Logo */}
         <Link href="/">
           <span className="text-xl font-black tracking-tighter cursor-pointer gradient-accent select-none">
@@ -110,7 +110,7 @@ export function Navbar({ onOpenCommand }: { onOpenCommand: () => void }) {
             </Sheet>
           </div>
         </div>
-      </div>
-    </motion.header>
+      </motion.div>
+    </header>
   );
 }
