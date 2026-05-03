@@ -1,6 +1,6 @@
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { Link } from "wouter";
-import { ArrowRight, Download, Sparkles } from "lucide-react";
+import { ArrowRight, Download, Github, Linkedin, Mail, Sparkles } from "lucide-react";
 import { useRef, useEffect, useState } from "react";
 import { useTheme } from "@/components/theme-provider";
 
@@ -144,8 +144,11 @@ export default function Home() {
   const { theme } = useTheme();
   const isDark = theme === "dark";
 
-  const firstName = "Siddhant".split("");
-  const lastName  = "Sancheti".split("");
+  const socials = [
+    { label: "GitHub",   href: "https://github.com/sidsanc",                      Icon: Github   },
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/siddhant-sancheti/",  Icon: Linkedin },
+    { label: "Email",    href: "mailto:siddhantsanchetik@gmail.com",               Icon: Mail     },
+  ];
 
   // Scroll-reactive scroll indicator
   const { scrollY } = useScroll();
@@ -197,32 +200,30 @@ export default function Home() {
           <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse ml-1" />
         </motion.div>
 
-        {/* Name — letter-by-letter reveal */}
+        {/* Name — word-level reveal so gradient flows across the full word */}
         <h1
           className="relative z-10 font-black tracking-[-0.04em] leading-none mb-6"
           style={{ fontSize: "clamp(3.2rem, 9vw, 8rem)" }}
         >
-          <div className="flex gap-[0.01em] justify-center mb-1">
-            {firstName.map((char, i) => (
-              <motion.span
-                key={i}
-                initial={{ opacity: 0, y: 28, filter: "blur(8px)" }}
-                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                transition={{ duration: 0.55, delay: 0.1 + i * 0.045, ease: [0.16, 1, 0.3, 1] }}
-                className="gradient-text inline-block"
-              >{char}</motion.span>
-            ))}
+          <div className="block text-center mb-1">
+            <motion.span
+              initial={{ opacity: 0, y: 32, filter: "blur(10px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="gradient-text inline-block"
+            >
+              Siddhant
+            </motion.span>
           </div>
-          <div className="flex gap-[0.01em] justify-center">
-            {lastName.map((char, i) => (
-              <motion.span
-                key={i}
-                initial={{ opacity: 0, y: 28, filter: "blur(8px)" }}
-                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                transition={{ duration: 0.55, delay: 0.45 + i * 0.045, ease: [0.16, 1, 0.3, 1] }}
-                className="gradient-text inline-block"
-              >{char}</motion.span>
-            ))}
+          <div className="block text-center">
+            <motion.span
+              initial={{ opacity: 0, y: 32, filter: "blur(10px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ duration: 0.7, delay: 0.38, ease: [0.16, 1, 0.3, 1] }}
+              className="gradient-text inline-block"
+            >
+              Sancheti
+            </motion.span>
           </div>
         </h1>
 
@@ -276,6 +277,38 @@ export default function Home() {
               Chat with my AI
             </span>
           </Link>
+        </motion.div>
+
+        {/* Social links strip */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 1.5 }}
+          className="relative z-10 flex items-center gap-2 mt-8"
+        >
+          <div className="h-px w-10 bg-border/60" />
+          {socials.map((s, i) => (
+            <motion.a
+              key={s.label}
+              href={s.href}
+              target={s.href.startsWith("mailto") ? undefined : "_blank"}
+              rel="noopener noreferrer"
+              aria-label={s.label}
+              initial={{ opacity: 0, scale: 0.75 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.35, delay: 1.55 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ scale: 1.15, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+              className="neo-btn w-9 h-9 rounded-full flex items-center justify-center text-foreground/45 hover:text-foreground transition-colors group"
+            >
+              <s.Icon className="w-4 h-4" />
+              {/* Tooltip */}
+              <span className="pointer-events-none absolute -bottom-7 left-1/2 -translate-x-1/2 text-[10px] font-medium text-muted-foreground/60 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                {s.label}
+              </span>
+            </motion.a>
+          ))}
+          <div className="h-px w-10 bg-border/60" />
         </motion.div>
 
         {/* Scroll indicator — fades out as user scrolls */}
