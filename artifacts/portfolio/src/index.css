@@ -160,12 +160,12 @@
   --elevate-1: rgba(255,255,255, .03);
   --elevate-2: rgba(255,255,255, .07);
 
-  --background: 0 0% 13%;
+  --background: 0 0% 9%;
   --foreground: 0 0% 92%;
-  --border: 0 0% 18%;
-  --card: 0 0% 13%;
+  --border: 0 0% 14%;
+  --card: 0 0% 9%;
   --card-foreground: 0 0% 92%;
-  --card-border: 0 0% 18%;
+  --card-border: 0 0% 14%;
   --sidebar: 0 0% 9%;
   --sidebar-foreground: 0 0% 92%;
   --sidebar-border: 0 0% 16%;
@@ -202,10 +202,10 @@
   --chart-4: 40 90% 50%;
   --chart-5: 330 80% 60%;
 
-  /* True neumorphism: bg = card = button SAME color, shadows alone create the embossed/raised effect */
-  --shadow-color-light: rgba(255, 255, 255, 0.10);
-  --shadow-color-dark: rgba(0, 0, 0, 0.65);
-  --neo-btn-bg: 0 0% 13%;
+  /* True neumorphism on dark bg #171717: bg = card = button SAME color, strong highlights + deep shadows do the embossing */
+  --shadow-color-light: rgba(255, 255, 255, 0.06);
+  --shadow-color-dark: rgba(0, 0, 0, 0.95);
+  --neo-btn-bg: 0 0% 9%;
 
   --shadow-2xs: 2px 2px 5px var(--shadow-color-dark), -2px -2px 5px var(--shadow-color-light);
   --shadow-xs: 4px 4px 8px var(--shadow-color-dark), -4px -4px 8px var(--shadow-color-light);
