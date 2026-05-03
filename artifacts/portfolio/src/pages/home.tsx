@@ -220,7 +220,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 28, filter: "blur(8px)" }}
                 animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                 transition={{ duration: 0.55, delay: 0.45 + i * 0.045, ease: [0.16, 1, 0.3, 1] }}
-                className="text-foreground inline-block"
+                className="gradient-text inline-block"
               >{char}</motion.span>
             ))}
           </div>
