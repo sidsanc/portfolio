@@ -10,6 +10,8 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: openai
+    description: AI chat operations
 paths:
   /healthz:
     get:
@@ -24,6 +26,61 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+  /openai/conversations:
+    post:
+      operationId: createConversation
+      tags: [openai]
+      summary: Create a new conversation
+      responses:
+        "201":
+          description: Conversation created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Conversation"
+  /openai/conversations/{id}/messages:
+    post:
+      operationId: sendMessage
+      tags: [openai]
+      summary: Send a message and stream AI response
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SendOpenaiMessageBody"
+      responses:
+        "200":
+          description: SSE stream of AI response
+          content:
+            text/event-stream:
+              schema:
+                type: string
+    get:
+      operationId: getMessages
+      tags: [openai]
+      summary: Get conversation messages
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of messages
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Message"
 components:
   schemas:
     HealthStatus:
@@ -33,4 +90,40 @@ components:
           type: string
       required:
         - status
-
+    Conversation:
+      type: object
+      properties:
+        id:
+          type: string
+        createdAt:
+          type: string
+      required:
+        - id
+        - createdAt
+    Message:
+      type: object
+      properties:
+        id:
+          type: integer
+        conversationId:
+          type: string
+        role:
+          type: string
+          enum: [user, assistant]
+        content:
+          type: string
+        createdAt:
+          type: string
+      required:
+        - id
+        - conversationId
+        - role
+        - content
+        - createdAt
+    SendOpenaiMessageBody:
+      type: object
+      properties:
+        content:
+          type: string
+      required:
+        - content

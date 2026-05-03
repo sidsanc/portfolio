@@ -14,3 +14,30 @@ import * as zod from "zod";
 export const HealthCheckResponse = zod.object({
   status: zod.string(),
 });
+
+/**
+ * @summary Send a message and stream AI response
+ */
+export const SendMessageParams = zod.object({
+  id: zod.coerce.string(),
+});
+
+export const SendMessageBody = zod.object({
+  content: zod.string(),
+});
+
+/**
+ * @summary Get conversation messages
+ */
+export const GetMessagesParams = zod.object({
+  id: zod.coerce.string(),
+});
+
+export const GetMessagesResponseItem = zod.object({
+  id: zod.number(),
+  conversationId: zod.string(),
+  role: zod.enum(["user", "assistant"]),
+  content: zod.string(),
+  createdAt: zod.string(),
+});
+export const GetMessagesResponse = zod.array(GetMessagesResponseItem);
