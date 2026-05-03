@@ -78,9 +78,10 @@ export function Navbar({ onOpenCommand }: { onOpenCommand: () => void }) {
         <div className="flex items-center gap-2">
           <button
             onClick={onOpenCommand}
-            className="flex items-center gap-2 px-3 py-2 rounded-xl text-foreground/50 hover:text-foreground transition-colors neo-btn text-xs font-mono"
+            className="neo-btn p-2.5 rounded-xl text-foreground/50 hover:text-foreground transition-colors"
+            aria-label="Open command bar"
           >
-            <span className="hidden sm:inline">⌘K</span>
+            <Command className="h-4 w-4" />
           </button>
 
           <button
