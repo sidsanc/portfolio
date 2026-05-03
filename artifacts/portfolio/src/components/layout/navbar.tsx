@@ -27,7 +27,7 @@ export function Navbar({ onOpenCommand }: { onOpenCommand: () => void }) {
         <Link key={link.href} href={link.href} onClick={() => setOpen(false)}>
           <span className={`block px-4 py-2.5 rounded-lg text-sm transition-all cursor-pointer ${
             location === link.href
-              ? "gradient-text font-semibold"
+              ? "gradient-accent font-semibold"
               : "text-foreground/70 hover:text-foreground"
           }`}>
             {link.label}
@@ -47,7 +47,7 @@ export function Navbar({ onOpenCommand }: { onOpenCommand: () => void }) {
       <div className="max-w-6xl mx-auto liquid-glass rounded-2xl px-5 py-3 flex items-center justify-between">
         {/* Logo */}
         <Link href="/">
-          <span className="text-xl font-black tracking-tighter cursor-pointer gradient-text select-none">
+          <span className="text-xl font-black tracking-tighter cursor-pointer gradient-accent select-none">
             SS
           </span>
         </Link>
@@ -58,7 +58,7 @@ export function Navbar({ onOpenCommand }: { onOpenCommand: () => void }) {
             <Link key={link.href} href={link.href}>
               <span className={`relative px-3.5 py-2 rounded-lg text-sm transition-all duration-200 cursor-pointer font-medium ${
                 location === link.href
-                  ? "gradient-text"
+                  ? "gradient-accent"
                   : "text-foreground/60 hover:text-foreground"
               }`}>
                 {link.label}
