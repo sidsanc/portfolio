@@ -70,10 +70,27 @@ To enable the now-playing widget and playlists, Siddhant must either:
 
 The now-playing widget is rendered as a placeholder on the home page until Spotify is connected.
 
+## OpenAI Client — Dual Mode
+
+`lib/integrations-openai-ai-server/src/client.ts` supports two modes automatically:
+- **Replit**: set `AI_INTEGRATIONS_OPENAI_BASE_URL` + `AI_INTEGRATIONS_OPENAI_API_KEY` → uses `gpt-5.1` via Replit proxy
+- **External hosting**: set `OPENAI_API_KEY` → uses `gpt-4o` via direct OpenAI API
+- Override model with `OPENAI_MODEL` env var on either platform
+
+## External Free Deployment (Vercel + Render + Neon)
+
+To host for free indefinitely:
+1. **Push to GitHub** — authorize GitHub connector in Replit Integrations
+2. **Frontend → Vercel** (free, no expiry): connect GitHub repo, set `VITE_API_URL` to Render URL
+3. **API server → Render** (free tier, sleeps after 15min inactivity): set `OPENAI_API_KEY`, `DATABASE_URL` (from Neon), `SESSION_SECRET`
+4. **Database → Neon** (free PostgreSQL, no expiry): copy connection string to Render env vars
+
 ## Environment Variables
 
-- `AI_INTEGRATIONS_OPENAI_BASE_URL` — Replit AI Integrations proxy URL
-- `AI_INTEGRATIONS_OPENAI_API_KEY` — Replit AI Integrations API key
+- `AI_INTEGRATIONS_OPENAI_BASE_URL` — Replit AI Integrations proxy URL (Replit only)
+- `AI_INTEGRATIONS_OPENAI_API_KEY` — Replit AI Integrations API key (Replit only)
+- `OPENAI_API_KEY` — Direct OpenAI key (external hosting)
+- `OPENAI_MODEL` — Override model (optional, defaults to gpt-5.1 on Replit / gpt-4o external)
 - `DATABASE_URL` — PostgreSQL connection string
 - `SESSION_SECRET` — Session secret
 

@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { db, conversations, messages } from "@workspace/db";
-import { openai } from "@workspace/integrations-openai-ai-server";
+import { openai, CHAT_MODEL } from "@workspace/integrations-openai-ai-server";
 import { SendMessageBody, SendMessageParams, GetMessagesParams } from "@workspace/api-zod";
 import { eq } from "drizzle-orm";
 import { randomUUID } from "crypto";
@@ -149,7 +149,7 @@ router.post("/conversations/:id/messages", async (req, res) => {
     let fullResponse = "";
 
     const stream = await openai.chat.completions.create({
-      model: "gpt-5.1",
+      model: CHAT_MODEL,
       max_completion_tokens: 8192,
       messages: chatMessages,
       stream: true,
