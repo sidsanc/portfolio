@@ -44,7 +44,7 @@ export function Navbar({ onOpenCommand }: { onOpenCommand: () => void }) {
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className="max-w-6xl mx-auto liquid-glass rounded-2xl px-5 py-3 flex items-center justify-between"
+        className="max-w-6xl mx-auto liquid-glass backdrop-blur-xl backdrop-saturate-200 rounded-2xl px-5 py-3 flex items-center justify-between"
       >
         {/* Logo */}
         <Link href="/">
