@@ -202,10 +202,9 @@
   --chart-4: 40 90% 50%;
   --chart-5: 330 80% 60%;
 
-  /* Pure neutral neumorphism shadows — no blue cast */
-  /* Stronger highlight + deeper shadow for visible dark neumorphism */
-  --shadow-color-light: rgba(255, 255, 255, 0.13);
-  --shadow-color-dark: rgba(0, 0, 0, 0.55);
+  /* Dark neumorphism — highlight must be bright enough to read on dark surfaces */
+  --shadow-color-light: rgba(255, 255, 255, 0.25);
+  --shadow-color-dark: rgba(0, 0, 0, 0.80);
   --neo-btn-bg: 0 0% 18%;
 
   --shadow-2xs: 2px 2px 5px var(--shadow-color-dark), -2px -2px 5px var(--shadow-color-light);
