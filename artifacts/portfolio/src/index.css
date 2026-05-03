@@ -160,10 +160,10 @@
   --elevate-1: rgba(255,255,255, .03);
   --elevate-2: rgba(255,255,255, .07);
 
-  --background: 0 0% 9%;
+  --background: 0 0% 14%;
   --foreground: 0 0% 92%;
-  --border: 0 0% 16%;
-  --card: 0 0% 15%;
+  --border: 0 0% 20%;
+  --card: 0 0% 14%;
   --card-foreground: 0 0% 92%;
   --card-border: 0 0% 20%;
   --sidebar: 0 0% 9%;
@@ -202,10 +202,10 @@
   --chart-4: 40 90% 50%;
   --chart-5: 330 80% 60%;
 
-  /* Dark neumorphism — highlight must be bright enough to read on dark surfaces */
-  --shadow-color-light: rgba(255, 255, 255, 0.25);
-  --shadow-color-dark: rgba(0, 0, 0, 0.80);
-  --neo-btn-bg: 0 0% 18%;
+  /* Classic neumorphism: bg = card same color, shadows create the 3D illusion */
+  --shadow-color-light: rgba(255, 255, 255, 0.20);
+  --shadow-color-dark: rgba(0, 0, 0, 0.65);
+  --neo-btn-bg: 0 0% 17%;
 
   --shadow-2xs: 2px 2px 5px var(--shadow-color-dark), -2px -2px 5px var(--shadow-color-light);
   --shadow-xs: 4px 4px 8px var(--shadow-color-dark), -4px -4px 8px var(--shadow-color-light);
