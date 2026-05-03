@@ -55,7 +55,7 @@ export default function Projects() {
         animate={{ opacity: 1, y: 0 }}
         className="mb-12 text-center"
       >
-        <h1 className="text-4xl font-bold mb-4 text-foreground">Projects</h1>
+        <h1 className="page-title gradient-text mb-4">Projects</h1>
         <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
           From autonomous vehicle perception to production AI orchestration — each project pushing the boundary of what's deployable.
         </p>

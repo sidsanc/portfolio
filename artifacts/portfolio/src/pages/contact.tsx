@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Mail, Github, Linkedin, Instagram, BookOpen, ExternalLink, Send } from "lucide-react";
+import { Mail, Github, Linkedin, Instagram, BookOpen, ExternalLink, Send, Download } from "lucide-react";
 
 const socials = [
   {
@@ -52,7 +52,7 @@ export default function Contact() {
         animate={{ opacity: 1, y: 0 }}
         className="mb-12 text-center"
       >
-        <h1 className="text-4xl font-bold mb-4 text-foreground">Get in Touch</h1>
+        <h1 className="page-title gradient-text mb-4">Get in Touch</h1>
         <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
           Open to interesting conversations, collaboration opportunities, and roles at the frontier of AI and cloud engineering.
         </p>
@@ -111,14 +111,25 @@ export default function Contact() {
         ))}
       </div>
 
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.7 }}
-        className="text-center text-sm text-muted-foreground mt-10"
+      {/* Resume download */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.75 }}
+        className="mt-8 text-center"
       >
-        Based in San Jose, CA · Open to remote and hybrid opportunities
-      </motion.p>
+        <a
+          href="/resume.pdf"
+          download="Siddhant_Sancheti_Resume.pdf"
+          className="neo-btn inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl font-semibold text-sm transition-colors group"
+        >
+          <span className="gradient-text">Download Resume</span>
+          <Download className="w-4 h-4 text-primary group-hover:translate-y-0.5 transition-transform" />
+        </a>
+        <p className="text-xs text-muted-foreground mt-4">
+          Based in San Jose, CA · Open to remote and hybrid opportunities
+        </p>
+      </motion.div>
     </div>
   );
 }

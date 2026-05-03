@@ -2,8 +2,7 @@ import { motion } from "framer-motion";
 import { Link, useLocation } from "wouter";
 import { Moon, Sun, Command, Menu } from "lucide-react";
 import { useTheme } from "@/components/theme-provider";
-import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { useState } from "react";
 
 export function Navbar({ onOpenCommand }: { onOpenCommand: () => void }) {
@@ -26,10 +25,10 @@ export function Navbar({ onOpenCommand }: { onOpenCommand: () => void }) {
     <>
       {links.map((link) => (
         <Link key={link.href} href={link.href} onClick={() => setOpen(false)}>
-          <span className={`block px-4 py-2 rounded-md transition-all cursor-pointer ${
+          <span className={`block px-4 py-2.5 rounded-lg text-sm transition-all cursor-pointer ${
             location === link.href
-              ? "neo-inset text-primary font-medium"
-              : "hover:text-primary hover:bg-black/5 dark:hover:bg-white/5"
+              ? "gradient-text font-semibold"
+              : "text-foreground/70 hover:text-foreground"
           }`}>
             {link.label}
           </span>
@@ -40,56 +39,73 @@ export function Navbar({ onOpenCommand }: { onOpenCommand: () => void }) {
 
   return (
     <motion.header
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      className="fixed top-0 left-0 right-0 z-50 p-4"
+      initial={{ y: -80, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      className="fixed top-0 left-0 right-0 z-50 px-4 pt-4"
     >
-      <div className="max-w-6xl mx-auto neo-card px-6 py-4 flex items-center justify-between">
+      <div className="max-w-6xl mx-auto liquid-glass rounded-2xl px-5 py-3 flex items-center justify-between">
+        {/* Logo */}
         <Link href="/">
-          <span className="text-xl font-bold tracking-tighter text-primary cursor-pointer">
+          <span className="text-xl font-black tracking-tighter cursor-pointer gradient-text select-none">
             SS
           </span>
         </Link>
 
-        <div className="hidden md:flex items-center gap-2">
+        {/* Desktop links */}
+        <nav className="hidden md:flex items-center gap-0.5">
           {links.map((link) => (
             <Link key={link.href} href={link.href}>
-              <span className={`px-4 py-2 rounded-md transition-all cursor-pointer text-sm font-medium ${
+              <span className={`relative px-3.5 py-2 rounded-lg text-sm transition-all duration-200 cursor-pointer font-medium ${
                 location === link.href
-                  ? "neo-inset text-primary"
-                  : "hover:text-primary"
+                  ? "gradient-text"
+                  : "text-foreground/60 hover:text-foreground"
               }`}>
                 {link.label}
+                {location === link.href && (
+                  <motion.span
+                    layoutId="nav-pill"
+                    className="absolute inset-0 rounded-lg neo-inset -z-10"
+                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                  />
+                )}
               </span>
             </Link>
           ))}
-        </div>
+        </nav>
 
-        <div className="flex items-center gap-3">
+        {/* Right controls */}
+        <div className="flex items-center gap-2">
           <button
             onClick={onOpenCommand}
-            className="neo-btn p-2 text-muted-foreground hover:text-foreground flex items-center gap-2"
+            className="flex items-center gap-2 px-3 py-2 rounded-xl text-foreground/50 hover:text-foreground transition-colors neo-btn text-xs font-mono"
           >
-            <Command className="h-4 w-4" />
-            <span className="hidden sm:inline-block text-xs font-mono">⌘K</span>
+            <Command className="h-3.5 w-3.5" />
+            <span className="hidden sm:inline">⌘K</span>
           </button>
 
           <button
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="neo-btn p-2 text-muted-foreground hover:text-foreground"
+            className="neo-btn p-2.5 rounded-xl text-foreground/50 hover:text-foreground transition-colors"
+            aria-label="Toggle theme"
           >
-            {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            {theme === "dark"
+              ? <Sun className="h-4 w-4" />
+              : <Moon className="h-4 w-4" />
+            }
           </button>
 
+          {/* Mobile hamburger */}
           <div className="md:hidden">
             <Sheet open={open} onOpenChange={setOpen}>
               <SheetTrigger asChild>
-                <button className="neo-btn p-2 text-muted-foreground hover:text-foreground">
+                <button className="neo-btn p-2.5 rounded-xl text-foreground/50 hover:text-foreground transition-colors">
                   <Menu className="h-4 w-4" />
                 </button>
               </SheetTrigger>
-              <SheetContent side="right" className="bg-background border-border flex flex-col gap-4">
-                <div className="text-xl font-bold text-primary mb-4">Navigation</div>
+              <SheetContent side="right" className="bg-background/90 backdrop-blur-xl border-border/40 flex flex-col gap-2 pt-12">
+                <SheetTitle className="text-xs font-semibold uppercase tracking-widest text-muted-foreground px-4 mb-2 sr-only">Navigation</SheetTitle>
+                <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground px-4 mb-2" aria-hidden>Navigation</p>
                 <NavLinks />
               </SheetContent>
             </Sheet>

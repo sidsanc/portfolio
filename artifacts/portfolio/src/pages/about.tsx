@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { MapPin, GraduationCap, Briefcase, Heart } from "lucide-react";
+import { MapPin, GraduationCap, Heart, Download } from "lucide-react";
 
 export default function About() {
   const stats = [
@@ -25,10 +25,18 @@ export default function About() {
         animate={{ opacity: 1, y: 0 }}
         className="mb-12 text-center"
       >
-        <h1 className="text-4xl font-bold mb-4 text-foreground">About Me</h1>
-        <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+        <h1 className="page-title gradient-text mb-4">About Me</h1>
+        <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-6">
           Engineer at the frontier of cloud infrastructure and AI systems.
         </p>
+        <a
+          href="/resume.pdf"
+          download="Siddhant_Sancheti_Resume.pdf"
+          className="neo-btn inline-flex items-center gap-2.5 px-6 py-3 rounded-xl font-semibold text-sm transition-colors group"
+        >
+          <span className="gradient-text">Download Resume</span>
+          <Download className="w-4 h-4 text-primary group-hover:translate-y-0.5 transition-transform" />
+        </a>
       </motion.div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
@@ -40,7 +48,7 @@ export default function About() {
           className="neo-card p-8 flex flex-col items-center text-center"
         >
           <div className="neo-inset w-32 h-32 rounded-full flex items-center justify-center mb-6">
-            <span className="text-5xl font-bold text-primary">SS</span>
+            <span className="text-5xl font-black gradient-text">SS</span>
           </div>
           <h2 className="text-2xl font-bold mb-1">Siddhant Sancheti</h2>
           <p className="text-primary font-medium mb-3">SDE @ Amazon Web Services</p>

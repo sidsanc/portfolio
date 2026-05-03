@@ -63,7 +63,7 @@ export default function Experience() {
         animate={{ opacity: 1, y: 0 }}
         className="mb-12 text-center"
       >
-        <h1 className="text-4xl font-bold mb-4 text-foreground">Experience</h1>
+        <h1 className="page-title gradient-text mb-4">Experience</h1>
         <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
           A track record of building reliable, high-impact systems across cloud, AI, and full-stack engineering.
         </p>

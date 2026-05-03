@@ -66,51 +66,51 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
-/* LIGHT MODE */
+/* ─── LIGHT MODE — Apple neutral grey #f5f5f7 ─── */
 :root {
   --button-outline: rgba(0,0,0, .10);
   --badge-outline: rgba(0,0,0, .05);
-
   --opaque-button-border-intensity: -8;
   --elevate-1: rgba(0,0,0, .03);
   --elevate-2: rgba(0,0,0, .08);
 
-  --background: 220 20% 93%;
-  --foreground: 220 20% 10%;
-  --border: 220 20% 88%;
-  --card: 220 20% 93%;
-  --card-foreground: 220 20% 10%;
-  --card-border: 220 20% 88%;
-  --sidebar: 220 20% 93%;
-  --sidebar-foreground: 220 20% 10%;
-  --sidebar-border: 220 20% 88%;
+  /* Neutral Apple grey — no blue tint */
+  --background: 240 5% 96%;
+  --foreground: 0 0% 8%;
+  --border: 240 5% 89%;
+  --card: 240 5% 96%;
+  --card-foreground: 0 0% 8%;
+  --card-border: 240 5% 89%;
+  --sidebar: 240 5% 96%;
+  --sidebar-foreground: 0 0% 8%;
+  --sidebar-border: 240 5% 89%;
   --sidebar-primary: 217 91% 60%;
   --sidebar-primary-foreground: 0 0% 100%;
   --sidebar-accent: 258 90% 66%;
   --sidebar-accent-foreground: 0 0% 100%;
   --sidebar-ring: 217 91% 60%;
-  --popover: 220 20% 93%;
-  --popover-foreground: 220 20% 10%;
-  --popover-border: 220 20% 88%;
-  
+  --popover: 240 5% 96%;
+  --popover-foreground: 0 0% 8%;
+  --popover-border: 240 5% 89%;
+
   --primary: 217 91% 60%;
   --primary-foreground: 0 0% 100%;
-  
+
   --secondary: 258 90% 66%;
   --secondary-foreground: 0 0% 100%;
-  
-  --muted: 220 20% 88%;
-  --muted-foreground: 220 10% 40%;
-  
+
+  --muted: 240 5% 90%;
+  --muted-foreground: 0 0% 42%;
+
   --accent: 217 91% 60%;
   --accent-foreground: 0 0% 100%;
-  
+
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 100%;
-  
-  --input: 220 20% 88%;
+
+  --input: 240 5% 90%;
   --ring: 217 91% 60%;
-  
+
   --chart-1: 217 91% 60%;
   --chart-2: 258 90% 66%;
   --chart-3: 160 80% 40%;
@@ -120,10 +120,11 @@
   --app-font-sans: 'Inter', sans-serif;
   --app-font-serif: Georgia, serif;
   --app-font-mono: Menlo, monospace;
-  --radius: .5rem; 
+  --radius: .75rem;
 
-  --shadow-color-light: rgba(255, 255, 255, 0.8);
-  --shadow-color-dark: rgba(163, 177, 198, 0.6);
+  /* Classic neumorphism shadows for Apple-grey base */
+  --shadow-color-light: rgba(255, 255, 255, 0.92);
+  --shadow-color-dark: rgba(174, 174, 192, 0.45);
 
   --shadow-2xs: 2px 2px 5px var(--shadow-color-dark), -2px -2px 5px var(--shadow-color-light);
   --shadow-xs: 4px 4px 8px var(--shadow-color-dark), -4px -4px 8px var(--shadow-color-light);
@@ -133,7 +134,7 @@
   --shadow-lg: 12px 12px 24px var(--shadow-color-dark), -12px -12px 24px var(--shadow-color-light);
   --shadow-xl: 16px 16px 32px var(--shadow-color-dark), -16px -16px 32px var(--shadow-color-light);
   --shadow-2xl: 20px 20px 40px var(--shadow-color-dark), -20px -20px 40px var(--shadow-color-light);
-  
+
   --tracking-normal: 0em;
   --spacing: 0.25rem;
 
@@ -146,57 +147,59 @@
   --destructive-border: hsl(var(--destructive));
 }
 
+/* ─── DARK MODE — Apple neutral dark #1d1d1f, zero blue tint ─── */
 .dark {
-  --button-outline: rgba(255,255,255, .10);
-  --badge-outline: rgba(255,255,255, .05);
+  --button-outline: rgba(255,255,255, .08);
+  --badge-outline: rgba(255,255,255, .04);
   --opaque-button-border-intensity: 9;
-  --elevate-1: rgba(255,255,255, .04);
-  --elevate-2: rgba(255,255,255, .09);
+  --elevate-1: rgba(255,255,255, .03);
+  --elevate-2: rgba(255,255,255, .07);
 
-  --background: 225 20% 13%;
-  --foreground: 220 20% 90%;
-  --border: 225 20% 18%;
-  --card: 225 20% 13%;
-  --card-foreground: 220 20% 90%;
-  --card-border: 225 20% 18%;
-  --sidebar: 225 20% 13%;
-  --sidebar-foreground: 220 20% 90%;
-  --sidebar-border: 225 20% 18%;
+  --background: 0 0% 9%;
+  --foreground: 0 0% 92%;
+  --border: 0 0% 16%;
+  --card: 0 0% 11%;
+  --card-foreground: 0 0% 92%;
+  --card-border: 0 0% 16%;
+  --sidebar: 0 0% 9%;
+  --sidebar-foreground: 0 0% 92%;
+  --sidebar-border: 0 0% 16%;
   --sidebar-primary: 217 91% 60%;
   --sidebar-primary-foreground: 0 0% 100%;
   --sidebar-accent: 258 90% 66%;
   --sidebar-accent-foreground: 0 0% 100%;
   --sidebar-ring: 217 91% 60%;
-  --popover: 225 20% 13%;
-  --popover-foreground: 220 20% 90%;
-  --popover-border: 225 20% 18%;
-  
+  --popover: 0 0% 11%;
+  --popover-foreground: 0 0% 92%;
+  --popover-border: 0 0% 16%;
+
   --primary: 217 91% 60%;
   --primary-foreground: 0 0% 100%;
-  
+
   --secondary: 258 90% 66%;
   --secondary-foreground: 0 0% 100%;
-  
-  --muted: 225 20% 18%;
-  --muted-foreground: 220 10% 60%;
-  
+
+  --muted: 0 0% 16%;
+  --muted-foreground: 0 0% 58%;
+
   --accent: 217 91% 60%;
   --accent-foreground: 0 0% 100%;
-  
+
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 100%;
-  
-  --input: 225 20% 18%;
+
+  --input: 0 0% 16%;
   --ring: 217 91% 60%;
-  
+
   --chart-1: 217 91% 60%;
   --chart-2: 258 90% 66%;
   --chart-3: 160 80% 40%;
   --chart-4: 40 90% 50%;
   --chart-5: 330 80% 60%;
 
-  --shadow-color-light: rgba(255, 255, 255, 0.05);
-  --shadow-color-dark: rgba(0, 0, 0, 0.5);
+  /* Pure neutral neumorphism shadows — no blue cast */
+  --shadow-color-light: rgba(255, 255, 255, 0.045);
+  --shadow-color-dark: rgba(0, 0, 0, 0.65);
 
   --shadow-2xs: 2px 2px 5px var(--shadow-color-dark), -2px -2px 5px var(--shadow-color-light);
   --shadow-xs: 4px 4px 8px var(--shadow-color-dark), -4px -4px 8px var(--shadow-color-light);
@@ -220,33 +223,90 @@
 }
 
 @layer utilities {
+  /* ─── Neumorphism ─── */
   .neo-card {
     box-shadow: 8px 8px 16px var(--shadow-color-dark), -8px -8px 16px var(--shadow-color-light);
     border-radius: var(--radius);
-    background: hsl(var(--background));
+    background: hsl(var(--card));
   }
 
   .neo-inset {
-    box-shadow: inset 6px 6px 12px var(--shadow-color-dark), inset -6px -6px 12px var(--shadow-color-light);
+    box-shadow: inset 5px 5px 10px var(--shadow-color-dark), inset -5px -5px 10px var(--shadow-color-light);
     border-radius: var(--radius);
     background: hsl(var(--background));
   }
 
   .neo-btn {
-    box-shadow: 6px 6px 12px var(--shadow-color-dark), -6px -6px 12px var(--shadow-color-light);
+    box-shadow: 5px 5px 10px var(--shadow-color-dark), -5px -5px 10px var(--shadow-color-light);
     border-radius: var(--radius);
-    background: hsl(var(--background));
+    background: hsl(var(--card));
     transition: all 0.2s ease-in-out;
   }
-  
+
   .neo-btn:hover {
-    box-shadow: 4px 4px 8px var(--shadow-color-dark), -4px -4px 8px var(--shadow-color-light);
-    transform: translateY(2px);
+    box-shadow: 3px 3px 7px var(--shadow-color-dark), -3px -3px 7px var(--shadow-color-light);
+    transform: translateY(1px);
   }
 
   .neo-btn:active {
     box-shadow: inset 4px 4px 8px var(--shadow-color-dark), inset -4px -4px 8px var(--shadow-color-light);
-    transform: translateY(4px);
+    transform: translateY(3px);
+  }
+
+  /* ─── Liquid Glass — Apple visionOS style navbar ─── */
+  .liquid-glass {
+    background: rgba(245, 245, 247, 0.72);
+    backdrop-filter: blur(24px) saturate(200%) brightness(1.05);
+    -webkit-backdrop-filter: blur(24px) saturate(200%) brightness(1.05);
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    box-shadow:
+      0 2px 24px rgba(0, 0, 0, 0.07),
+      0 1px 0 rgba(255, 255, 255, 0.8) inset;
+  }
+
+  .dark .liquid-glass {
+    background: rgba(17, 17, 17, 0.70);
+    backdrop-filter: blur(24px) saturate(200%) brightness(0.95);
+    -webkit-backdrop-filter: blur(24px) saturate(200%) brightness(0.95);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    box-shadow:
+      0 2px 24px rgba(0, 0, 0, 0.45),
+      0 1px 0 rgba(255, 255, 255, 0.05) inset;
+  }
+
+  /* ─── Gradient Text — Apple-inspired ─── */
+  .gradient-text {
+    background: linear-gradient(135deg, #60a5fa 0%, #818cf8 35%, #c084fc 65%, #f472b6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-text-cool {
+    background: linear-gradient(135deg, #38bdf8 0%, #60a5fa 40%, #818cf8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-text-warm {
+    background: linear-gradient(135deg, #34d399 0%, #60a5fa 50%, #818cf8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ─── Ambient glow behind elements ─── */
+  .glow-primary {
+    filter: drop-shadow(0 0 32px rgba(96, 165, 250, 0.35));
+  }
+
+  /* ─── Section heading style ─── */
+  .page-title {
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    line-height: 1.05;
   }
 
   input[type="search"]::-webkit-search-cancel-button {
