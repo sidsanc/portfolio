@@ -1,11 +1,22 @@
 import { motion } from "framer-motion";
-import { ExternalLink, Github, Eye } from "lucide-react";
+import { ExternalLink, Github } from "lucide-react";
 
-const projects = [
+type Project = {
+  title: string;
+  description: string;
+  tags: string[];
+  github?: string;
+  demo?: string;
+  highlight?: boolean;
+  period: string;
+  category: string;
+};
+
+const projects: Project[] = [
   {
     title: "Hive — Multi-Agent Harness for Production AI",
     description:
-      "An open-source orchestration framework for deploying and managing multi-agent AI systems in production. Handles agent lifecycle, task routing, dependency resolution, and fault tolerance at scale.",
+      "Open-source orchestration framework for deploying and managing multi-agent AI systems in production. Handles agent lifecycle, task routing, dependency resolution via DAGs, and fault tolerance at scale — designed to take prototype agent stacks and make them ops-ready.",
     tags: ["Python", "Multi-Agent", "AI Orchestration", "DAG", "Production AI"],
     github: "https://github.com/sidsanc/hive",
     highlight: true,
@@ -13,30 +24,65 @@ const projects = [
     category: "AI Systems",
   },
   {
+    title: "AI-Driven Grant Writing Platform (GrantAide)",
+    description:
+      "End-to-end grant writing platform powered by GPT-4 and a custom RAG pipeline. Built with React, Flask, AWS (S3, Amplify, EC2, Elastic Beanstalk), Vertex AI, LangChain and FAISS. Reduced query latency from 200ms to 50ms, improved response accuracy by 80%, and lifted grant application success rates by 85%.",
+    tags: ["React", "GPT-4", "LangChain", "FAISS", "Flask", "Vertex AI", "AWS", "RAG"],
+    period: "Sept 2024 – Jan 2025",
+    category: "AI / Full Stack",
+    highlight: true,
+  },
+  {
     title: "Advanced Lane Detection with Deep Learning",
     description:
-      "Lane detection system for autonomous vehicles using CARLA simulation environment. Implemented ENet and Hourglass neural networks combined with RANSAC algorithms. Achieved 93.19% classification accuracy and 3.89% MAE — ensuring reliable detection under varied road conditions and lighting.",
-    tags: ["Python", "CARLA", "ENet", "Hourglass Networks", "RANSAC", "Computer Vision", "PyTorch"],
-    github: "https://github.com/sidsanc",
+      "Lane detection system for autonomous vehicles using the CARLA simulation environment. Combined ENet and Hourglass neural networks with RANSAC for robust line fitting — achieving 93.19% classification accuracy and 3.89% MAE under varied road and lighting conditions.",
+    tags: ["Python", "PyTorch", "CARLA", "ENet", "Hourglass Networks", "RANSAC", "Computer Vision"],
     period: "Aug 2023 – May 2024",
     category: "Computer Vision",
   },
   {
     title: "Smart Image Store",
     description:
-      "Intelligent image storage system where users upload images and retrieve them via natural language object tags. Google Cloud Vision API extracts object metadata; a custom HashMap-based algorithm optimizes search. Built with MongoDB, React.js, and deployed on AWS with load balancing and auto-scaling.",
-    tags: ["React.js", "MongoDB", "Google Cloud Vision", "AWS", "Node.js", "Load Balancing"],
-    github: "https://github.com/sidsanc",
+      "Intelligent image storage system where users upload images and retrieve them via natural language object tags. Google Cloud Vision API extracts object metadata; a custom HashMap-based index optimizes search. Built with MongoDB, React.js, Node.js — deployed on AWS with load balancing and auto-scaling.",
+    tags: ["React.js", "Node.js", "MongoDB", "Google Cloud Vision", "AWS", "Load Balancing"],
     period: "Sept 2023 – Dec 2023",
     category: "Full Stack",
   },
   {
-    title: "AI-Driven Grant Writing Platform",
+    title: "PDF Summarizer with LLMs",
     description:
-      "End-to-end grant writing platform powered by GPT-4 and a custom RAG pipeline. Built with React, Flask, AWS (S3, Amplify, EC2, Elastic Beanstalk), Vertex AI, LangChain, and FAISS. Reduced query latency from 200ms to 50ms, improved response accuracy by 80%, and increased grant application success rates by 85%.",
-    tags: ["React", "GPT-4", "LangChain", "FAISS", "Flask", "VertexAI", "AWS", "RAG"],
-    period: "Sept 2024 – Jan 2025",
+      "Python tool that ingests long-form PDFs, chunks them, and generates faithful summaries using LLM prompting strategies. A practical playground for exploring chunking, context windows, and grounded summarization before they became table stakes.",
+    tags: ["Python", "LLMs", "Prompt Engineering", "NLP"],
+    github: "https://github.com/sidsanc/PDFSummarizer",
+    period: "2023",
     category: "AI / Full Stack",
+  },
+  {
+    title: "VisionX — Image Caption Generator",
+    description:
+      "Deep learning image captioning model combining a CNN encoder with an LSTM decoder to generate natural language descriptions of images. Trained and evaluated on standard captioning benchmarks as part of graduate computer vision coursework.",
+    tags: ["Python", "PyTorch", "CNN", "LSTM", "Computer Vision", "NLP"],
+    github: "https://github.com/sidsanc/VisionX-ImageCaptionGenerator",
+    period: "2022",
+    category: "Computer Vision",
+  },
+  {
+    title: "Metamorphs — Fake News Detector",
+    description:
+      "ML pipeline that classifies news articles as real or fabricated using NLP feature engineering and classical classifiers. Built end-to-end in Jupyter — preprocessing, vectorization, model comparison, and evaluation against a labeled news corpus.",
+    tags: ["Python", "scikit-learn", "NLP", "Jupyter", "ML"],
+    github: "https://github.com/sidsanc/Metamorphs",
+    period: "2023",
+    category: "AI / Full Stack",
+  },
+  {
+    title: "Credit Card Processing System",
+    description:
+      "Java-based credit card processing system designed around clean OOP and structured testing. Covers transaction lifecycle, validation, and persistence — a deliberate exercise in writing maintainable backend code with good separation of concerns.",
+    tags: ["Java", "OOP", "Backend", "Testing"],
+    github: "https://github.com/sidsanc/Credit-Card-Processing-System",
+    period: "2023",
+    category: "Full Stack",
   },
 ];
 
@@ -100,11 +146,23 @@ export default function Projects() {
             <div className="flex items-center justify-between">
               <span className="text-xs text-muted-foreground">{project.period}</span>
               <div className="flex items-center gap-3">
+                {project.demo && (
+                  <a
+                    href={project.demo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Live demo"
+                    className="neo-btn p-2 text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                  </a>
+                )}
                 {project.github && (
                   <a
                     href={project.github}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label="GitHub repository"
                     className="neo-btn p-2 text-muted-foreground hover:text-primary transition-colors"
                   >
                     <Github className="w-4 h-4" />
