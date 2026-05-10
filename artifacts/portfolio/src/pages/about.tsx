@@ -1,5 +1,17 @@
 import { motion } from "framer-motion";
-import { MapPin, GraduationCap, Heart, Download } from "lucide-react";
+import {
+  MapPin,
+  GraduationCap,
+  Heart,
+  Download,
+  PenLine,
+  Trophy,
+  Gamepad2,
+  Mountain,
+  Music2,
+  Headphones,
+  Sparkles,
+} from "lucide-react";
 
 export default function About() {
   const stats = [
@@ -16,10 +28,26 @@ export default function About() {
     "Computer Vision",
     "Open Source Development",
     "Developer Tooling",
-    "Blog Writing",
-    "Pickleball",
-    "Cricket",
-    "PC Gaming (Valorant)",
+  ];
+
+  const hobbies = [
+    { label: "Blog Writing", icon: PenLine, accent: "from-blue-500/20 to-cyan-500/20" },
+    { label: "Pickleball", icon: Trophy, accent: "from-amber-500/20 to-orange-500/20" },
+    { label: "Cricket", icon: Trophy, accent: "from-emerald-500/20 to-green-500/20" },
+    { label: "Valorant", icon: Gamepad2, accent: "from-rose-500/20 to-red-500/20" },
+    { label: "Snowboarding", icon: Mountain, accent: "from-sky-500/20 to-indigo-500/20" },
+    { label: "Guitar", icon: Music2, accent: "from-purple-500/20 to-fuchsia-500/20" },
+    { label: "Music", icon: Headphones, accent: "from-violet-500/20 to-pink-500/20" },
+  ];
+
+  // Drop images into artifacts/portfolio/public/gallery/ matching these names.
+  const gallery = [
+    { src: "/gallery/snowboarding.jpg", caption: "First powder day 🏂" },
+    { src: "/gallery/cricket.jpg", caption: "Weekend cricket league" },
+    { src: "/gallery/pickleball.jpg", caption: "Pickleball doubles" },
+    { src: "/gallery/guitar.jpg", caption: "Strings & coffee" },
+    { src: "/gallery/concert.jpg", caption: "Live music nights" },
+    { src: "/gallery/travel.jpg", caption: "On the road" },
   ];
 
   return (
@@ -154,7 +182,7 @@ export default function About() {
             <div className="neo-inset p-3 rounded-xl text-primary">
               <Heart className="w-5 h-5" />
             </div>
-            <h3 className="text-xl font-bold">Interests</h3>
+            <h3 className="text-xl font-bold">Professional Interests</h3>
           </div>
           <div className="flex flex-wrap gap-3">
             {interests.map((interest, i) => (
@@ -171,6 +199,78 @@ export default function About() {
           </div>
         </motion.div>
       </div>
+
+      {/* Beyond Code — hobbies */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.6 }}
+        className="mt-12"
+      >
+        <div className="flex items-center justify-center gap-3 mb-2">
+          <Sparkles className="w-5 h-5 text-primary" />
+          <h2 className="text-3xl font-bold gradient-text">Beyond Code</h2>
+          <Sparkles className="w-5 h-5 text-primary" />
+        </div>
+        <p className="text-center text-muted-foreground mb-8">
+          When I'm not shipping software, you'll find me here.
+        </p>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4 mb-10">
+          {hobbies.map((hobby, i) => {
+            const Icon = hobby.icon;
+            return (
+              <motion.div
+                key={hobby.label}
+                initial={{ opacity: 0, scale: 0.85 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.65 + i * 0.05 }}
+                whileHover={{ y: -4 }}
+                className="neo-card p-5 flex flex-col items-center text-center gap-3 cursor-default"
+              >
+                <div
+                  className={`neo-inset w-12 h-12 rounded-xl flex items-center justify-center bg-gradient-to-br ${hobby.accent}`}
+                >
+                  <Icon className="w-5 h-5 text-primary" />
+                </div>
+                <span className="text-sm font-medium text-foreground">{hobby.label}</span>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {/* Photo Gallery */}
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          {gallery.map((photo, i) => (
+            <motion.div
+              key={photo.src}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8 + i * 0.07 }}
+              whileHover={{ scale: 1.02 }}
+              className="neo-card p-2 overflow-hidden group relative"
+            >
+              <div className="aspect-square rounded-xl overflow-hidden relative bg-gradient-to-br from-primary/10 via-purple-500/10 to-pink-500/10">
+                <img
+                  src={photo.src}
+                  alt={photo.caption}
+                  loading="lazy"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  onError={(e) => {
+                    (e.currentTarget as HTMLImageElement).style.display = "none";
+                  }}
+                />
+                <div className="absolute inset-0 flex items-end justify-center p-3 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                  <span className="text-white text-xs font-medium">{photo.caption}</span>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+        <p className="text-center text-xs text-muted-foreground mt-4 italic">
+          Drop photos into <code className="px-1.5 py-0.5 rounded bg-muted">public/gallery/</code> to fill this gallery.
+        </p>
+      </motion.div>
     </div>
   );
 }
