@@ -3,19 +3,23 @@ import { MapPin, GraduationCap, Heart, Download } from "lucide-react";
 
 export default function About() {
   const stats = [
-    { label: "Years of Experience", value: "4+" },
+    { label: "Years of Experience", value: "2+" },
     { label: "Projects Shipped", value: "15+" },
-    { label: "Countries Worked", value: "3" },
     { label: "GPA (Both Degrees)", value: "3.81" },
   ];
 
   const interests = [
+    "Agentic AI",
     "Multi-Agent AI Systems",
     "Cloud Infrastructure at Scale",
     "Distributed Systems Design",
     "Computer Vision",
     "Open Source Development",
     "Developer Tooling",
+    "Blog Writing",
+    "Pickleball",
+    "Cricket",
+    "PC Gaming (Valorant)",
   ];
 
   return (
@@ -95,7 +99,7 @@ export default function About() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
-        className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12"
+        className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-12"
       >
         {stats.map((stat, i) => (
           <motion.div
