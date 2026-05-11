@@ -324,14 +324,6 @@ const HOBBIES_ROW_2: HobbyItem[] = [
 function HobbyMarquee() {
   return (
     <div className="relative my-10 mb-6 -mx-4 sm:mx-0 select-none">
-      {/* Now playing tag */}
-      <div className="flex justify-center mb-6">
-        <span className="neo-card px-4 py-1.5 text-xs font-medium text-muted-foreground tracking-widest uppercase flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-          Currently into
-        </span>
-      </div>
-
       {/* Edge fade masks */}
       <div className="space-y-2 [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
         <MarqueeRow items={HOBBIES_ROW_1} duration={38} direction="left" />
