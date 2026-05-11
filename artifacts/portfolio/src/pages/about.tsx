@@ -306,6 +306,7 @@ type HobbyItem = { label: string; emoji: string };
 
 const HOBBIES_ROW_1: HobbyItem[] = [
   { label: "Snowboarding", emoji: "🏂" },
+  { label: "Biking", emoji: "🏍️" },
   { label: "Pickleball", emoji: "🏓" },
   { label: "Cricket", emoji: "🏏" },
   { label: "Valorant", emoji: "🎮" },
@@ -349,19 +350,24 @@ function MarqueeRow({
   duration: number;
   direction: "left" | "right";
 }) {
-  // Duplicate so we can loop seamlessly with x: 0 → -50%
+  // Duplicate so we can loop seamlessly with x: 0 → -50%.
+  // IMPORTANT: no `gap` on the outer flex — the trailing pr-* on each item
+  // bakes spacing INTO the item width, so half the strip == one full set.
   const loop = [...items, ...items];
   const xRange = direction === "left" ? ["0%", "-50%"] : ["-50%", "0%"];
 
   return (
     <div className="overflow-hidden group/row">
       <motion.div
-        className="flex items-center gap-10 md:gap-14 whitespace-nowrap will-change-transform group-hover/row:[animation-play-state:paused]"
+        className="flex items-center whitespace-nowrap will-change-transform"
         animate={{ x: xRange }}
-        transition={{ duration, repeat: Infinity, ease: "linear" }}
+        transition={{ duration, repeat: Infinity, ease: "linear", repeatType: "loop" }}
       >
         {loop.map((item, i) => (
-          <span key={i} className="group/item inline-flex items-center gap-5 md:gap-7 shrink-0">
+          <span
+            key={i}
+            className="group/item inline-flex items-center gap-5 md:gap-7 shrink-0 pr-10 md:pr-14"
+          >
             <span
               className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight leading-none transition-all duration-500 bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent [-webkit-text-stroke:1.5px_hsl(var(--foreground))] group-hover/item:[-webkit-text-stroke:0px_transparent]"
             >
