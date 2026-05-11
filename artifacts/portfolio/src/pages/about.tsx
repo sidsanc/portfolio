@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
+import { useRef } from "react";
 import {
   MapPin,
   GraduationCap,
@@ -40,15 +41,6 @@ export default function About() {
     { label: "Music", icon: Headphones, accent: "from-violet-500/20 to-pink-500/20" },
   ];
 
-  // Drop images into artifacts/portfolio/public/gallery/ matching these names.
-  const gallery = [
-    { src: "/gallery/snowboarding.jpg", caption: "First powder day 🏂" },
-    { src: "/gallery/cricket.jpg", caption: "Weekend cricket league" },
-    { src: "/gallery/pickleball.jpg", caption: "Pickleball doubles" },
-    { src: "/gallery/guitar.jpg", caption: "Strings & coffee" },
-    { src: "/gallery/concert.jpg", caption: "Live music nights" },
-    { src: "/gallery/travel.jpg", caption: "On the road" },
-  ];
 
   return (
     <div className="max-w-5xl mx-auto">
@@ -239,38 +231,114 @@ export default function About() {
           })}
         </div>
 
-        {/* Photo Gallery */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {gallery.map((photo, i) => (
-            <motion.div
-              key={photo.src}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8 + i * 0.07 }}
-              whileHover={{ scale: 1.02 }}
-              className="neo-card p-2 overflow-hidden group relative"
-            >
-              <div className="aspect-square rounded-xl overflow-hidden relative bg-gradient-to-br from-primary/10 via-purple-500/10 to-pink-500/10">
-                <img
-                  src={photo.src}
-                  alt={photo.caption}
-                  loading="lazy"
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  onError={(e) => {
-                    (e.currentTarget as HTMLImageElement).style.display = "none";
-                  }}
-                />
-                <div className="absolute inset-0 flex items-end justify-center p-3 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
-                  <span className="text-white text-xs font-medium">{photo.caption}</span>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-        <p className="text-center text-xs text-muted-foreground mt-4 italic">
-          Drop photos into <code className="px-1.5 py-0.5 rounded bg-muted">public/gallery/</code> to fill this gallery.
-        </p>
+        {/* Parallax Photo Collage */}
+        <ParallaxCollage />
       </motion.div>
     </div>
+  );
+}
+
+// --- Parallax Collage ---------------------------------------------------------
+
+type CollagePhoto = {
+  src: string;
+  caption: string;
+  // Position as % of container (left, top)
+  left: string;
+  top: string;
+  // Width in rem at md+; smaller on mobile via clamp
+  width: string;
+  rotate: number;
+  // Parallax intensity in px (signed: negative = moves up faster, positive = lags)
+  speed: number;
+  z: number;
+};
+
+const PHOTOS: CollagePhoto[] = [
+  { src: "/gallery/snowboard.jpg", caption: "First powder day 🏂", left: "2%",  top: "2%",  width: "clamp(140px, 22vw, 260px)", rotate: -6, speed: -120, z: 3 },
+  { src: "/gallery/husky.jpg",     caption: "Tahoe with this guy 🐺", left: "32%", top: "0%",  width: "clamp(170px, 28vw, 320px)", rotate:  4, speed:  -60, z: 5 },
+  { src: "/gallery/stanford.jpg",  caption: "Stanford on a clear day", left: "70%", top: "6%",  width: "clamp(150px, 24vw, 280px)", rotate: -3, speed: -180, z: 2 },
+  { src: "/gallery/coffee.jpg",    caption: "24th & Mission, SF ☕",  left: "8%",  top: "32%", width: "clamp(140px, 22vw, 250px)", rotate:  7, speed:   80, z: 4 },
+  { src: "/gallery/bike.jpg",      caption: "Apache RR 310 days 🏍️", left: "42%", top: "38%", width: "clamp(160px, 26vw, 300px)", rotate: -5, speed:  140, z: 6 },
+  { src: "/gallery/guitar.jpg",    caption: "Strings & coffee 🎸",   left: "74%", top: "44%", width: "clamp(140px, 22vw, 260px)", rotate:  6, speed:  -40, z: 3 },
+  { src: "/gallery/portrait.jpg",  caption: "Off-screen mode",        left: "20%", top: "66%", width: "clamp(140px, 22vw, 260px)", rotate: -4, speed:  200, z: 4 },
+];
+
+function ParallaxCollage() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+
+  return (
+    <div
+      ref={ref}
+      className="relative w-full mt-6"
+      style={{ height: "clamp(700px, 90vw, 1000px)" }}
+    >
+      {/* Decorative blurred blobs */}
+      <div className="absolute -top-10 left-1/4 w-72 h-72 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl pointer-events-none" />
+
+      {PHOTOS.map((photo, i) => (
+        <ParallaxPhoto
+          key={photo.src}
+          photo={photo}
+          progress={scrollYProgress}
+          index={i}
+        />
+      ))}
+    </div>
+  );
+}
+
+function ParallaxPhoto({
+  photo,
+  progress,
+  index,
+}: {
+  photo: CollagePhoto;
+  progress: MotionValue<number>;
+  index: number;
+}) {
+  const y = useTransform(progress, [0, 1], [photo.speed, -photo.speed]);
+  const scale = useTransform(progress, [0, 0.5, 1], [0.92, 1.05, 0.92]);
+
+  return (
+    <motion.div
+      className="absolute group cursor-default"
+      style={{
+        left: photo.left,
+        top: photo.top,
+        width: photo.width,
+        rotate: photo.rotate,
+        zIndex: photo.z,
+        y,
+        scale,
+      }}
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ delay: index * 0.08, duration: 0.6, ease: "easeOut" }}
+      whileHover={{ scale: 1.08, rotate: 0, zIndex: 20, transition: { duration: 0.3 } }}
+    >
+      <div className="neo-card p-2 bg-background">
+        <div className="overflow-hidden rounded-lg relative aspect-[4/5] bg-gradient-to-br from-primary/10 via-purple-500/10 to-pink-500/10">
+          <img
+            src={photo.src}
+            alt={photo.caption}
+            loading="lazy"
+            className="w-full h-full object-cover"
+            onError={(e) => {
+              (e.currentTarget as HTMLImageElement).style.display = "none";
+            }}
+          />
+          <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+            <span className="text-white text-xs font-medium drop-shadow">{photo.caption}</span>
+          </div>
+        </div>
+      </div>
+    </motion.div>
   );
 }
