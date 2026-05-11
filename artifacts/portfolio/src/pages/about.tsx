@@ -362,7 +362,7 @@ function MarqueeRow({
             className="group/item inline-flex items-center gap-5 md:gap-7 shrink-0 pr-10 md:pr-14"
           >
             <span
-              className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight leading-none transition-all duration-500 bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent [filter:drop-shadow(0_0_0_transparent)] group-hover/item:[filter:drop-shadow(0_0_18px_rgba(139,92,246,0.55))_drop-shadow(0_0_36px_rgba(59,130,246,0.35))]"
+              className="inline-block origin-center text-5xl md:text-7xl lg:text-8xl font-black tracking-tight leading-none transition-all duration-500 ease-out bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent [filter:drop-shadow(0_0_0_transparent)] group-hover/item:scale-110 group-hover/item:[filter:drop-shadow(0_0_18px_rgba(139,92,246,0.55))_drop-shadow(0_0_36px_rgba(59,130,246,0.35))]"
             >
               {item.label}
             </span>
