@@ -356,25 +356,64 @@ function MarqueeRow({
         style={{ animationName, animationDuration: `${duration}s` }}
       >
         {loop.map((item, i) => (
-          <span
-            key={i}
-            aria-hidden={i >= items.length}
-            className="group/item inline-flex items-center gap-5 md:gap-7 shrink-0 pr-10 md:pr-14"
-          >
-            <span className="inline-block origin-center transition-transform duration-500 ease-out group-hover/item:scale-110">
-              <span
-                className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight leading-none bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent transition-[text-shadow] duration-500 ease-out [text-shadow:0_0_0_transparent] group-hover/item:[text-shadow:0_0_18px_rgba(139,92,246,0.75),0_0_36px_rgba(59,130,246,0.55)]"
-              >
-                {item.label}
-              </span>
-            </span>
-            <span className="text-4xl md:text-6xl lg:text-7xl transition-transform duration-500 group-hover/item:rotate-12 group-hover/item:scale-125">
-              {item.emoji}
-            </span>
-            <span className="text-5xl md:text-7xl lg:text-8xl text-muted-foreground/30 font-thin">·</span>
+          <span key={i} aria-hidden={i >= items.length} className="shrink-0 inline-flex items-center pr-10 md:pr-14">
+            <HobbyChip label={item.label} emoji={item.emoji} />
+            <span className="ml-10 md:ml-14 text-5xl md:text-7xl lg:text-8xl text-muted-foreground/30 font-thin">·</span>
           </span>
         ))}
       </div>
     </div>
+  );
+}
+
+function HobbyChip({ label, emoji }: { label: string; emoji: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+
+  const handleMove = (e: React.MouseEvent<HTMLSpanElement>) => {
+    const el = ref.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    el.style.setProperty("--mx", `${e.clientX - r.left}px`);
+    el.style.setProperty("--my", `${e.clientY - r.top}px`);
+  };
+
+  return (
+    <span
+      ref={ref}
+      onMouseMove={handleMove}
+      className="group/chip relative inline-flex items-center gap-5 md:gap-7 px-6 md:px-8 py-2 md:py-3 rounded-3xl"
+      style={{ ["--mx" as never]: "50%", ["--my" as never]: "50%" }}
+    >
+      {/* Cursor-tracking gradient border (Apple-style) */}
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 rounded-3xl opacity-0 group-hover/chip:opacity-100 transition-opacity duration-300"
+        style={{
+          background:
+            "radial-gradient(260px circle at var(--mx) var(--my), rgba(168,85,247,0.9), rgba(59,130,246,0.55) 35%, transparent 70%)",
+          WebkitMask:
+            "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
+          WebkitMaskComposite: "xor",
+          maskComposite: "exclude",
+          padding: "1.5px",
+        }}
+      />
+      {/* Subtle inner highlight following cursor */}
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 rounded-3xl opacity-0 group-hover/chip:opacity-100 transition-opacity duration-300"
+        style={{
+          background:
+            "radial-gradient(220px circle at var(--mx) var(--my), rgba(168,85,247,0.10), transparent 60%)",
+        }}
+      />
+
+      <span className="relative text-5xl md:text-7xl lg:text-8xl font-black tracking-tight leading-none bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent">
+        {label}
+      </span>
+      <span className="relative text-4xl md:text-6xl lg:text-7xl transition-transform duration-500 group-hover/chip:rotate-12 group-hover/chip:scale-110">
+        {emoji}
+      </span>
+    </span>
   );
 }
