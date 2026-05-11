@@ -350,22 +350,23 @@ function MarqueeRow({
   duration: number;
   direction: "left" | "right";
 }) {
-  // Duplicate so we can loop seamlessly with x: 0 → -50%.
-  // IMPORTANT: no `gap` on the outer flex — the trailing pr-* on each item
-  // bakes spacing INTO the item width, so half the strip == one full set.
+  // Duplicate the items so the strip is exactly 2x one set.
+  // CSS animation translates 0 → -50% (= width of one set), so when it
+  // restarts it lands EXACTLY where copy A's item 1 was. Truly seamless.
+  // No outer gap — spacing lives in each item's pr-* so the math is exact.
   const loop = [...items, ...items];
-  const xRange = direction === "left" ? ["0%", "-50%"] : ["-50%", "0%"];
+  const animationName = direction === "left" ? "marquee-left" : "marquee-right";
 
   return (
-    <div className="overflow-hidden group/row">
-      <motion.div
-        className="flex items-center whitespace-nowrap will-change-transform"
-        animate={{ x: xRange }}
-        transition={{ duration, repeat: Infinity, ease: "linear", repeatType: "loop" }}
+    <div className="overflow-hidden">
+      <div
+        className="marquee-track"
+        style={{ animationName, animationDuration: `${duration}s` }}
       >
         {loop.map((item, i) => (
           <span
             key={i}
+            aria-hidden={i >= items.length}
             className="group/item inline-flex items-center gap-5 md:gap-7 shrink-0 pr-10 md:pr-14"
           >
             <span
@@ -379,7 +380,7 @@ function MarqueeRow({
             <span className="text-5xl md:text-7xl lg:text-8xl text-muted-foreground/30 font-thin">·</span>
           </span>
         ))}
-      </motion.div>
+      </div>
     </div>
   );
 }
