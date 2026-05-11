@@ -1,18 +1,6 @@
 import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
 import { useRef } from "react";
-import {
-  MapPin,
-  GraduationCap,
-  Heart,
-  Download,
-  PenLine,
-  Trophy,
-  Gamepad2,
-  Mountain,
-  Music2,
-  Headphones,
-  Sparkles,
-} from "lucide-react";
+import { MapPin, GraduationCap, Heart, Download, Sparkles } from "lucide-react";
 
 export default function About() {
   const stats = [
@@ -31,15 +19,6 @@ export default function About() {
     "Developer Tooling",
   ];
 
-  const hobbies = [
-    { label: "Blog Writing", icon: PenLine, accent: "from-blue-500/20 to-cyan-500/20" },
-    { label: "Pickleball", icon: Trophy, accent: "from-amber-500/20 to-orange-500/20" },
-    { label: "Cricket", icon: Trophy, accent: "from-emerald-500/20 to-green-500/20" },
-    { label: "Valorant", icon: Gamepad2, accent: "from-rose-500/20 to-red-500/20" },
-    { label: "Snowboarding", icon: Mountain, accent: "from-sky-500/20 to-indigo-500/20" },
-    { label: "Guitar", icon: Music2, accent: "from-purple-500/20 to-fuchsia-500/20" },
-    { label: "Music", icon: Headphones, accent: "from-violet-500/20 to-pink-500/20" },
-  ];
 
 
   return (
@@ -208,28 +187,8 @@ export default function About() {
           When I'm not shipping software, you'll find me here.
         </p>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4 mb-10">
-          {hobbies.map((hobby, i) => {
-            const Icon = hobby.icon;
-            return (
-              <motion.div
-                key={hobby.label}
-                initial={{ opacity: 0, scale: 0.85 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.65 + i * 0.05 }}
-                whileHover={{ y: -4 }}
-                className="neo-card p-5 flex flex-col items-center text-center gap-3 cursor-default"
-              >
-                <div
-                  className={`neo-inset w-12 h-12 rounded-xl flex items-center justify-center bg-gradient-to-br ${hobby.accent}`}
-                >
-                  <Icon className="w-5 h-5 text-primary" />
-                </div>
-                <span className="text-sm font-medium text-foreground">{hobby.label}</span>
-              </motion.div>
-            );
-          })}
-        </div>
+        {/* Bold typographic marquee — pause-on-hover, gradient fill on hover */}
+        <HobbyMarquee />
 
         {/* Parallax Photo Collage */}
         <ParallaxCollage />
@@ -338,5 +297,83 @@ function ParallaxPhoto({
         </div>
       </div>
     </motion.div>
+  );
+}
+
+// --- Hobby Marquee ------------------------------------------------------------
+
+type HobbyItem = { label: string; emoji: string };
+
+const HOBBIES_ROW_1: HobbyItem[] = [
+  { label: "Snowboarding", emoji: "🏂" },
+  { label: "Pickleball", emoji: "🏓" },
+  { label: "Cricket", emoji: "🏏" },
+  { label: "Valorant", emoji: "🎮" },
+  { label: "Road Trips", emoji: "🛣️" },
+];
+
+const HOBBIES_ROW_2: HobbyItem[] = [
+  { label: "Guitar", emoji: "🎸" },
+  { label: "Music", emoji: "🎧" },
+  { label: "Blog Writing", emoji: "✍️" },
+  { label: "Agentic AI", emoji: "🤖" },
+  { label: "Coffee", emoji: "☕" },
+];
+
+function HobbyMarquee() {
+  return (
+    <div className="relative my-10 mb-6 -mx-4 sm:mx-0 select-none">
+      {/* Now playing tag */}
+      <div className="flex justify-center mb-6">
+        <span className="neo-card px-4 py-1.5 text-xs font-medium text-muted-foreground tracking-widest uppercase flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+          Currently into
+        </span>
+      </div>
+
+      {/* Edge fade masks */}
+      <div className="space-y-2 [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
+        <MarqueeRow items={HOBBIES_ROW_1} duration={38} direction="left" />
+        <MarqueeRow items={HOBBIES_ROW_2} duration={44} direction="right" />
+      </div>
+    </div>
+  );
+}
+
+function MarqueeRow({
+  items,
+  duration,
+  direction,
+}: {
+  items: HobbyItem[];
+  duration: number;
+  direction: "left" | "right";
+}) {
+  // Duplicate so we can loop seamlessly with x: 0 → -50%
+  const loop = [...items, ...items];
+  const xRange = direction === "left" ? ["0%", "-50%"] : ["-50%", "0%"];
+
+  return (
+    <div className="overflow-hidden group/row">
+      <motion.div
+        className="flex items-center gap-10 md:gap-14 whitespace-nowrap will-change-transform group-hover/row:[animation-play-state:paused]"
+        animate={{ x: xRange }}
+        transition={{ duration, repeat: Infinity, ease: "linear" }}
+      >
+        {loop.map((item, i) => (
+          <span key={i} className="group/item inline-flex items-center gap-5 md:gap-7 shrink-0">
+            <span
+              className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight leading-none transition-all duration-500 bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent [-webkit-text-stroke:1.5px_hsl(var(--foreground))] group-hover/item:[-webkit-text-stroke:0px_transparent]"
+            >
+              {item.label}
+            </span>
+            <span className="text-4xl md:text-6xl lg:text-7xl transition-transform duration-500 group-hover/item:rotate-12 group-hover/item:scale-125">
+              {item.emoji}
+            </span>
+            <span className="text-5xl md:text-7xl lg:text-8xl text-muted-foreground/30 font-thin">·</span>
+          </span>
+        ))}
+      </motion.div>
+    </div>
   );
 }
