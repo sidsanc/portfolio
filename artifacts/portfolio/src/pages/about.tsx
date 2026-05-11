@@ -255,13 +255,13 @@ type CollagePhoto = {
 };
 
 const PHOTOS: CollagePhoto[] = [
-  { src: "/gallery/snowboard.jpg", caption: "First powder day 🏂", left: "2%",  top: "2%",  width: "clamp(140px, 22vw, 260px)", rotate: -6, speed: -120, z: 3 },
-  { src: "/gallery/husky.jpg",     caption: "Tahoe with this guy 🐺", left: "32%", top: "0%",  width: "clamp(170px, 28vw, 320px)", rotate:  4, speed:  -60, z: 5 },
-  { src: "/gallery/stanford.jpg",  caption: "Stanford on a clear day", left: "70%", top: "6%",  width: "clamp(150px, 24vw, 280px)", rotate: -3, speed: -180, z: 2 },
-  { src: "/gallery/coffee.jpg",    caption: "24th & Mission, SF ☕",  left: "8%",  top: "32%", width: "clamp(140px, 22vw, 250px)", rotate:  7, speed:   80, z: 4 },
-  { src: "/gallery/bike.jpg",      caption: "Apache RR 310 days 🏍️", left: "42%", top: "38%", width: "clamp(160px, 26vw, 300px)", rotate: -5, speed:  140, z: 6 },
-  { src: "/gallery/guitar.jpg",    caption: "Strings & coffee 🎸",   left: "74%", top: "44%", width: "clamp(140px, 22vw, 260px)", rotate:  6, speed:  -40, z: 3 },
-  { src: "/gallery/portrait.jpg",  caption: "Off-screen mode",        left: "20%", top: "66%", width: "clamp(140px, 22vw, 260px)", rotate: -4, speed:  200, z: 4 },
+  { src: "/gallery/snowboard.jpg", caption: "First powder day 🏂", left: "2%",  top: "10%", width: "clamp(140px, 22vw, 260px)", rotate: -6, speed: -60,  z: 3 },
+  { src: "/gallery/husky.jpg",     caption: "Tahoe with this guy 🐺", left: "32%", top: "8%",  width: "clamp(170px, 28vw, 320px)", rotate:  4, speed: -30,  z: 5 },
+  { src: "/gallery/stanford.jpg",  caption: "Stanford on a clear day", left: "70%", top: "12%", width: "clamp(150px, 24vw, 280px)", rotate: -3, speed: -90,  z: 2 },
+  { src: "/gallery/coffee.jpg",    caption: "24th & Mission, SF ☕",  left: "8%",  top: "38%", width: "clamp(140px, 22vw, 250px)", rotate:  7, speed:  40,  z: 4 },
+  { src: "/gallery/bike.jpg",      caption: "Apache RR 310 days 🏍️", left: "42%", top: "42%", width: "clamp(160px, 26vw, 300px)", rotate: -5, speed:  70,  z: 6 },
+  { src: "/gallery/guitar.jpg",    caption: "Strings & coffee 🎸",   left: "74%", top: "46%", width: "clamp(140px, 22vw, 260px)", rotate:  6, speed: -20,  z: 3 },
+  { src: "/gallery/portrait.jpg",  caption: "Off-screen mode",        left: "22%", top: "70%", width: "clamp(140px, 22vw, 260px)", rotate: -4, speed: 100,  z: 4 },
 ];
 
 function ParallaxCollage() {
@@ -274,8 +274,8 @@ function ParallaxCollage() {
   return (
     <div
       ref={ref}
-      className="relative w-full mt-6"
-      style={{ height: "clamp(700px, 90vw, 1000px)" }}
+      className="relative w-full mt-16"
+      style={{ height: "clamp(750px, 95vw, 1100px)" }}
     >
       {/* Decorative blurred blobs */}
       <div className="absolute -top-10 left-1/4 w-72 h-72 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
@@ -323,20 +323,18 @@ function ParallaxPhoto({
       transition={{ delay: index * 0.08, duration: 0.6, ease: "easeOut" }}
       whileHover={{ scale: 1.08, rotate: 0, zIndex: 20, transition: { duration: 0.3 } }}
     >
-      <div className="neo-card p-2 bg-background">
-        <div className="overflow-hidden rounded-lg relative aspect-[4/5] bg-gradient-to-br from-primary/10 via-purple-500/10 to-pink-500/10">
-          <img
-            src={photo.src}
-            alt={photo.caption}
-            loading="lazy"
-            className="w-full h-full object-cover"
-            onError={(e) => {
-              (e.currentTarget as HTMLImageElement).style.display = "none";
-            }}
-          />
-          <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
-            <span className="text-white text-xs font-medium drop-shadow">{photo.caption}</span>
-          </div>
+      <div className="overflow-hidden rounded-2xl relative aspect-[4/5] shadow-2xl shadow-black/20 dark:shadow-black/50">
+        <img
+          src={photo.src}
+          alt={photo.caption}
+          loading="lazy"
+          className="w-full h-full object-cover"
+          onError={(e) => {
+            (e.currentTarget as HTMLImageElement).style.display = "none";
+          }}
+        />
+        <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+          <span className="text-white text-xs font-medium drop-shadow">{photo.caption}</span>
         </div>
       </div>
     </motion.div>
