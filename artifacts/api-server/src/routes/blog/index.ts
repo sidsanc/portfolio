@@ -45,6 +45,7 @@ async function fetchPosts(): Promise<HashnodePost[]> {
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
     Accept: "application/json",
+    "User-Agent": "Mozilla/5.0 (compatible; SiddhantPortfolio/1.0; +https://siddhantsancheti.com)",
   };
   if (token) headers["Authorization"] = token;
 
@@ -93,7 +94,7 @@ router.get("/posts", async (req, res) => {
     res.json({
       posts: [],
       source: "fallback",
-      note: "Hashnode public API unavailable. Set HASHNODE_TOKEN secret to enable auto-sync.",
+      note: "Hashnode's GraphQL API is now Pro-only; rendering Hashnode CTA instead.",
     });
   }
 });
