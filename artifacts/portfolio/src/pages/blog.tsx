@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ExternalLink, Rss, PenLine, Clock, Calendar, AlertCircle } from "lucide-react";
+import { ExternalLink, Rss, PenLine, Clock, Calendar } from "lucide-react";
 import { useEffect, useState } from "react";
 
 type HashnodePost = {
@@ -13,29 +13,7 @@ type HashnodePost = {
   tags: { name: string; slug: string }[];
 };
 
-const HASHNODE_HOST = "siddhantsancheti.hashnode.dev";
 const HASHNODE_PROFILE = "https://hashnode.com/@sidsanc";
-
-const QUERY = `
-  query Posts($host: String!) {
-    publication(host: $host) {
-      posts(first: 20) {
-        edges {
-          node {
-            title
-            brief
-            slug
-            url
-            publishedAt
-            readTimeInMinutes
-            coverImage { url }
-            tags { name slug }
-          }
-        }
-      }
-    }
-  }
-`;
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString("en-US", {
@@ -53,15 +31,11 @@ export default function Blog() {
     let cancelled = false;
     (async () => {
       try {
-        const res = await fetch("https://gql.hashnode.com", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ query: QUERY, variables: { host: HASHNODE_HOST } }),
-        });
+        const base = import.meta.env.BASE_URL;
+        const res = await fetch(`${base}api/blog/posts`);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const json = await res.json();
-        const edges = json?.data?.publication?.posts?.edges ?? [];
-        if (!cancelled) setPosts(edges.map((e: { node: HashnodePost }) => e.node));
+        const json = (await res.json()) as { posts: HashnodePost[] };
+        if (!cancelled) setPosts(json.posts ?? []);
       } catch (err) {
         if (!cancelled) setError(err instanceof Error ? err.message : "Failed to load posts");
       }
@@ -129,18 +103,25 @@ export default function Blog() {
         </div>
       )}
 
-      {/* Error state */}
-      {error && (
-        <div className="neo-card p-8 text-center">
-          <AlertCircle className="w-10 h-10 mx-auto mb-3 text-muted-foreground" />
-          <p className="text-muted-foreground mb-4">Couldn't load posts right now.</p>
+      {/* Empty / error state — graceful CTA so the page never feels broken */}
+      {((posts && posts.length === 0) || error) && (
+        <div className="neo-card p-10 text-center">
+          <div className="neo-inset w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4">
+            <PenLine className="w-6 h-6 text-primary" />
+          </div>
+          <h3 className="text-xl font-bold mb-2">Articles live on Hashnode</h3>
+          <p className="text-muted-foreground text-sm max-w-md mx-auto mb-6">
+            I publish long-form writing on AI systems, cloud infrastructure, and the craft of engineering directly on my Hashnode blog.
+          </p>
           <a
             href={HASHNODE_PROFILE}
             target="_blank"
             rel="noopener noreferrer"
-            className="neo-btn inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-primary"
+            className="neo-btn inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-primary"
           >
-            Read on Hashnode <ExternalLink className="w-4 h-4" />
+            <Rss className="w-4 h-4" />
+            Read all posts on Hashnode
+            <ExternalLink className="w-3.5 h-3.5" />
           </a>
         </div>
       )}
