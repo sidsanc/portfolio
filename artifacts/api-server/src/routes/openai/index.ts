@@ -1,4 +1,5 @@
 import { Router } from "express";
+import rateLimit from "express-rate-limit";
 import { db, conversations, messages } from "@workspace/db";
 import { openai, CHAT_MODEL } from "@workspace/integrations-openai-ai-server";
 import { SendMessageBody, SendMessageParams, GetMessagesParams } from "@workspace/api-zod";
@@ -6,6 +7,15 @@ import { eq } from "drizzle-orm";
 import { randomUUID } from "crypto";
 
 const router = Router();
+
+const chatLimiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 10,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: "Too many messages — please wait a moment before trying again." },
+  skip: () => process.env["NODE_ENV"] === "test",
+});
 
 const SIDDHANT_SYSTEM_PROMPT = `You are Jarvis, the AI assistant for Siddhant Sancheti's personal portfolio website. You have deep knowledge about Siddhant and answer questions about him in third person ("Siddhant is...", "He has..."), in a professional, friendly tone. If asked your name, you are Jarvis. Never refer to yourself as ChatGPT or an OpenAI model.
 
@@ -64,7 +74,7 @@ PERSONALITY & INTERESTS:
 
 Answer questions about Siddhant accurately based on the above. If asked something you don't know about Siddhant, say so honestly. Keep responses concise and helpful. Be engaging and conversational.`;
 
-router.post("/conversations", async (req, res) => {
+router.post("/conversations", chatLimiter, async (req, res) => {
   try {
     const [conversation] = await db
       .insert(conversations)
@@ -108,7 +118,7 @@ router.get("/conversations/:id/messages", async (req, res) => {
   }
 });
 
-router.post("/conversations/:id/messages", async (req, res) => {
+router.post("/conversations/:id/messages", chatLimiter, async (req, res) => {
   const params = SendMessageParams.safeParse(req.params);
   const body = SendMessageBody.safeParse(req.body);
 

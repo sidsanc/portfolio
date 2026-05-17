@@ -174,6 +174,7 @@ export default function Home() {
     let alive = true;
     const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     const fetchNowPlaying = async () => {
+      if (document.hidden) return;
       try {
         const res = await fetch(`${base}/api/spotify/now-playing`);
         if (!alive) return;
@@ -189,10 +190,13 @@ export default function Home() {
       }
     };
     fetchNowPlaying();
-    const interval = setInterval(fetchNowPlaying, 30_000);
+    const interval = setInterval(fetchNowPlaying, 60_000);
+    const onVisible = () => { if (!document.hidden) void fetchNowPlaying(); };
+    document.addEventListener("visibilitychange", onVisible);
     return () => {
       alive = false;
       clearInterval(interval);
+      document.removeEventListener("visibilitychange", onVisible);
     };
   }, []);
 
