@@ -1,0 +1,41 @@
+;;
+;; Domain:     siddhantsancheti.com.
+;; Exported:   2026-05-17 03:54:22
+;;
+;; This file is intended for use for informational and archival
+;; purposes ONLY and MUST be edited before use on a production
+;; DNS server.  In particular, you must:
+;;   -- update the SOA record with the correct authoritative name server
+;;   -- update the SOA record with the contact e-mail address information
+;;   -- update the NS record(s) with the authoritative name servers for this domain.
+;;
+;; For further information, please consult the BIND documentation
+;; located on the following website:
+;;
+;; http://www.isc.org/
+;;
+;; And RFC 1035:
+;;
+;; http://www.ietf.org/rfc/rfc1035.txt
+;;
+;; Please note that we do NOT offer technical support for any use
+;; of this zone data, the BIND name server, or any other third-party
+;; DNS software.
+;;
+;; Use at your own risk.
+;; SOA Record
+siddhantsancheti.com	3600	IN	SOA	margo.ns.cloudflare.com. dns.cloudflare.com. 2053065666 10000 2400 604800 3600
+
+;; NS Records
+siddhantsancheti.com.	86400	IN	NS	margo.ns.cloudflare.com.
+siddhantsancheti.com.	86400	IN	NS	nova.ns.cloudflare.com.
+
+;; A Records
+siddhantsancheti.com.	1	IN	A	34.111.179.208 ; cf_tags=cf-proxied:true
+
+;; CNAME Records
+blog.siddhantsancheti.com.	1	IN	CNAME	hashnode.network. ; cf_tags=cf-proxied:false
+
+;; TXT Records
+siddhantsancheti.com.	1	IN	TXT	"openai-domain-verification=dv-TJZ3g4uitPGJxIZJ54ywIYfD"
+siddhantsancheti.com.	1	IN	TXT	"replit-verify=848b2509-4caf-46eb-b551-f511a29ce4c2"
