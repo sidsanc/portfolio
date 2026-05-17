@@ -69,7 +69,7 @@ export function Navbar({ onOpenCommand }: { onOpenCommand: () => void }) {
                 {location === link.href && (
                   <motion.span
                     layoutId="nav-pill"
-                    className="absolute inset-0 rounded-lg neo-inset -z-10"
+                    className="absolute inset-0 rounded-lg active-nav-pill -z-10"
                     transition={{ type: "spring", stiffness: 400, damping: 30 }}
                   />
                 )}
