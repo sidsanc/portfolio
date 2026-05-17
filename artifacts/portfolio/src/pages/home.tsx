@@ -349,7 +349,7 @@ export default function Home() {
               transition={{ duration: 0.35, delay: 1.55 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
               whileHover={{ scale: 1.15, y: -2 }}
               whileTap={{ scale: 0.95 }}
-              className="neo-btn w-9 h-9 rounded-full flex items-center justify-center text-foreground/45 hover:text-foreground transition-colors group"
+              className="neo-btn no-glow w-9 h-9 rounded-full flex items-center justify-center text-foreground/45 hover:text-foreground transition-colors group"
             >
               <s.Icon className="w-4 h-4" />
               {/* Tooltip */}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Navbar } from "./navbar";
 import { CommandBar } from "./command-bar";
 import { motion, AnimatePresence } from "framer-motion";
@@ -7,6 +7,18 @@ import { useLocation } from "wouter";
 export function Layout({ children }: { children: React.ReactNode }) {
   const [commandOpen, setCommandOpen] = useState(false);
   const [location] = useLocation();
+
+  useEffect(() => {
+    const handleMove = (e: MouseEvent) => {
+      const el = (e.target as Element)?.closest(".neo-btn, .glow-link") as HTMLElement | null;
+      if (!el || el.classList.contains("no-glow")) return;
+      const r = el.getBoundingClientRect();
+      el.style.setProperty("--mx", `${e.clientX - r.left}px`);
+      el.style.setProperty("--my", `${e.clientY - r.top}px`);
+    };
+    document.addEventListener("mousemove", handleMove, { passive: true });
+    return () => document.removeEventListener("mousemove", handleMove);
+  }, []);
 
   return (
     <div className="min-h-screen bg-background text-foreground font-sans selection:bg-primary selection:text-white">

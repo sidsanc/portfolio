@@ -59,7 +59,7 @@ export function Navbar({ onOpenCommand }: { onOpenCommand: () => void }) {
         <nav className="hidden md:flex items-center gap-0.5">
           {links.map((link) => (
             <Link key={link.href} href={link.href}>
-              <span className={`relative inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm transition-all duration-200 cursor-pointer font-medium ${
+              <span className={`glow-link relative inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm transition-all duration-200 cursor-pointer font-medium ${
                 location === link.href
                   ? "gradient-accent"
                   : "text-foreground/60 hover:text-foreground"
