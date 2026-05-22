@@ -1,157 +1,148 @@
 import React from 'react';
-import { Mail, Linkedin, Github, Globe, Phone, FileText } from 'lucide-react';
+import { Mail, Linkedin, Github, Globe, Phone, BookOpen } from 'lucide-react';
 
-export function Bold() {
-  const gradientText = {
-    background: 'linear-gradient(135deg, #60a5fa, #818cf8, #c084fc)',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
-  };
+const GRADIENT_TEXT = {
+  background: 'linear-gradient(135deg, #60a5fa, #818cf8, #c084fc)',
+  WebkitBackgroundClip: 'text',
+  WebkitTextFillColor: 'transparent',
+  backgroundClip: 'text',
+};
 
-  const gradientBg = {
-    background: 'linear-gradient(135deg, #60a5fa, #818cf8, #c084fc)',
-  };
+const GRADIENT_BG = {
+  background: 'linear-gradient(135deg, #60a5fa, #818cf8, #c084fc)',
+};
 
-  const darkShadow = {
-    boxShadow: '8px 8px 16px rgba(0,0,0,0.4), -4px -4px 8px rgba(255,255,255,0.04)',
-  };
+const DARK_CARD_GLASS = {
+  background: 'rgba(255, 255, 255, 0.05)',
+  backdropFilter: 'blur(28px) saturate(200%)',
+  WebkitBackdropFilter: 'blur(28px) saturate(200%)',
+  border: '1px solid rgba(255, 255, 255, 0.1)',
+  boxShadow: '0 16px 48px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08)',
+};
 
-  const lightShadow = {
-    boxShadow: '8px 8px 16px rgba(163,177,198,0.6), -4px -4px 8px rgba(255,255,255,0.9)',
-  };
+const LIGHT_CARD_GLASS = {
+  background: 'rgba(255, 255, 255, 0.58)',
+  backdropFilter: 'blur(28px) saturate(200%)',
+  WebkitBackdropFilter: 'blur(28px) saturate(200%)',
+  border: '1px solid rgba(255, 255, 255, 0.92)',
+  boxShadow: '0 16px 48px rgba(100,116,139,0.18), inset 0 1px 0 rgba(255,255,255,1)',
+};
 
-  const darkPillShadow = {
-    boxShadow: 'inset 2px 2px 4px rgba(0,0,0,0.4), inset -2px -2px 4px rgba(255,255,255,0.04)',
-  };
+const DARK_PILL_GLASS = {
+  background: 'rgba(255,255,255,0.04)',
+  backdropFilter: 'blur(12px)',
+  WebkitBackdropFilter: 'blur(12px)',
+  border: '1px solid rgba(255,255,255,0.07)',
+};
 
-  const lightPillShadow = {
-    boxShadow: 'inset 2px 2px 4px rgba(163,177,198,0.6), inset -2px -2px 4px rgba(255,255,255,0.9)',
-  };
+const LIGHT_PILL_GLASS = {
+  background: 'rgba(255,255,255,0.7)',
+  backdropFilter: 'blur(12px)',
+  WebkitBackdropFilter: 'blur(12px)',
+  border: '1px solid rgba(255,255,255,0.95)',
+};
 
-  const Card = ({ theme }: { theme: 'dark' | 'light' }) => {
-    const isDark = theme === 'dark';
-    const bgColor = isDark ? '#1a1f2e' : '#e0e5ec';
-    const textColor = isDark ? '#e2e8f0' : '#334155';
-    const mutedColor = isDark ? '#94a3b8' : '#64748b';
-    const shadow = isDark ? darkShadow : lightShadow;
-    const pillShadow = isDark ? darkPillShadow : lightPillShadow;
+const Card = ({ isDark }: { isDark: boolean }) => {
+  const cardGlass = isDark ? DARK_CARD_GLASS : LIGHT_CARD_GLASS;
+  const pillGlass = isDark ? DARK_PILL_GLASS : LIGHT_PILL_GLASS;
+  const textColor = isDark ? '#e2e8f0' : '#1e293b';
+  const mutedColor = isDark ? '#94a3b8' : '#64748b';
+  const dividerColor = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)';
 
-    return (
-      <div 
-        style={{ backgroundColor: bgColor, ...shadow }}
-        className="w-[560px] rounded-2xl relative overflow-hidden font-sans flex flex-col"
-      >
-        {/* Top gradient bar */}
-        <div style={gradientBg} className="h-1 w-full absolute top-0 left-0" />
-        
-        <div className="p-6">
-          {/* Header Section */}
-          <div className="flex justify-between items-start mb-4">
-            <div>
-              <h1 style={gradientText} className="text-2xl font-bold tracking-tight mb-1">
-                Siddhant K. Sancheti
-              </h1>
-              <p style={{ color: textColor }} className="font-medium text-[15px]">
-                Software Development Engineer
-              </p>
-              <div className="flex items-center gap-2 mt-1">
-                <span style={{ color: mutedColor }} className="text-sm">
-                  Amazon Web Services
-                </span>
-                <span className="text-xs px-1.5 py-0.5 rounded-sm font-semibold text-white bg-slate-800 tracking-wider">
-                  AWS
-                </span>
+  const links = [
+    { icon: Mail, href: "mailto:siddhantsanchetik@gmail.com", label: "Email" },
+    { icon: Linkedin, href: "https://linkedin.com/in/siddhant-sancheti", label: "LinkedIn" },
+    { icon: Github, href: "https://github.com/sidsanc", label: "GitHub" },
+    { icon: Globe, href: "https://siddhantsancheti.com", label: "Portfolio" },
+    { icon: Phone, href: "tel:xxx-xxx-xxxx", label: "WhatsApp" },
+    { icon: BookOpen, href: "https://hashnode.com/@sidsanc", label: "Blog" },
+  ];
+
+  return (
+    <div style={cardGlass} className="w-[560px] rounded-2xl relative overflow-hidden">
+      {/* Gradient accent bar */}
+      <div style={GRADIENT_BG} className="h-[3px] w-full" />
+
+      <div className="p-6">
+        {/* Header */}
+        <div className="mb-4">
+          <h1 className="text-2xl font-bold tracking-tight mb-0.5" style={GRADIENT_TEXT}>
+            Siddhant K. Sancheti
+          </h1>
+          <p className="font-semibold text-[15px] mb-0" style={{ color: textColor }}>
+            Software Development Engineer
+          </p>
+          <p className="text-xs mt-0.5" style={{ color: mutedColor }}>
+            Amazon Web Services &nbsp;·&nbsp; Full Stack · ML-AI · Cloud
+          </p>
+        </div>
+
+        <div className="h-px w-full mb-4" style={{ backgroundColor: dividerColor }} />
+
+        {/* Body */}
+        <div className="flex gap-5">
+          {/* Avatar + phone */}
+          <div className="flex flex-col items-center gap-2 flex-shrink-0">
+            <div className="w-[80px] h-[80px] rounded-full p-[2.5px]" style={GRADIENT_BG}>
+              <div className="w-full h-full rounded-full flex items-center justify-center text-2xl font-bold"
+                   style={{ background: isDark ? 'rgba(13,17,23,0.9)' : 'rgba(248,250,252,0.9)' }}>
+                <span style={GRADIENT_TEXT}>SS</span>
               </div>
-              <p style={{ color: mutedColor }} className="text-xs mt-1">
-                Full Stack · ML-AI · Cloud
-              </p>
             </div>
+            <p className="text-[10px] font-medium" style={{ color: mutedColor }}>(xxx) xxx-xxxx</p>
           </div>
 
-          <div className="h-px w-full mb-4" 
-               style={{ backgroundColor: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)' }} />
-
-          {/* Bottom Section */}
-          <div className="flex gap-6">
-            {/* Avatar Column */}
-            <div className="flex flex-col items-center gap-2">
-              <div 
-                className="w-[88px] h-[88px] rounded-full p-[3px]"
-                style={gradientBg}
+          {/* Link chips */}
+          <div className="flex-1 grid grid-cols-2 gap-2">
+            {links.map(({ icon: Icon, href, label }, i) => (
+              <a
+                key={i}
+                href={href}
+                style={{ ...pillGlass, color: textColor }}
+                className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-medium transition-opacity hover:opacity-80"
               >
-                <div 
-                  className="w-full h-full rounded-full flex items-center justify-center text-3xl font-bold text-white"
-                  style={{ backgroundColor: bgColor }}
-                >
-                  <span style={gradientText}>SS</span>
-                </div>
-              </div>
-              <p style={{ color: mutedColor }} className="text-xs font-medium">
-                (xxx) xxx-xxxx
-              </p>
-            </div>
-
-            {/* Links Column */}
-            <div className="flex-1 grid grid-cols-2 gap-3">
-              <a href="mailto:siddhantsanchetik@gmail.com" 
-                 className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-medium transition-transform hover:scale-[1.02]"
-                 style={{ color: textColor, ...pillShadow, backgroundColor: isDark ? '#1a1f2e' : '#e0e5ec' }}>
-                <Mail className="w-3.5 h-3.5 text-blue-400" />
-                <span className="truncate">Email</span>
+                <Icon className="w-3.5 h-3.5 text-blue-400 flex-shrink-0" />
+                <span className="truncate">{label}</span>
               </a>
-              <a href="https://linkedin.com/in/siddhant-sancheti" 
-                 className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-medium transition-transform hover:scale-[1.02]"
-                 style={{ color: textColor, ...pillShadow, backgroundColor: isDark ? '#1a1f2e' : '#e0e5ec' }}>
-                <Linkedin className="w-3.5 h-3.5 text-blue-400" />
-                <span className="truncate">LinkedIn</span>
-              </a>
-              <a href="https://github.com/sidsanc" 
-                 className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-medium transition-transform hover:scale-[1.02]"
-                 style={{ color: textColor, ...pillShadow, backgroundColor: isDark ? '#1a1f2e' : '#e0e5ec' }}>
-                <Github className="w-3.5 h-3.5 text-blue-400" />
-                <span className="truncate">GitHub</span>
-              </a>
-              <a href="https://siddhantsancheti.com" 
-                 className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-medium transition-transform hover:scale-[1.02]"
-                 style={{ color: textColor, ...pillShadow, backgroundColor: isDark ? '#1a1f2e' : '#e0e5ec' }}>
-                <Globe className="w-3.5 h-3.5 text-blue-400" />
-                <span className="truncate">Portfolio</span>
-              </a>
-              <a href="tel:xxx-xxx-xxxx" 
-                 className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-medium transition-transform hover:scale-[1.02]"
-                 style={{ color: textColor, ...pillShadow, backgroundColor: isDark ? '#1a1f2e' : '#e0e5ec' }}>
-                <Phone className="w-3.5 h-3.5 text-blue-400" />
-                <span className="truncate">WhatsApp</span>
-              </a>
-              <a href="https://hashnode.com/@sidsanc" 
-                 className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-medium transition-transform hover:scale-[1.02]"
-                 style={{ color: textColor, ...pillShadow, backgroundColor: isDark ? '#1a1f2e' : '#e0e5ec' }}>
-                <FileText className="w-3.5 h-3.5 text-blue-400" />
-                <span className="truncate">Blog</span>
-              </a>
-            </div>
+            ))}
           </div>
         </div>
       </div>
-    );
-  };
+    </div>
+  );
+};
 
+export function Bold() {
   return (
-    <div className="min-h-screen bg-neutral-100 p-8 font-sans">
-      <div className="max-w-[1200px] mx-auto flex flex-col gap-8 items-center justify-center">
-        <div className="flex gap-8 flex-wrap justify-center items-start">
-          <div className="flex flex-col gap-4">
-            <h2 className="text-neutral-500 font-semibold text-sm tracking-wider uppercase text-center">Dark</h2>
-            <div className="p-8 rounded-3xl bg-[#141824]">
-              <Card theme="dark" />
-            </div>
-          </div>
-          <div className="flex flex-col gap-4">
-            <h2 className="text-neutral-500 font-semibold text-sm tracking-wider uppercase text-center">Light</h2>
-            <div className="p-8 rounded-3xl bg-[#d1d9e6]">
-              <Card theme="light" />
-            </div>
-          </div>
+    <div className="min-h-screen p-10 flex flex-col items-center justify-center gap-12 font-['Inter',sans-serif]">
+
+      {/* Dark */}
+      <div className="flex flex-col gap-3">
+        <span className="text-neutral-500 text-xs font-semibold tracking-widest uppercase ml-1">Dark</span>
+        <div className="relative rounded-3xl overflow-hidden p-8"
+             style={{ width: 648, background: "linear-gradient(135deg, #060a14 0%, #0d1424 40%, #0a0f20 100%)" }}>
+          <div className="absolute top-[-60px] left-[-30px] w-64 h-64 rounded-full opacity-25 blur-3xl pointer-events-none"
+               style={{ background: "radial-gradient(circle, #818cf8, transparent 70%)" }} />
+          <div className="absolute top-[20px] right-[-40px] w-56 h-56 rounded-full opacity-20 blur-3xl pointer-events-none"
+               style={{ background: "radial-gradient(circle, #c084fc, transparent 70%)" }} />
+          <div className="absolute bottom-[-30px] right-[100px] w-40 h-40 rounded-full opacity-15 blur-3xl pointer-events-none"
+               style={{ background: "radial-gradient(circle, #60a5fa, transparent 70%)" }} />
+          <Card isDark={true} />
+        </div>
+      </div>
+
+      {/* Light */}
+      <div className="flex flex-col gap-3">
+        <span className="text-neutral-400 text-xs font-semibold tracking-widest uppercase ml-1">Light</span>
+        <div className="relative rounded-3xl overflow-hidden p-8"
+             style={{ width: 648, background: "linear-gradient(135deg, #d6e4f7 0%, #e8e2f8 40%, #d4eaf8 100%)" }}>
+          <div className="absolute top-[-40px] left-[20px] w-56 h-56 rounded-full opacity-30 blur-3xl pointer-events-none"
+               style={{ background: "radial-gradient(circle, #818cf8, transparent 70%)" }} />
+          <div className="absolute top-[30px] right-[-20px] w-48 h-48 rounded-full opacity-25 blur-3xl pointer-events-none"
+               style={{ background: "radial-gradient(circle, #c084fc, transparent 70%)" }} />
+          <div className="absolute bottom-[-20px] right-[80px] w-36 h-36 rounded-full opacity-20 blur-2xl pointer-events-none"
+               style={{ background: "radial-gradient(circle, #60a5fa, transparent 70%)" }} />
+          <Card isDark={false} />
         </div>
       </div>
     </div>
