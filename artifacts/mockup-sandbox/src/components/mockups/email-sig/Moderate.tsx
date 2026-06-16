@@ -48,8 +48,8 @@ function Card({ dark }: { dark: boolean }) {
     backgroundClip: 'text',
     display: 'inline',
   } : {
-    /* Warm gold/white — pops against the cool cyan→purple bg */
-    background: 'linear-gradient(135deg, #ffffff 0%, #fde68a 60%, #fb923c 100%)',
+    /* Deep dark gradient — same logic as dark mode but inverted: dark on light bg */
+    background: 'linear-gradient(135deg, #0f172a 0%, #312e81 55%, #4c1d95 100%)',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
     backgroundClip: 'text',
@@ -63,15 +63,16 @@ function Card({ dark }: { dark: boolean }) {
     backgroundClip: 'text',
     display: 'inline',
   } : {
-    background: 'linear-gradient(135deg, #a5f3fc, #c7d2fe)',
+    /* Deep teal→navy on light bg */
+    background: 'linear-gradient(135deg, #0c4a6e, #1e1b4b)',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
     backgroundClip: 'text',
     display: 'inline',
   };
 
-  const roleColor  = dark ? '#e2e8f0' : 'rgba(255,255,255,0.95)';
-  const metaColor  = dark ? '#94a3b8' : 'rgba(255,255,255,0.75)';
+  const roleColor  = dark ? '#e2e8f0' : '#1e1b4b';
+  const metaColor  = dark ? '#94a3b8' : 'rgba(15,23,42,0.60)';
   const divider    = dark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.35)';
   const iconColor  = dark ? '#93c5fd' : 'rgba(255,255,255,0.85)';
   const photoBorder = dark ? 'rgba(10,14,28,0.85)' : 'rgba(255,255,255,0.85)';
