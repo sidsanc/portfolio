@@ -4,21 +4,18 @@ import Github from 'lucide-react/dist/esm/icons/github';
 
 const NOISE = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='512' height='512'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`;
 
-const GRADIENT_TEXT: React.CSSProperties = {
-  background: 'linear-gradient(135deg, #60a5fa, #818cf8, #c084fc)',
-  WebkitBackgroundClip: 'text',
-  WebkitTextFillColor: 'transparent',
-  backgroundClip: 'text',
-};
-const AWS_TEXT: React.CSSProperties = {
-  background: 'linear-gradient(135deg, #34d399, #60a5fa, #818cf8)',
-  WebkitBackgroundClip: 'text',
-  WebkitTextFillColor: 'transparent',
-  backgroundClip: 'text',
-};
-const AVATAR_BG: React.CSSProperties = {
+const AVATAR_RING: React.CSSProperties = {
   background: 'linear-gradient(135deg, #60a5fa, #818cf8, #c084fc)',
 };
+
+const LINKS = [
+  { icon: Mail,     href: 'mailto:siddhantsanchetik@gmail.com' },
+  { icon: Linkedin, href: 'https://linkedin.com/in/siddhant-sancheti' },
+  { icon: Github,   href: 'https://github.com/sidsanc' },
+  { icon: Globe,    href: 'https://siddhantsancheti.com' },
+  { icon: Phone,    href: 'https://wa.me/16693198812' },
+  { icon: BookOpen, href: 'https://hashnode.com/@sidsanc' },
+];
 
 function Card({ dark }: { dark: boolean }) {
   const cardStyle: React.CSSProperties = dark ? {
@@ -27,64 +24,105 @@ function Card({ dark }: { dark: boolean }) {
     WebkitBackdropFilter: 'blur(20px) saturate(160%)',
     border: '1px solid rgba(255,255,255,0.10)',
     boxShadow: '0 10px 40px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.08)',
+    borderRadius: 16,
+    padding: '20px 22px',
+    position: 'relative',
+    overflow: 'hidden',
   } : {
-    background: 'linear-gradient(135deg, rgba(96,165,250,0.30) 0%, rgba(129,140,248,0.36) 55%, rgba(192,132,252,0.26) 100%)',
+    background: 'rgba(255,255,255,0.22)',
     backdropFilter: 'blur(20px) saturate(160%)',
     WebkitBackdropFilter: 'blur(20px) saturate(160%)',
     border: '1px solid rgba(255,255,255,0.78)',
     boxShadow: '0 10px 40px rgba(80,60,140,0.2), inset 0 1px 0 rgba(255,255,255,0.92)',
+    borderRadius: 16,
+    padding: '20px 22px',
+    position: 'relative',
+    overflow: 'hidden',
   };
 
-  const headingColor = dark ? '#f1f5f9' : '#0f172a';
-  const mutedColor   = dark ? '#94a3b8'  : '#374151';
-  const divider      = dark ? 'rgba(255,255,255,0.07)' : 'rgba(255,255,255,0.45)';
-  const iconClass    = dark ? 'text-slate-400 hover:text-blue-300' : 'text-slate-600 hover:text-blue-600';
+  /* Name gradient — contrasting per mode */
+  const nameGrad: React.CSSProperties = dark ? {
+    background: 'linear-gradient(135deg, #7dd3fc, #a5b4fc, #e879f9)',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+    backgroundClip: 'text',
+  } : {
+    /* Warm gold/white gradient — pops against the cool cyan→purple bg */
+    background: 'linear-gradient(135deg, #ffffff 0%, #fde68a 60%, #fb923c 100%)',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+    backgroundClip: 'text',
+  };
+
+  const awsGrad: React.CSSProperties = dark ? {
+    background: 'linear-gradient(135deg, #34d399, #60a5fa, #818cf8)',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+    backgroundClip: 'text',
+  } : {
+    background: 'linear-gradient(135deg, #a5f3fc, #c7d2fe)',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+    backgroundClip: 'text',
+  };
+
+  const roleColor  = dark ? '#e2e8f0' : 'rgba(255,255,255,0.95)';
+  const metaColor  = dark ? '#94a3b8' : 'rgba(255,255,255,0.75)';
+  const divider    = dark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.35)';
+  const iconColor  = dark ? '#93c5fd' : 'rgba(255,255,255,0.85)';
+  const photoBorder = dark ? 'rgba(10,14,28,0.85)' : 'rgba(255,255,255,0.85)';
 
   return (
-    <div style={{ ...cardStyle, position: 'relative', overflow: 'hidden' }}
-         className="rounded-2xl p-5 w-full max-w-[520px]">
+    <div style={cardStyle}>
       {/* Crystalline noise */}
       <div style={{
         position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 1,
         backgroundImage: NOISE, backgroundSize: '256px 256px',
         opacity: dark ? 0.10 : 0.14,
         mixBlendMode: dark ? 'soft-light' : 'overlay',
+        borderRadius: 'inherit',
       }} />
 
-      <div style={{ position: 'relative', zIndex: 2 }} className="flex items-start gap-4">
-        <div className="flex-shrink-0 w-[68px] h-[68px] rounded-full flex items-center justify-center text-white text-2xl font-bold"
-             style={AVATAR_BG}>
-          SS
+      <div style={{ position: 'relative', zIndex: 2, display: 'flex', alignItems: 'flex-start', gap: 16 }}>
+        {/* Avatar with photo */}
+        <div style={{ ...AVATAR_RING, flexShrink: 0, borderRadius: '50%', padding: 2.5, width: 68, height: 68 }}>
+          <img
+            src="/__mockup/avatar.png"
+            alt="Siddhant Sancheti"
+            style={{
+              width: '100%', height: '100%', borderRadius: '50%',
+              objectFit: 'cover', display: 'block',
+              border: `2.5px solid ${photoBorder}`,
+            }}
+          />
         </div>
 
-        <div className="flex-1 min-w-0">
-          <h2 className="text-[1.2rem] font-bold m-0 leading-tight" style={GRADIENT_TEXT}>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          {/* Name with contrasting gradient */}
+          <h2 style={{ fontSize: '1.15rem', fontWeight: 800, margin: 0, lineHeight: 1.2, letterSpacing: '-0.2px', ...nameGrad }}>
             Siddhant K. Sancheti
           </h2>
-          <p className="font-semibold text-sm mt-0.5 mb-0" style={{ color: headingColor }}>
+          <p style={{ fontWeight: 600, fontSize: 13, marginTop: 3, marginBottom: 0, color: roleColor }}>
             Software Development Engineer
           </p>
-          <p className="text-xs mt-0.5 mb-3" style={{ color: mutedColor }}>
-            Full Stack | ML-AI | Cloud
+          <p style={{ fontSize: 11, marginTop: 3, marginBottom: 12, color: metaColor }}>
+            Full Stack&nbsp;·&nbsp;ML-AI&nbsp;·&nbsp;Cloud
           </p>
 
-          <div className="h-px w-full mb-3" style={{ backgroundColor: divider }} />
+          <div style={{ height: 1, backgroundColor: divider, marginBottom: 12 }} />
 
-          <div className="flex justify-between items-center gap-4">
-            <div className="text-[13px] space-y-1">
-              <div className="font-semibold" style={AWS_TEXT}>@ Amazon Web Services</div>
-              <div style={{ color: mutedColor }}>(xxx) xxx-xxxx</div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16 }}>
+            <div style={{ fontSize: 13 }}>
+              <div style={{ fontWeight: 600, ...awsGrad }}>@ Amazon Web Services</div>
+              <div style={{ color: metaColor, marginTop: 2 }}>+1 (669) 319-8812</div>
             </div>
-            <div className="flex items-center gap-0.5">
-              {[
-                { icon: Mail,     href: "mailto:siddhantsanchetik@gmail.com" },
-                { icon: Linkedin, href: "https://linkedin.com/in/siddhant-sancheti" },
-                { icon: Github,   href: "https://github.com/sidsanc" },
-                { icon: Globe,    href: "https://siddhantsancheti.com" },
-                { icon: Phone,    href: "tel:xxx-xxx-xxxx" },
-                { icon: BookOpen, href: "https://hashnode.com/@sidsanc" },
-              ].map(({ icon: Icon, href }, i) => (
-                <a key={i} href={href} className={`p-1.5 rounded-lg transition-colors ${iconClass}`}>
+            {/* Icon row */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+              {LINKS.map(({ icon: Icon, href }, i) => (
+                <a key={i} href={href} style={{
+                  padding: 6, borderRadius: 8, display: 'flex', alignItems: 'center',
+                  color: iconColor, textDecoration: 'none',
+                }}>
                   <Icon size={15} />
                 </a>
               ))}
@@ -98,29 +136,36 @@ function Card({ dark }: { dark: boolean }) {
 
 export function Moderate() {
   return (
-    <div className="min-h-screen p-10 flex flex-col items-center justify-center gap-12 font-['Plus_Jakarta_Sans',sans-serif]">
+    <div style={{
+      minHeight: '100vh', display: 'flex', flexDirection: 'column',
+      alignItems: 'center', justifyContent: 'center', gap: 48,
+      padding: '52px 48px', fontFamily: "'Plus Jakarta Sans', sans-serif",
+      background: '#0d1117',
+    }}>
       {/* Dark */}
-      <div className="flex flex-col gap-3">
-        <span className="text-slate-500 text-xs font-semibold tracking-widest uppercase ml-1">Dark</span>
-        <div className="relative rounded-3xl overflow-hidden p-8"
-             style={{ width: 620, background: "linear-gradient(135deg, #060c18 0%, #0e1428 45%, #10082a 100%)" }}>
-          <div className="absolute -top-14 right-0 w-60 h-60 rounded-full blur-3xl opacity-25 pointer-events-none"
-               style={{ background: "radial-gradient(circle, #c084fc, transparent 70%)" }} />
-          <div className="absolute -bottom-10 left-8 w-48 h-48 rounded-full blur-3xl opacity-20 pointer-events-none"
-               style={{ background: "radial-gradient(circle, #60a5fa, transparent 70%)" }} />
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        <span style={{ color: '#64748b', fontSize: 10, fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', marginLeft: 2 }}>Dark</span>
+        <div style={{
+          position: 'relative', borderRadius: 28, overflow: 'hidden', padding: 10,
+          background: 'linear-gradient(135deg, #060c18 0%, #0e1428 45%, #10082a 100%)',
+          boxShadow: '18px 22px 56px rgba(0,0,0,0.70), -8px -8px 24px rgba(80,70,160,0.18)',
+        }}>
+          <div style={{ position: 'absolute', top: -56, right: -16, width: 240, height: 240, borderRadius: '50%', filter: 'blur(80px)', opacity: 0.25, background: 'radial-gradient(circle, #c084fc, transparent 70%)', pointerEvents: 'none' }} />
+          <div style={{ position: 'absolute', bottom: -40, left: 32, width: 190, height: 190, borderRadius: '50%', filter: 'blur(70px)', opacity: 0.20, background: 'radial-gradient(circle, #60a5fa, transparent 70%)', pointerEvents: 'none' }} />
           <Card dark={true} />
         </div>
       </div>
 
       {/* Light */}
-      <div className="flex flex-col gap-3">
-        <span className="text-slate-400 text-xs font-semibold tracking-widest uppercase ml-1">Light</span>
-        <div className="relative rounded-3xl overflow-hidden p-8"
-             style={{ width: 620, background: "linear-gradient(135deg, #38bef8 0%, #818cf8 45%, #c084fc 100%)" }}>
-          <div className="absolute -top-10 right-4 w-52 h-52 rounded-full blur-2xl opacity-50 pointer-events-none"
-               style={{ background: "radial-gradient(circle, #ffffff, transparent 70%)" }} />
-          <div className="absolute -bottom-8 left-4 w-40 h-40 rounded-full blur-2xl opacity-40 pointer-events-none"
-               style={{ background: "radial-gradient(circle, #e0f2fe, transparent 70%)" }} />
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        <span style={{ color: '#94a3b8', fontSize: 10, fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', marginLeft: 2 }}>Light</span>
+        <div style={{
+          position: 'relative', borderRadius: 28, overflow: 'hidden', padding: 10,
+          background: 'linear-gradient(135deg, #22d3f5 0%, #818cf8 48%, #c084fc 100%)',
+          boxShadow: '18px 22px 56px rgba(50,20,140,0.38), -10px -10px 28px rgba(255,255,255,0.55)',
+        }}>
+          <div style={{ position: 'absolute', top: -40, right: 16, width: 210, height: 210, borderRadius: '50%', filter: 'blur(60px)', opacity: 0.50, background: 'radial-gradient(circle, #ffffff, transparent 70%)', pointerEvents: 'none' }} />
+          <div style={{ position: 'absolute', bottom: -32, left: 16, width: 160, height: 160, borderRadius: '50%', filter: 'blur(50px)', opacity: 0.40, background: 'radial-gradient(circle, #e0f2fe, transparent 70%)', pointerEvents: 'none' }} />
           <Card dark={false} />
         </div>
       </div>
