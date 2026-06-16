@@ -40,18 +40,20 @@ function Card({ dark }: { dark: boolean }) {
     overflow: 'hidden',
   };
 
-  /* Name gradient — contrasting per mode */
+  /* Name gradient — inline span styles (block elements break background-clip:text) */
   const nameGrad: React.CSSProperties = dark ? {
     background: 'linear-gradient(135deg, #7dd3fc, #a5b4fc, #e879f9)',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
     backgroundClip: 'text',
+    display: 'inline',
   } : {
-    /* Warm gold/white gradient — pops against the cool cyan→purple bg */
+    /* Warm gold/white — pops against the cool cyan→purple bg */
     background: 'linear-gradient(135deg, #ffffff 0%, #fde68a 60%, #fb923c 100%)',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
     backgroundClip: 'text',
+    display: 'inline',
   };
 
   const awsGrad: React.CSSProperties = dark ? {
@@ -59,11 +61,13 @@ function Card({ dark }: { dark: boolean }) {
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
     backgroundClip: 'text',
+    display: 'inline',
   } : {
     background: 'linear-gradient(135deg, #a5f3fc, #c7d2fe)',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
     backgroundClip: 'text',
+    display: 'inline',
   };
 
   const roleColor  = dark ? '#e2e8f0' : 'rgba(255,255,255,0.95)';
@@ -98,9 +102,9 @@ function Card({ dark }: { dark: boolean }) {
         </div>
 
         <div style={{ flex: 1, minWidth: 0 }}>
-          {/* Name with contrasting gradient */}
-          <h2 style={{ fontSize: '1.15rem', fontWeight: 800, margin: 0, lineHeight: 1.2, letterSpacing: '-0.2px', ...nameGrad }}>
-            Siddhant K. Sancheti
+          {/* Name with contrasting gradient — span keeps display:inline so background-clip:text works */}
+          <h2 style={{ fontSize: '1.15rem', fontWeight: 800, margin: 0, lineHeight: 1.2, letterSpacing: '-0.2px' }}>
+            <span style={nameGrad}>Siddhant K. Sancheti</span>
           </h2>
           <p style={{ fontWeight: 600, fontSize: 13, marginTop: 3, marginBottom: 0, color: roleColor }}>
             Software Development Engineer
@@ -113,7 +117,7 @@ function Card({ dark }: { dark: boolean }) {
 
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16 }}>
             <div style={{ fontSize: 13 }}>
-              <div style={{ fontWeight: 600, ...awsGrad }}>@ Amazon Web Services</div>
+              <div style={{ fontWeight: 600 }}><span style={awsGrad}>@ Amazon Web Services</span></div>
               <div style={{ color: metaColor, marginTop: 2 }}>+1 (669) 319-8812</div>
             </div>
             {/* Icon row */}
