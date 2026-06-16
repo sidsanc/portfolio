@@ -25,7 +25,7 @@ const GRADIENT_CSS = `
     background-clip: text;
   }
   .mod-name-light {
-    background: linear-gradient(135deg, #1d4ed8 0%, #7c3aed 55%, #be185d 100%);
+    background: linear-gradient(135deg, #1e3a8a 0%, #7e22ce 52%, #9f1239 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -37,7 +37,7 @@ const GRADIENT_CSS = `
     background-clip: text;
   }
   .mod-aws-light {
-    background: linear-gradient(135deg, #0c4a6e, #1e1b4b);
+    background: linear-gradient(135deg, #075985 0%, #6b21a8 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -56,7 +56,7 @@ function Card({ dark }: { dark: boolean }) {
     position: 'relative',
     overflow: 'hidden',
   } : {
-    background: 'rgba(255,255,255,0.22)',
+    background: 'rgba(255,255,255,0.40)',
     backdropFilter: 'blur(20px) saturate(160%)',
     WebkitBackdropFilter: 'blur(20px) saturate(160%)',
     border: '1px solid rgba(255,255,255,0.78)',
@@ -72,7 +72,7 @@ function Card({ dark }: { dark: boolean }) {
   const awsClass  = dark ? 'mod-aws-dark'  : 'mod-aws-light';
 
   const roleColor  = dark ? '#e2e8f0' : '#1e293b';
-  const metaColor  = dark ? '#94a3b8' : 'rgba(15,23,42,0.55)';
+  const metaColor  = dark ? '#94a3b8' : 'rgba(15,23,42,0.72)';
   const divider    = dark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.35)';
   const iconColor  = dark ? '#93c5fd' : 'rgba(255,255,255,0.85)';
   const photoBorder = dark ? 'rgba(10,14,28,0.85)' : 'rgba(255,255,255,0.85)';
