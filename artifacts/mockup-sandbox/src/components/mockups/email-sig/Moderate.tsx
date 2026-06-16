@@ -1,5 +1,6 @@
 import React from 'react';
-import { Mail, Linkedin, Github, Globe, Phone, BookOpen } from 'lucide-react';
+import { Mail, Linkedin, Globe, Phone, BookOpen } from 'lucide-react';
+import Github from 'lucide-react/dist/esm/icons/github';
 
 const NOISE = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='512' height='512'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`;
 
@@ -97,7 +98,7 @@ function Card({ dark }: { dark: boolean }) {
 
 export function Moderate() {
   return (
-    <div className="min-h-screen p-10 flex flex-col items-center justify-center gap-12 font-['Inter',sans-serif]">
+    <div className="min-h-screen p-10 flex flex-col items-center justify-center gap-12 font-['Plus_Jakarta_Sans',sans-serif]">
       {/* Dark */}
       <div className="flex flex-col gap-3">
         <span className="text-slate-500 text-xs font-semibold tracking-widest uppercase ml-1">Dark</span>
