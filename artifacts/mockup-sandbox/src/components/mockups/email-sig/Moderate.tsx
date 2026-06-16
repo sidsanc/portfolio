@@ -48,13 +48,14 @@ function Card({ dark }: { dark: boolean }) {
     backgroundClip: 'text',
     display: 'inline',
   } : {
-    /* Deep dark gradient — same logic as dark mode but inverted: dark on light bg */
-    background: 'linear-gradient(135deg, #0f172a 0%, #312e81 55%, #4c1d95 100%)',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
-    backgroundClip: 'text',
+    /* Solid deep navy — reliable, high contrast on light cyan/purple bg */
+    color: '#0f172a',
     display: 'inline',
   };
+
+  const awsColor = dark
+    ? undefined   /* awsGrad handles dark */
+    : '#1e40af';  /* solid deep blue for light */
 
   const awsGrad: React.CSSProperties = dark ? {
     background: 'linear-gradient(135deg, #34d399, #60a5fa, #818cf8)',
@@ -63,16 +64,12 @@ function Card({ dark }: { dark: boolean }) {
     backgroundClip: 'text',
     display: 'inline',
   } : {
-    /* Deep teal→navy on light bg */
-    background: 'linear-gradient(135deg, #0c4a6e, #1e1b4b)',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
-    backgroundClip: 'text',
+    color: awsColor,
     display: 'inline',
   };
 
-  const roleColor  = dark ? '#e2e8f0' : '#1e1b4b';
-  const metaColor  = dark ? '#94a3b8' : 'rgba(15,23,42,0.60)';
+  const roleColor  = dark ? '#e2e8f0' : '#1e293b';
+  const metaColor  = dark ? '#94a3b8' : 'rgba(15,23,42,0.55)';
   const divider    = dark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.35)';
   const iconColor  = dark ? '#93c5fd' : 'rgba(255,255,255,0.85)';
   const photoBorder = dark ? 'rgba(10,14,28,0.85)' : 'rgba(255,255,255,0.85)';

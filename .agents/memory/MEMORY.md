@@ -1,0 +1,2 @@
+- [Gradient text in React inline styles](gradient-text-clip.md) — background-clip:text unreliable on dark colors; use solid for light bg, gradient only for dark bg.
+- [lucide-react brand icons](lucide-react-brand-icons.md) — Github and other brand icons not in main barrel; import from individual file path.
