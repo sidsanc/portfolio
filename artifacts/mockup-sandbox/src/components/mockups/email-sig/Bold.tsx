@@ -195,7 +195,7 @@ export function Bold() {
     <div style={{
       minHeight: '100vh', display: 'flex', flexDirection: 'column',
       alignItems: 'center', justifyContent: 'center', gap: 52,
-      padding: '52px 48px', fontFamily: "'Inter', sans-serif",
+      padding: '52px 48px', fontFamily: "'Plus Jakarta Sans', sans-serif",
       background: '#0d1117',
     }}>
       {/* Dark */}
