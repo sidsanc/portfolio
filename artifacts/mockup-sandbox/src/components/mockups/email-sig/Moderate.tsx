@@ -17,6 +17,33 @@ const LINKS = [
   { icon: BookOpen, href: 'https://hashnode.com/@sidsanc' },
 ];
 
+const GRADIENT_CSS = `
+  .mod-name-dark {
+    background: linear-gradient(135deg, #7dd3fc, #a5b4fc, #e879f9);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .mod-name-light {
+    background: linear-gradient(135deg, #1d4ed8 0%, #7c3aed 55%, #be185d 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .mod-aws-dark {
+    background: linear-gradient(135deg, #34d399, #60a5fa, #818cf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .mod-aws-light {
+    background: linear-gradient(135deg, #0c4a6e, #1e1b4b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+`;
+
 function Card({ dark }: { dark: boolean }) {
   const cardStyle: React.CSSProperties = dark ? {
     background: 'linear-gradient(135deg, rgba(96,165,250,0.13) 0%, rgba(129,140,248,0.19) 55%, rgba(192,132,252,0.12) 100%)',
@@ -40,33 +67,9 @@ function Card({ dark }: { dark: boolean }) {
     overflow: 'hidden',
   };
 
-  /* Name gradient — inline span styles (block elements break background-clip:text) */
-  const nameGrad: React.CSSProperties = dark ? {
-    background: 'linear-gradient(135deg, #7dd3fc, #a5b4fc, #e879f9)',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
-    backgroundClip: 'text',
-    display: 'inline',
-  } : {
-    /* Solid deep navy — reliable, high contrast on light cyan/purple bg */
-    color: '#0f172a',
-    display: 'inline',
-  };
-
-  const awsColor = dark
-    ? undefined   /* awsGrad handles dark */
-    : '#1e40af';  /* solid deep blue for light */
-
-  const awsGrad: React.CSSProperties = dark ? {
-    background: 'linear-gradient(135deg, #34d399, #60a5fa, #818cf8)',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
-    backgroundClip: 'text',
-    display: 'inline',
-  } : {
-    color: awsColor,
-    display: 'inline',
-  };
+  /* Gradient text class names — CSS strings avoid React's camelCase inline-style limitation */
+  const nameClass = dark ? 'mod-name-dark' : 'mod-name-light';
+  const awsClass  = dark ? 'mod-aws-dark'  : 'mod-aws-light';
 
   const roleColor  = dark ? '#e2e8f0' : '#1e293b';
   const metaColor  = dark ? '#94a3b8' : 'rgba(15,23,42,0.55)';
@@ -100,9 +103,8 @@ function Card({ dark }: { dark: boolean }) {
         </div>
 
         <div style={{ flex: 1, minWidth: 0 }}>
-          {/* Name with contrasting gradient — span keeps display:inline so background-clip:text works */}
           <h2 style={{ fontSize: '1.15rem', fontWeight: 800, margin: 0, lineHeight: 1.2, letterSpacing: '-0.2px' }}>
-            <span style={nameGrad}>Siddhant K. Sancheti</span>
+            <span className={nameClass}>Siddhant K. Sancheti</span>
           </h2>
           <p style={{ fontWeight: 600, fontSize: 13, marginTop: 3, marginBottom: 0, color: roleColor }}>
             Software Development Engineer
@@ -115,7 +117,7 @@ function Card({ dark }: { dark: boolean }) {
 
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16 }}>
             <div style={{ fontSize: 13 }}>
-              <div style={{ fontWeight: 600 }}><span style={awsGrad}>@ Amazon Web Services</span></div>
+              <div style={{ fontWeight: 600 }}><span className={awsClass}>@ Amazon Web Services</span></div>
               <div style={{ color: metaColor, marginTop: 2 }}>+1 (669) 319-8812</div>
             </div>
             {/* Icon row */}
@@ -138,6 +140,8 @@ function Card({ dark }: { dark: boolean }) {
 
 export function Moderate() {
   return (
+    <>
+    <style>{GRADIENT_CSS}</style>
     <div style={{
       minHeight: '100vh', display: 'flex', flexDirection: 'column',
       alignItems: 'center', justifyContent: 'center', gap: 48,
@@ -172,5 +176,6 @@ export function Moderate() {
         </div>
       </div>
     </div>
+    </>
   );
 }
