@@ -118,9 +118,6 @@ export default function Contact() {
           <span className="gradient-text">Download Resume</span>
           <Download className="w-4 h-4 text-primary group-hover:translate-y-0.5 transition-transform" />
         </a>
-        <p className="text-xs text-muted-foreground mt-4">
-          Based in San Jose, CA · Open to remote and hybrid opportunities
-        </p>
       </motion.div>
     </div>
   );
