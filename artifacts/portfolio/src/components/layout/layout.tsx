@@ -36,7 +36,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <Navbar onOpenCommand={() => setCommandOpen(true)} />
       <CommandBar open={commandOpen} setOpen={setCommandOpen} />
       
-      <main className="pt-28 pb-16 px-4 md:px-8 max-w-6xl mx-auto min-h-[calc(100vh-100px)]">
+      <main className="pt-20 md:pt-28 pb-16 px-4 md:px-8 max-w-6xl mx-auto min-h-[calc(100vh-100px)]">
         <AnimatePresence mode="wait">
           <motion.div
             key={location}

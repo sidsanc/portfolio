@@ -56,16 +56,16 @@ export default function Skills() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.5, delay: group.delay }}
-            className="neo-card p-8"
+            className="neo-card p-5 sm:p-8"
           >
-            <div className="flex items-center gap-4 mb-6">
-              <div className="neo-inset p-4 rounded-xl text-primary">
+            <div className="flex items-center gap-3 sm:gap-4 mb-5 sm:mb-6">
+              <div className="neo-inset p-3 sm:p-4 rounded-xl text-primary shrink-0">
                 {group.icon}
               </div>
-              <h2 className="text-2xl font-bold">{group.title}</h2>
+              <h2 className="text-xl sm:text-2xl font-bold">{group.title}</h2>
             </div>
             
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-2 sm:gap-4">
               {group.skills.map((skill, i) => (
                 <motion.span
                   key={skill}

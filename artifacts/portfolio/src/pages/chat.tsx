@@ -168,20 +168,21 @@ export default function Chat() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto flex flex-col h-[calc(100vh-180px)] min-h-[500px]">
+    <div className="max-w-3xl mx-auto flex flex-col h-[calc(100dvh-160px)] md:h-[calc(100vh-180px)] min-h-[450px]">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="neo-card p-5 mb-4 flex items-center justify-between"
+        className="neo-card p-4 sm:p-5 mb-4 flex items-center justify-between"
       >
-        <div className="flex items-center gap-4">
-          <div className="neo-inset p-3 rounded-xl">
+        <div className="flex items-center gap-3 sm:gap-4 min-w-0">
+          <div className="neo-inset p-3 rounded-xl shrink-0">
             <Sparkles className="w-5 h-5 gradient-stroke" />
           </div>
-          <div>
+          <div className="min-w-0">
             <h1 className="font-bold text-lg text-foreground">Jarvis</h1>
-            <p className="text-xs text-muted-foreground">Siddhant's AI assistant — ask me anything about his work, skills, or background</p>
+            <p className="text-xs text-muted-foreground hidden sm:block">Siddhant's AI assistant — ask me anything about his work, skills, or background</p>
+            <p className="text-xs text-muted-foreground sm:hidden">Ask me about Siddhant's work</p>
           </div>
         </div>
         <div className="flex items-center gap-3">
@@ -252,7 +253,7 @@ export default function Chat() {
                 {msg.role === "user" ? <User className="w-4 h-4" /> : <Sparkles className="w-4 h-4" />}
               </div>
               <div
-                className={`neo-card px-5 py-4 max-w-[80%] text-sm leading-relaxed ${
+                className={`neo-card px-4 py-3 sm:px-5 sm:py-4 max-w-[88%] sm:max-w-[80%] text-sm leading-relaxed ${
                   msg.role === "user"
                     ? "text-foreground"
                     : "text-foreground"

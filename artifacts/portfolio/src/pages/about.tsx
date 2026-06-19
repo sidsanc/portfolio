@@ -190,8 +190,28 @@ export default function About() {
         {/* Bold typographic marquee — pause-on-hover, gradient fill on hover */}
         <HobbyMarquee />
 
-        {/* Parallax Photo Collage */}
-        <ParallaxCollage />
+        {/* Mobile photo grid — 2-col responsive, shown below md only */}
+        <div className="md:hidden grid grid-cols-2 gap-3 mt-8">
+          {PHOTOS.map((photo, i) => (
+            <div
+              key={photo.src}
+              className={`rounded-2xl overflow-hidden shadow-md aspect-[4/5] ${i === PHOTOS.length - 1 && PHOTOS.length % 2 !== 0 ? "col-span-2 aspect-video" : ""}`}
+            >
+              <img
+                src={photo.src}
+                alt={photo.caption}
+                loading="lazy"
+                className="w-full h-full object-cover"
+                onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* Parallax Photo Collage — desktop only */}
+        <div className="hidden md:block">
+          <ParallaxCollage />
+        </div>
       </motion.div>
     </div>
   );

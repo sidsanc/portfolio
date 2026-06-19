@@ -88,7 +88,7 @@ export default function Experience() {
                 <div className={`w-4 h-4 rounded-full neo-inset ${exp.current ? 'bg-primary' : 'bg-secondary'}`} />
               </div>
 
-              <div className="neo-card p-8 relative overflow-hidden">
+              <div className="neo-card p-5 sm:p-8 relative overflow-hidden">
                 {exp.current && (
                   <div className="absolute top-4 right-4 flex items-center gap-2">
                     <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
