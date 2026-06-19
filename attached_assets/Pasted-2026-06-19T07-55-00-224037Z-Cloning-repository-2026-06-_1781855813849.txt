@@ -1,0 +1,79 @@
+2026-06-19T07:55:00.224037Z	Cloning repository...
+2026-06-19T07:55:02.675124Z	From https://github.com/sidsanc/portfolio
+2026-06-19T07:55:02.675439Z	 * branch            b98594f235b8ff8645990b52b4c81303fb5ea04a -> FETCH_HEAD
+2026-06-19T07:55:02.675506Z	
+2026-06-19T07:55:02.9404Z	HEAD is now at b98594f Fixes
+2026-06-19T07:55:02.940684Z	
+2026-06-19T07:55:03.085178Z	
+2026-06-19T07:55:03.08553Z	Using v2 root directory strategy
+2026-06-19T07:55:03.098198Z	Success: Finished cloning repository files
+2026-06-19T07:55:04.485404Z	Checking for configuration in a Wrangler configuration file (BETA)
+2026-06-19T07:55:04.486603Z	
+2026-06-19T07:55:04.656828Z	No Wrangler configuration file found. Continuing.
+2026-06-19T07:55:04.831849Z	Detected the following tools from environment: pnpm@10.11.1, nodejs@22.16.0
+2026-06-19T07:55:06.064715Z	Installing project dependencies: pnpm install
+2026-06-19T07:55:06.58087Z	Scope: all 12 workspace projects
+2026-06-19T07:55:06.666931Z	Lockfile is up to date, resolution step is skipped
+2026-06-19T07:55:06.704537Z	Progress: resolved 1, reused 0, downloaded 0, added 0
+2026-06-19T07:55:06.783761Z	Packages: +548
+2026-06-19T07:55:06.783999Z	++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+2026-06-19T07:55:07.706643Z	Progress: resolved 548, reused 0, downloaded 131, added 71
+2026-06-19T07:55:08.707985Z	Progress: resolved 548, reused 0, downloaded 310, added 201
+2026-06-19T07:55:09.708302Z	Progress: resolved 548, reused 0, downloaded 427, added 324
+2026-06-19T07:55:10.708652Z	Progress: resolved 548, reused 0, downloaded 545, added 445
+2026-06-19T07:55:11.710658Z	Progress: resolved 548, reused 0, downloaded 547, added 547
+2026-06-19T07:55:11.732449Z	Progress: resolved 548, reused 0, downloaded 548, added 548, done
+2026-06-19T07:55:11.957366Z	.../sharp@0.34.5/node_modules/sharp install$ node install/check.js || npm run build
+2026-06-19T07:55:11.982963Z	.../esbuild@0.27.3/node_modules/esbuild postinstall$ node install.js
+2026-06-19T07:55:11.983974Z	.../node_modules/workerd postinstall$ node install.js
+2026-06-19T07:55:12.123028Z	.../sharp@0.34.5/node_modules/sharp install: Done
+2026-06-19T07:55:12.138505Z	.../esbuild@0.27.3/node_modules/esbuild postinstall: Done
+2026-06-19T07:55:14.258Z	.../node_modules/workerd postinstall: Done
+2026-06-19T07:55:15.248432Z	
+2026-06-19T07:55:15.24883Z	dependencies:
+2026-06-19T07:55:15.248946Z	+ @replit/connectors-sdk 0.4.0
+2026-06-19T07:55:15.248992Z	
+2026-06-19T07:55:15.249026Z	devDependencies:
+2026-06-19T07:55:15.249059Z	+ prettier 3.8.1
+2026-06-19T07:55:15.249089Z	+ typescript 5.9.3
+2026-06-19T07:55:15.249116Z	
+2026-06-19T07:55:15.338062Z	. preinstall$ node scripts/preinstall.cjs
+2026-06-19T07:55:15.386108Z	. preinstall: Done
+2026-06-19T07:55:15.54519Z	Done in 9.2s using pnpm v10.11.1
+2026-06-19T07:55:15.607071Z	Executing user command: pnpm --filter @workspace/portfolio run build
+2026-06-19T07:55:16.219948Z	
+2026-06-19T07:55:16.220312Z	> @workspace/portfolio@0.0.0 build /opt/buildhome/repo/artifacts/portfolio
+2026-06-19T07:55:16.220431Z	> vite build --config vite.config.ts
+2026-06-19T07:55:16.220492Z	
+2026-06-19T07:55:16.633876Z	[36mvite v7.3.2 [32mbuilding client environment for production...[36m[39m
+2026-06-19T07:55:16.72932Z	transforming...
+2026-06-19T07:55:18.718485Z	[33msrc/components/ui/command.tsx (2:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.[39m
+2026-06-19T07:55:18.719717Z	[33msrc/components/ui/sheet.tsx (2:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.[39m
+2026-06-19T07:55:20.206909Z	[32m✓[39m 2213 modules transformed.
+2026-06-19T07:55:20.589051Z	rendering chunks...
+2026-06-19T07:55:20.597673Z	computing gzip size...
+2026-06-19T07:55:20.615498Z	[2mdist/public/[22m[32mindex.html                 [39m[1m[2m  2.55 kB[22m[1m[22m[2m │ gzip:   0.83 kB[22m
+2026-06-19T07:55:20.615832Z	[2mdist/public/[22m[2massets/[22m[35mindex-UqX6rgvr.css  [39m[1m[2m126.90 kB[22m[1m[22m[2m │ gzip:  20.25 kB[22m
+2026-06-19T07:55:20.616097Z	[2mdist/public/[22m[2massets/[22m[36mindex-DEzWXjfp.js   [39m[1m[33m508.14 kB[39m[22m[2m │ gzip: 161.05 kB[22m
+2026-06-19T07:55:20.616286Z	[32m✓ built in 3.94s[39m
+2026-06-19T07:55:20.616692Z	[33m
+2026-06-19T07:55:20.616806Z	(!) Some chunks are larger than 500 kB after minification. Consider:
+2026-06-19T07:55:20.616888Z	- Using dynamic import() to code-split the application
+2026-06-19T07:55:20.617001Z	- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+2026-06-19T07:55:20.617076Z	- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m
+2026-06-19T07:55:20.706332Z	Finished
+2026-06-19T07:55:21.248807Z	Checking for configuration in a Wrangler configuration file (BETA)
+2026-06-19T07:55:21.249145Z	
+2026-06-19T07:55:21.36443Z	No Wrangler configuration file found. Continuing.
+2026-06-19T07:55:21.365007Z	Note: No functions dir at /functions found. Skipping.
+2026-06-19T07:55:21.365106Z	Validating asset output directory
+2026-06-19T07:55:22.494824Z	Deploying your site to Cloudflare's global network...
+2026-06-19T07:55:24.854195Z	Uploading... (0/35)
+2026-06-19T07:55:26.670853Z	Uploading... (11/35)
+2026-06-19T07:55:27.19478Z	Uploading... (23/35)
+2026-06-19T07:55:27.358269Z	Uploading... (35/35)
+2026-06-19T07:55:27.358525Z	✨ Success! Uploaded 35 files (3.53 sec)
+2026-06-19T07:55:27.358589Z	
+2026-06-19T07:55:27.848598Z	✨ Upload complete!
+2026-06-19T07:55:29.156052Z	Success: Assets published!
+2026-06-19T07:55:30.072549Z	Success: Your site was deployed!
