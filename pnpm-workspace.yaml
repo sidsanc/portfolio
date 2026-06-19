@@ -72,7 +72,9 @@ onlyBuiltDependencies:
   - '@swc/core'
   - esbuild
   - msw
+  - sharp
   - unrs-resolver
+  - workerd
 
 overrides:
   # replit uses linux-x64 only, we can exclude all other platforms
