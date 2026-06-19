@@ -3,14 +3,6 @@ import { Mail, Github, Linkedin, Instagram, BookOpen, ExternalLink, Send, Downlo
 
 const socials = [
   {
-    label: "Email",
-    value: "siddhantsanchetik@gmail.com",
-    href: "mailto:siddhantsanchetik@gmail.com",
-    icon: <Mail className="w-6 h-6" />,
-    description: "Best for professional inquiries and opportunities",
-    color: "text-red-400",
-  },
-  {
     label: "GitHub",
     value: "github.com/sidsanc",
     href: "https://github.com/sidsanc",
