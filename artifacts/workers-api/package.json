@@ -1,0 +1,22 @@
+{
+  "name": "@workspace/workers-api",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^0.10.4",
+    "drizzle-orm": "catalog:",
+    "hono": "^4.7.11",
+    "openai": "^4.104.0",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250620.0",
+    "typescript": "^5.8.3",
+    "wrangler": "^4.23.0"
+  }
+}
