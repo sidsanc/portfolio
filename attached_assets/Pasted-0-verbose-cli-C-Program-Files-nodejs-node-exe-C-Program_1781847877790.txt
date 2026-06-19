@@ -1,0 +1,38 @@
+0 verbose cli C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\npm\bin\npm-cli.js
+1 info using npm@11.13.0
+2 info using node@v24.17.0
+3 silly config load:file:C:\Program Files\nodejs\node_modules\npm\npmrc
+4 silly config load:file:C:\Users\sidsa\Portfolio-website\portfolio\artifacts\workers-api\.npmrc
+5 silly config load:file:C:\Users\sidsa\.npmrc
+6 silly config load:file:C:\Users\sidsa\AppData\Roaming\npm\etc\npmrc
+7 verbose title npm install
+8 verbose argv "install"
+9 verbose logfile logs-max:10 dir:C:\Users\sidsa\AppData\Local\npm-cache\_logs\2026-06-19T05_43_43_502Z-
+10 verbose logfile C:\Users\sidsa\AppData\Local\npm-cache\_logs\2026-06-19T05_43_43_502Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:4496293888 maxSize:1124073472 maxEntrySize:562036736
+13 silly idealTree buildDeps
+14 verbose stack Error: Unsupported URL Type "catalog:": catalog:
+14 verbose stack     at unsupportedURLType (C:\Program Files\nodejs\node_modules\npm\node_modules\npm-package-arg\lib\npa.js:367:15)
+14 verbose stack     at fromURL (C:\Program Files\nodejs\node_modules\npm\node_modules\npm-package-arg\lib\npa.js:426:13)
+14 verbose stack     at npa.resolve (C:\Program Files\nodejs\node_modules\npm\node_modules\npm-package-arg\lib\npa.js:108:12)
+14 verbose stack     at #nodeFromEdge (C:\Program Files\nodejs\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\build-ideal-tree.js:1053:22)
+14 verbose stack     at #buildDepStep (C:\Program Files\nodejs\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\build-ideal-tree.js:917:35)
+14 verbose stack     at #buildDeps (C:\Program Files\nodejs\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\build-ideal-tree.js:769:30)
+14 verbose stack     at Arborist.buildIdealTree (C:\Program Files\nodejs\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\build-ideal-tree.js:170:28)
+14 verbose stack     at async Promise.all (index 1)
+14 verbose stack     at async Arborist.reify (C:\Program Files\nodejs\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\reify.js:111:5)
+14 verbose stack     at async Install.exec (C:\Program Files\nodejs\node_modules\npm\lib\commands\install.js:146:5)
+15 error code EUNSUPPORTEDPROTOCOL
+16 error Unsupported URL Type "catalog:": catalog:
+17 silly unfinished npm timer reify 1781847823723
+18 silly unfinished npm timer reify:loadTrees 1781847823725
+19 silly unfinished npm timer idealTree:buildDeps 1781847824042
+20 silly unfinished npm timer idealTree:#root 1781847824043
+21 verbose cwd C:\Users\sidsa\Portfolio-website\portfolio\artifacts\workers-api
+22 verbose os Windows_NT 10.0.26200
+23 verbose node v24.17.0
+24 verbose npm  v11.13.0
+25 verbose exit 1
+26 verbose code 1
+27 error A complete log of this run can be found in: C:\Users\sidsa\AppData\Local\npm-cache\_logs\2026-06-19T05_43_43_502Z-debug-0.log
