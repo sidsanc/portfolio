@@ -1,0 +1,143 @@
+PS C:\Users\sidsa\Portfolio-website\portfolio\artifacts\workers-api> wrangler deploy
+
+ ⛅️ wrangler 4.102.0
+────────────────────
+
+Cloudflare collects anonymous telemetry about your usage of Wrangler. Learn more at https://github.com/cloudflare/workers-sdk/tree/main/packages/wrangler/telemetry.md
+
+X [ERROR] Build failed with 11 errors:
+
+  X [ERROR] Could not resolve "hono"
+
+      src/index.ts:1:21:
+        1 │ import { Hono } from "hono";
+          ╵                      ~~~~~~
+
+    To fix this, you can add an entry to "alias" in your Wrangler configuration.
+    For more guidance see:
+  https://developers.cloudflare.com/workers/wrangler/configuration/#bundling-issues
+
+
+
+  X [ERROR] Could not resolve "hono/cors"
+
+      src/index.ts:2:21:
+        2 │ import { cors } from "hono/cors";
+          ╵                      ~~~~~~~~~~~
+
+    To fix this, you can add an entry to "alias" in your Wrangler configuration.
+    For more guidance see:
+  https://developers.cloudflare.com/workers/wrangler/configuration/#bundling-issues
+
+
+
+  X [ERROR] Could not resolve "@neondatabase/serverless"
+
+      src/lib/db.ts:1:21:
+        1 │ import { neon } from "@neondatabase/serverless";
+          ╵                      ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    To fix this, you can add an entry to "alias" in your Wrangler configuration.
+    For more guidance see:
+  https://developers.cloudflare.com/workers/wrangler/configuration/#bundling-issues
+
+
+
+  X [ERROR] Could not resolve "drizzle-orm/neon-http"
+
+      src/lib/db.ts:2:24:
+        2 │ import { drizzle } from "drizzle-orm/neon-http";
+          ╵                         ~~~~~~~~~~~~~~~~~~~~~~~
+
+    To fix this, you can add an entry to "alias" in your Wrangler configuration.
+    For more guidance see:
+  https://developers.cloudflare.com/workers/wrangler/configuration/#bundling-issues
+
+
+
+  X [ERROR] Could not resolve "drizzle-orm/pg-core"
+
+      src/lib/schema.ts:1:58:
+        1 │ ...ble, serial, text, timestamp, integer } from "drizzle-orm/pg-core";
+          ╵                                                 ~~~~~~~~~~~~~~~~~~~~~
+
+    To fix this, you can add an entry to "alias" in your Wrangler configuration.
+    For more guidance see:
+  https://developers.cloudflare.com/workers/wrangler/configuration/#bundling-issues
+
+
+
+  X [ERROR] Could not resolve "hono"
+
+      src/routes/blog.ts:1:21:
+        1 │ import { Hono } from "hono";
+          ╵                      ~~~~~~
+
+    To fix this, you can add an entry to "alias" in your Wrangler configuration.
+    For more guidance see:
+  https://developers.cloudflare.com/workers/wrangler/configuration/#bundling-issues
+
+
+
+  X [ERROR] Could not resolve "hono"
+
+      src/routes/health.ts:1:21:
+        1 │ import { Hono } from "hono";
+          ╵                      ~~~~~~
+
+    To fix this, you can add an entry to "alias" in your Wrangler configuration.
+    For more guidance see:
+  https://developers.cloudflare.com/workers/wrangler/configuration/#bundling-issues
+
+
+
+  X [ERROR] Could not resolve "hono"
+
+      src/routes/openai.ts:1:21:
+        1 │ import { Hono } from "hono";
+          ╵                      ~~~~~~
+
+    To fix this, you can add an entry to "alias" in your Wrangler configuration.
+    For more guidance see:
+  https://developers.cloudflare.com/workers/wrangler/configuration/#bundling-issues
+
+
+
+  X [ERROR] Could not resolve "openai"
+
+      src/routes/openai.ts:2:19:
+        2 │ import OpenAI from "openai";
+          │                    ~~~~~~~~
+          ╵                    "./openai"
+
+    Use the relative path "./openai" to reference the file "src/routes/openai.ts". Without the
+  leading "./", the path "openai" is being interpreted as a package path instead.
+
+
+  X [ERROR] Could not resolve "drizzle-orm"
+
+      src/routes/openai.ts:3:19:
+        3 │ import { eq } from "drizzle-orm";
+          ╵                    ~~~~~~~~~~~~~
+
+    To fix this, you can add an entry to "alias" in your Wrangler configuration.
+    For more guidance see:
+  https://developers.cloudflare.com/workers/wrangler/configuration/#bundling-issues
+
+
+
+  X [ERROR] Could not resolve "hono"
+
+      src/routes/spotify.ts:1:21:
+        1 │ import { Hono } from "hono";
+          ╵                      ~~~~~~
+
+    To fix this, you can add an entry to "alias" in your Wrangler configuration.
+    For more guidance see:
+  https://developers.cloudflare.com/workers/wrangler/configuration/#bundling-issues
+
+
+
+
+
+🪵  Logs were written to "C:\Users\sidsa\AppData\Roaming\xdg.config\.wrangler\logs\wrangler-2026-06-19_05-20-54_382.log"
