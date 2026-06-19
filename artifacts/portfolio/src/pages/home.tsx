@@ -172,11 +172,11 @@ export default function Home() {
   const [spotifyError, setSpotifyError] = useState(false);
   useEffect(() => {
     let alive = true;
-    const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+    const apiBase = (import.meta.env.VITE_API_URL ?? import.meta.env.BASE_URL).replace(/\/$/, "");
     const fetchNowPlaying = async () => {
       if (document.hidden) return;
       try {
-        const res = await fetch(`${base}/api/spotify/now-playing`);
+        const res = await fetch(`${apiBase}/api/spotify/now-playing`);
         if (!alive) return;
         if (!res.ok) {
           setSpotifyError(true);

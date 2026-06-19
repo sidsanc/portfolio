@@ -43,8 +43,8 @@ export default function Chat() {
     setIsCreating(true);
     setError(null);
     try {
-      const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-      const res = await fetch(`${base}/api/openai/conversations`, {
+      const apiBase = (import.meta.env.VITE_API_URL ?? import.meta.env.BASE_URL).replace(/\/$/, "");
+      const res = await fetch(`${apiBase}/api/openai/conversations`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
       });
@@ -86,9 +86,9 @@ export default function Chat() {
     setIsLoading(true);
 
     try {
-      const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+      const apiBase = (import.meta.env.VITE_API_URL ?? import.meta.env.BASE_URL).replace(/\/$/, "");
       const res = await fetch(
-        `${base}/api/openai/conversations/${conversationId}/messages`,
+        `${apiBase}/api/openai/conversations/${conversationId}/messages`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

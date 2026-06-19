@@ -31,8 +31,8 @@ export default function Blog() {
     let cancelled = false;
     (async () => {
       try {
-        const base = import.meta.env.BASE_URL;
-        const res = await fetch(`${base}api/blog/posts`);
+        const apiBase = (import.meta.env.VITE_API_URL ?? import.meta.env.BASE_URL).replace(/\/$/, "");
+        const res = await fetch(`${apiBase}/api/blog/posts`);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const json = (await res.json()) as { posts: HashnodePost[] };
         if (!cancelled) setPosts(json.posts ?? []);
