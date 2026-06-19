@@ -46,7 +46,7 @@ export default function Contact() {
       >
         <h1 className="page-title gradient-text mb-4">Get in Touch</h1>
         <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-          Open to interesting conversations, collaboration opportunities, and roles at the frontier of AI and cloud engineering.
+          Open to interesting conversations, collaboration opportunities, and roles at the frontier of AI and software engineering.
         </p>
       </motion.div>
 
