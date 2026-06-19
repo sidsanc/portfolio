@@ -2,3 +2,5 @@
 - [lucide-react brand icons](lucide-react-brand-icons.md) — Github and other brand icons not in main barrel; import from individual file path.
 - [Gmail email signature constraints](gmail-signature-constraints.md) — Gmail silently drops SVG img tags; use PNG/JPG only. Also strips data: URIs, rgba(), backdrop-filter.
 - [Workers API porting decisions](workers-api-deployment.md) — Express→Hono/Workers: use neon-http (fetch-based), btoa() not Buffer, TransformStream for SSE, KV for token+blog cache.
+- [Cloudflare Pages deploy from Replit](cloudflare-pages-deploy.md) — use `GIT_DIR=/tmp/fakegit wrangler pages deploy` to bypass git lock; needs CLOUDFLARE_API_TOKEN secret.
+- [Cloudflare Pages SPA routing](cloudflare-pages-spa.md) — `/* /index.html 200` rejected as infinite loop; copy index.html→404.html in build script instead.
