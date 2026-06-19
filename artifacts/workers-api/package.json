@@ -8,7 +8,6 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@neondatabase/serverless": "^0.10.4",
     "drizzle-orm": "catalog:",
     "hono": "^4.7.11",
     "openai": "^4.104.0",

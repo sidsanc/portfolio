@@ -3,6 +3,11 @@ main = "src/index.ts"
 compatibility_date = "2024-12-01"
 compatibility_flags = ["nodejs_compat"]
 
+[[d1_databases]]
+binding = "DB"
+database_name = "portfolio-db"
+database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+
 [[kv_namespaces]]
 binding = "KV"
 id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
@@ -10,7 +15,6 @@ preview_id = "REPLACE_WITH_YOUR_KV_NAMESPACE_PREVIEW_ID"
 
 # Secrets — set each one with:  wrangler secret put SECRET_NAME
 #
-#   DATABASE_URL          — Neon connection string (postgresql://...)
 #   OPENAI_API_KEY        — Direct OpenAI API key
 #   SPOTIFY_CLIENT_ID
 #   SPOTIFY_CLIENT_SECRET

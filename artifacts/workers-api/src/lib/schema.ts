@@ -1,19 +1,23 @@
-import { pgTable, serial, text, timestamp, integer } from "drizzle-orm/pg-core";
+import { sqliteTable, text, integer } from "drizzle-orm/sqlite-core";
 
-export const conversations = pgTable("conversations", {
-  id: serial("id").primaryKey(),
+export const conversations = sqliteTable("conversations", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
   title: text("title").notNull(),
-  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  createdAt: text("created_at")
+    .notNull()
+    .$defaultFn(() => new Date().toISOString()),
 });
 
-export const messages = pgTable("messages", {
-  id: serial("id").primaryKey(),
+export const messages = sqliteTable("messages", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
   conversationId: integer("conversation_id")
     .notNull()
     .references(() => conversations.id, { onDelete: "cascade" }),
   role: text("role").notNull(),
   content: text("content").notNull(),
-  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  createdAt: text("created_at")
+    .notNull()
+    .$defaultFn(() => new Date().toISOString()),
 });
 
 export type Conversation = typeof conversations.$inferSelect;

@@ -73,13 +73,13 @@ openaiRoutes.post("/conversations", async (c) => {
   }
 
   try {
-    const db = makeDb(c.env.DATABASE_URL);
+    const db = makeDb(c.env.DB);
     const [conversation] = await db
       .insert(conversations)
       .values({ title: crypto.randomUUID() })
       .returning();
 
-    return c.json({ id: String(conversation!.id), createdAt: conversation!.createdAt.toISOString() }, 201);
+    return c.json({ id: String(conversation!.id), createdAt: conversation!.createdAt }, 201);
   } catch {
     return c.json({ error: "Failed to create conversation" }, 500);
   }
@@ -90,7 +90,7 @@ openaiRoutes.get("/conversations/:id/messages", async (c) => {
   if (isNaN(id)) return c.json({ error: "Invalid conversation id" }, 400);
 
   try {
-    const db = makeDb(c.env.DATABASE_URL);
+    const db = makeDb(c.env.DB);
     const msgs = await db
       .select()
       .from(messages)
@@ -103,7 +103,7 @@ openaiRoutes.get("/conversations/:id/messages", async (c) => {
         conversationId: String(m.conversationId),
         role: m.role,
         content: m.content,
-        createdAt: m.createdAt.toISOString(),
+        createdAt: m.createdAt,
       }))
     );
   } catch {
@@ -131,7 +131,7 @@ openaiRoutes.post("/conversations/:id/messages", async (c) => {
   const userContent = body.content?.trim();
   if (!userContent) return c.json({ error: "content is required" }, 400);
 
-  const db = makeDb(c.env.DATABASE_URL);
+  const db = makeDb(c.env.DB);
 
   try {
     await db.insert(messages).values({ conversationId, role: "user", content: userContent });
