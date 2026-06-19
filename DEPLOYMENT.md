@@ -109,7 +109,7 @@ SPOTIFY_REFRESH_TOKEN=...
 |--------------------|------------------------------------------|
 | Framework preset   | Vite                                     |
 | Build command      | `pnpm --filter @workspace/portfolio run build` |
-| Build output dir   | `artifacts/portfolio/dist`               |
+| Build output dir   | `artifacts/portfolio/dist/public`        |
 | Root directory     | *(leave blank — monorepo root)*          |
 
 ### 2. Set environment variables (Pages → Settings → Environment variables)
