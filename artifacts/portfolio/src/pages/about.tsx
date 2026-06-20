@@ -1,6 +1,8 @@
 import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
 import { useRef } from "react";
 import { MapPin, GraduationCap, Heart, Download, Sparkles } from "lucide-react";
+import { INTERESTS, HOBBIES_ROW_1, HOBBIES_ROW_2 } from "@workspace/portfolio-data";
+import type { HobbyItem } from "@workspace/portfolio-data";
 
 export default function About() {
   const stats = [
@@ -9,15 +11,7 @@ export default function About() {
     { label: "GPA (Both Degrees)", value: "3.81" },
   ];
 
-  const interests = [
-    "Agentic AI",
-    "Multi-Agent AI Systems",
-    "Cloud Infrastructure at Scale",
-    "Distributed Systems Design",
-    "Computer Vision",
-    "Open Source Development",
-    "Developer Tooling",
-  ];
+  const interests = INTERESTS;
 
 
 
@@ -321,25 +315,6 @@ function ParallaxPhoto({
 }
 
 // --- Hobby Marquee ------------------------------------------------------------
-
-type HobbyItem = { label: string; emoji: string };
-
-const HOBBIES_ROW_1: HobbyItem[] = [
-  { label: "Snowboarding", emoji: "🏂" },
-  { label: "Biking", emoji: "🏍️" },
-  { label: "Pickleball", emoji: "🏓" },
-  { label: "Cricket", emoji: "🏏" },
-  { label: "Valorant", emoji: "🎮" },
-  { label: "Road Trips", emoji: "🛣️" },
-];
-
-const HOBBIES_ROW_2: HobbyItem[] = [
-  { label: "Guitar", emoji: "🎸" },
-  { label: "Music", emoji: "🎧" },
-  { label: "Blog Writing", emoji: "✍️" },
-  { label: "Agentic AI", emoji: "🤖" },
-  { label: "Coffee", emoji: "☕" },
-];
 
 function HobbyMarquee() {
   return (

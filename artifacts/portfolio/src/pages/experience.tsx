@@ -1,72 +1,6 @@
 import { motion } from "framer-motion";
 import { Briefcase, MapPin, CalendarDays } from "lucide-react";
-
-const experiences = [
-  {
-    company: "Amazon Web Services",
-    role: "Software Development Engineer",
-    location: "Seattle, WA",
-    period: "May 2025 – Present",
-    current: true,
-    highlights: [
-      "Led zero-downtime migration of Aurora PostgreSQL authentication from static credentials to IAM tokens across 110+ Lambda functions and CLI tools in 17 regions, handling 150–190 connections/sec with 100% IAM adoption and zero password fallback.",
-      "Designed CDK infrastructure with least-privilege IAM policies; resolved critical production issues including S3 client connection leaks, file descriptor exhaustion, and cross-region token signing — improving system stability for high-throughput multi-region workloads.",
-      "Co-designed and built a Python-based multi-agent code automation system that parsed SIM task tables into dependency DAGs, scheduled 5–10 parallel agent workflows with persistent state, resumable execution, and live monitoring — reducing 10-task implementation cycles from 5–7 days to 1–2 hours across a 195+ package ecosystem.",
-      "Built a self-service fleet capacity management system using Java, DynamoDB, RPC APIs, and safe-by-default CLIs — reducing scaling workflows from 30 mins to 2–4 mins across 5,000+ EC2 hosts while preventing conflicting updates.",
-    ],
-    tags: ["CDK", "Java", "Python", "IAM", "Aurora PostgreSQL", "Lambda", "DynamoDB", "Multi-Agent AI"],
-  },
-  {
-    company: "Mercor",
-    role: "Web Development and Design Expert — OpenAI Contract",
-    location: "Remote",
-    period: "Jan 2025 – May 2025",
-    current: false,
-    highlights: [
-      "Evaluated AI-generated React web applications for functionality, performance, and UI/UX, ensuring alignment with user requirements.",
-      "Reviewed design consistency, feature integration, and accessibility standards to identify opportunities for improvement and maintain high-quality user experiences.",
-      "Provided looped feedback to project teams, continuously refining features and design elements to meet evolving user needs and industry best practices.",
-    ],
-    tags: ["React", "UI/UX", "OpenAI", "Web Development", "Accessibility", "Design Review"],
-  },
-  {
-    company: "GrantAide",
-    role: "Software Engineer - ML/AI",
-    location: "San Jose, CA",
-    period: "Sept 2024 – Jan 2025",
-    current: false,
-    highlights: [
-      "Built and scaled an AI-driven grant writing platform using React, GPT-4, Flask, AWS (S3, Amplify, EC2, Elastic Beanstalk), and Stripe APIs — improving platform responsiveness 5x.",
-      "Engineered RAG workflows with Material-UI, Firebase, Vertex AI, LangChain, and FAISS — reducing frontend load times by 35%, query latency from 200ms to 50ms, improving response accuracy by 80%, and increasing grant application success rates by 85%.",
-    ],
-    tags: ["React", "GPT-4", "Flask", "LangChain", "FAISS", "VertexAI", "AWS", "RAG"],
-  },
-  {
-    company: "Forsk Technologies",
-    role: "Software Developer — Full Stack",
-    location: "Jaipur, India",
-    period: "Mar 2021 – Jun 2022",
-    current: false,
-    highlights: [
-      "Architected an AI-enabled Campus Portal using React, Node.js, Express.js, AWS Lambda, DynamoDB, and ECS — integrating TensorFlow/PyTorch-based chatbot and feedback intelligence, reducing onboarding time by 50% for 5,000+ MAU.",
-      "Optimized data access with GraphQL, reducing data load times by 20% and improving frontend performance by 30%.",
-      "Automated deployment with Jenkins, GitHub Actions, Docker, and Grafana — increasing release frequency by 40% and maintaining 99.9% uptime.",
-    ],
-    tags: ["React", "Node.js", "GraphQL", "AWS Lambda", "DynamoDB", "Docker", "Jenkins", "TensorFlow"],
-  },
-  {
-    company: "Pantech Prolabs",
-    role: "Software Engineer",
-    location: "Pune, India",
-    period: "Jun 2020 – Feb 2021",
-    current: false,
-    highlights: [
-      "Optimized asynchronous data pipelines for a job listing platform using Python, Kafka, Zookeeper, and Apache Spark — reducing processing time by 30% and enabling scalable ETL for high-volume data.",
-      "Enforced secure RESTful APIs with Django, Flask, OAuth2, JWT, and Terraform — protecting 100,000+ users and reducing unauthorized access incidents by 45%.",
-    ],
-    tags: ["Python", "Kafka", "Apache Spark", "Django", "Flask", "OAuth2", "Terraform"],
-  },
-];
+import { EXPERIENCE } from "@workspace/portfolio-data";
 
 export default function Experience() {
   return (
@@ -87,7 +21,7 @@ export default function Experience() {
         <div className="absolute left-8 top-0 bottom-0 w-px bg-gradient-to-b from-primary via-secondary to-transparent hidden md:block" />
 
         <div className="space-y-10">
-          {experiences.map((exp, index) => (
+          {EXPERIENCE.map((exp, index) => (
             <motion.div
               key={exp.company}
               initial={{ opacity: 0, x: -20 }}

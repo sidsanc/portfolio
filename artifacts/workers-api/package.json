@@ -8,6 +8,7 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
+    "@workspace/portfolio-data": "workspace:*",
     "drizzle-orm": "catalog:",
     "hono": "^4.7.11",
     "zod": "catalog:"

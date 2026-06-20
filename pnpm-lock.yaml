@@ -538,6 +538,9 @@ importers:
       '@workspace/integrations-openai-ai-react':
         specifier: workspace:*
         version: link:../../lib/integrations-openai-ai-react
+      '@workspace/portfolio-data':
+        specifier: workspace:*
+        version: link:../../lib/portfolio-data
       class-variance-authority:
         specifier: 'catalog:'
         version: 0.7.1
@@ -613,6 +616,9 @@ importers:
 
   artifacts/workers-api:
     dependencies:
+      '@workspace/portfolio-data':
+        specifier: workspace:*
+        version: link:../../lib/portfolio-data
       drizzle-orm:
         specifier: 'catalog:'
         version: 0.45.2(@cloudflare/workers-types@4.20260617.1)(@types/pg@8.18.0)(pg@8.20.0)
@@ -689,6 +695,12 @@ importers:
       p-retry:
         specifier: ^7.1.1
         version: 7.1.1
+
+  lib/portfolio-data:
+    devDependencies:
+      typescript:
+        specifier: ^5.8.3
+        version: 5.9.3
 
   scripts:
     devDependencies:

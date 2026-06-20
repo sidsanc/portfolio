@@ -1,39 +1,18 @@
 import { motion } from "framer-motion";
 import { Terminal, Database, Cloud, Code2, BrainCircuit } from "lucide-react";
+import { SKILL_GROUPS } from "@workspace/portfolio-data";
+import type { ReactNode } from "react";
+
+const SKILL_ICONS: Record<string, ReactNode> = {
+  "Languages": <Code2 className="w-6 h-6" />,
+  "Cloud & Infrastructure": <Cloud className="w-6 h-6" />,
+  "Frameworks & Tools": <Terminal className="w-6 h-6" />,
+  "Databases": <Database className="w-6 h-6" />,
+  "AI / ML Stack": <BrainCircuit className="w-6 h-6" />,
+};
 
 export default function Skills() {
-  const skillGroups = [
-    {
-      title: "Languages",
-      icon: <Code2 className="w-6 h-6" />,
-      skills: ["Python", "Java", "Ruby", "Bash", "TypeScript", "JavaScript", "SQL", "HTML5", "CSS3", "Shell"],
-      delay: 0.1
-    },
-    {
-      title: "Cloud & Infrastructure",
-      icon: <Cloud className="w-6 h-6" />,
-      skills: ["AWS", "GCP", "Kubernetes", "Docker", "CI/CD", "Jenkins", "Git", "RESTful APIs", "Load Balancing"],
-      delay: 0.2
-    },
-    {
-      title: "Frameworks & Tools",
-      icon: <Terminal className="w-6 h-6" />,
-      skills: ["AWS CDK", "React", "Node.js", "Express.js", "Flask", "Django", "Apache Spark", "Bootstrap", "Springboot", "Kafka"],
-      delay: 0.3
-    },
-    {
-      title: "Databases",
-      icon: <Database className="w-6 h-6" />,
-      skills: ["AWS RDS", "DynamoDB", "PostgreSQL", "MongoDB", "Firebase"],
-      delay: 0.4
-    },
-    {
-      title: "AI / ML Stack",
-      icon: <BrainCircuit className="w-6 h-6" />,
-      skills: ["TensorFlow", "PyTorch", "JAX", "LangChain", "VertexAI", "FAISS", "Scikit-learn", "OpenCV", "Pandas", "NumPy", "TensorRT", "Keras", "MCP", "Sagemaker", "LLMs", "RAG", "NLP"],
-      delay: 0.5
-    }
-  ];
+  const skillGroups = SKILL_GROUPS.map((g) => ({ ...g, icon: SKILL_ICONS[g.title] }));
 
   return (
     <div className="max-w-5xl mx-auto">

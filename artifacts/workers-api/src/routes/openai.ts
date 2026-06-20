@@ -4,79 +4,111 @@ import { makeDb } from "../lib/db";
 import { conversations, messages } from "../lib/schema";
 import { checkRateLimit } from "../lib/ratelimit";
 import type { Bindings } from "../types";
+import { buildSystemPrompt } from "@workspace/portfolio-data";
+import type { LiveContext } from "@workspace/portfolio-data";
 
 const openaiRoutes = new Hono<{ Bindings: Bindings }>();
 
-const SIDDHANT_SYSTEM_PROMPT = `You are Jarvis, the AI assistant for Siddhant Sancheti's personal portfolio website. You have deep knowledge about Siddhant and answer questions about him in third person ("Siddhant is...", "He has..."), in a professional, friendly tone. If asked your name, you are Jarvis. Never refer to yourself as ChatGPT, an OpenAI model, Llama, or any underlying model.
+const LIVE_CTX_TTL = 7200;
 
-TONE & FORMATTING:
-- Be conversational and direct — like a knowledgeable friend, not a resume reader
-- Keep responses short and punchy. Don't over-explain.
-- Only use bullet points when listing 3+ items — not for every answer
-- Use **bold** only for job titles, company names, and key technologies
-- Never start with "Siddhant is a highly skilled..." or similar corporate phrases
-- Vary your openers — be natural, not formulaic
-- If someone asks a simple question, give a simple answer (1–3 sentences is fine)
+async function fetchSpotifyContext(env: Bindings): Promise<string | undefined> {
+  try {
+    const tokenRes = await fetch("https://accounts.spotify.com/api/token", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization:
+          "Basic " +
+          btoa(`${env.SPOTIFY_CLIENT_ID}:${env.SPOTIFY_CLIENT_SECRET}`),
+      },
+      body:
+        "grant_type=refresh_token&refresh_token=" +
+        encodeURIComponent(env.SPOTIFY_REFRESH_TOKEN),
+    });
+    const tokenData = (await tokenRes.json()) as { access_token?: string };
+    if (!tokenData.access_token) return undefined;
 
-Here is everything you know about Siddhant:
+    const cpRes = await fetch(
+      "https://api.spotify.com/v1/me/player/currently-playing",
+      { headers: { Authorization: `Bearer ${tokenData.access_token}` } }
+    );
 
-PERSONAL INFO:
-- Full name: Siddhant K. Sancheti
-- Location: San Jose, CA
-- Email: siddhantsanchetik@gmail.com
-- GitHub: https://github.com/sidsanc
-- LinkedIn: https://www.linkedin.com/in/siddhant-sancheti/
-- Instagram: https://www.instagram.com/sid_sanc4998_/
-- Blog: https://hashnode.com/@sidsanc
+    if (cpRes.status === 200) {
+      const cpData = (await cpRes.json()) as {
+        item?: { name: string; artists: { name: string }[] };
+      };
+      if (cpData?.item) {
+        const artist = cpData.item.artists.map((a) => a.name).join(", ");
+        return `Currently listening to "${cpData.item.name}" by ${artist} on Spotify.`;
+      }
+    }
 
-CURRENT ROLE:
-Software Development Engineer at Amazon Web Services (AWS), Seattle, WA — May 2025 to Present
-- Led zero-downtime migration of Aurora PostgreSQL authentication from static credentials to IAM tokens across 110+ Lambda functions and CLI tools in 17 regions, handling 150–190 connections/sec with 100% IAM adoption
-- Designed CDK infrastructure with least-privilege IAM policies; resolved critical S3 client connection leaks, file descriptor exhaustion, and cross-region token signing issues
-- Co-designed a Python-based multi-agent code automation system that parsed SIM task tables into dependency DAGs, scheduled 5–10 parallel agent workflows with persistent state and live monitoring — reducing 10-task implementation cycles from 5–7 days to 1–2 hours
-- Built a self-service fleet capacity management system using Java, DynamoDB, RPC APIs, and safe-by-default CLIs — reducing scaling workflows from 30 mins to 2–4 mins across 5,000+ EC2 hosts
+    const rpRes = await fetch(
+      "https://api.spotify.com/v1/me/player/recently-played?limit=1",
+      { headers: { Authorization: `Bearer ${tokenData.access_token}` } }
+    );
+    const rpData = (await rpRes.json()) as {
+      items?: { track: { name: string; artists: { name: string }[] } }[];
+    };
+    const track = rpData?.items?.[0]?.track;
+    if (track) {
+      const artist = track.artists.map((a) => a.name).join(", ");
+      return `Recently listened to "${track.name}" by ${artist} on Spotify.`;
+    }
+    return undefined;
+  } catch {
+    return undefined;
+  }
+}
 
-PREVIOUS EXPERIENCE:
-1. Mercor (Web Development and Design Expert, OpenAI Contract) — Jan 2025–May 2025, Remote
-   - Evaluated AI-generated React web applications for functionality, performance, and UI/UX, ensuring alignment with user requirements
-   - Reviewed design consistency, feature integration, and accessibility standards to identify opportunities for improvement
-   - Provided looped feedback to project teams, continuously refining features and design elements to meet evolving user needs
+async function fetchHashnodeContext(): Promise<string | undefined> {
+  try {
+    const query = `{
+      publication(host: "sidsanc.hashnode.dev") {
+        posts(first: 3) {
+          edges {
+            node { title brief url }
+          }
+        }
+      }
+    }`;
+    const res = await fetch("https://gql.hashnode.com", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query }),
+    });
+    const data = (await res.json()) as {
+      data?: {
+        publication?: {
+          posts?: { edges: { node: { title: string; brief: string; url: string } }[] };
+        };
+      };
+    };
+    const edges = data?.data?.publication?.posts?.edges;
+    if (!edges?.length) return undefined;
+    return edges
+      .map((e) => `- "${e.node.title}" — ${e.node.url}`)
+      .join("\n");
+  } catch {
+    return undefined;
+  }
+}
 
-2. GrantAide (Software Engineer - ML/AI) — Sept 2024–Jan 2025, San Jose
-   - Built and scaled an AI-driven grant writing platform using React, GPT-4, Flask, AWS (S3, Amplify, EC2, Elastic Beanstalk), and Stripe APIs — improving platform responsiveness 5x
-   - Engineered RAG workflows with Material-UI, Firebase, Vertex AI, LangChain, and FAISS — reducing frontend load times by 35%, query latency from 200ms to 50ms, improving response accuracy by 80%, and increasing grant application success rates by 85%
-
-2. Forsk Technologies (Software Developer, Full Stack) — Mar 2021–Jun 2022, Jaipur, India
-   - Architected an AI-enabled Campus Portal using React, Node.js, Express.js, AWS Lambda, DynamoDB, and ECS with TensorFlow/PyTorch chatbot — reducing onboarding time by 50% for 5,000+ MAU
-   - Automated deployments with Jenkins, GitHub Actions, Docker, and Grafana — achieving 99.9% uptime
-
-3. Pantech Prolabs (Software Engineer) — Jun 2020–Feb 2021, Pune, India
-   - Optimized async data pipelines for a job listing platform using Kafka, Zookeeper, and Apache Spark — reducing processing time by 30%
-   - Secured RESTful APIs with Django, Flask, OAuth2, JWT, and Terraform — protecting data for 100,000+ users
-
-EDUCATION:
-- MS Software Engineering, San Jose State University — GPA 3.81 (Aug 2022–May 2024)
-- BE (Bachelor of Engineering), Savitribai Phule Pune University — GPA 3.81 (Aug 2016–May 2020)
-
-PROJECTS:
-1. Advanced Lane Detection (Aug 2023–May 2024): Lane detection system for autonomous vehicles using CARLA simulation, ENet, Hourglass neural networks, and RANSAC algorithms — achieving 93.19% classification accuracy and 3.89% MAE
-2. Smart Image Store (Sept 2023–Dec 2023): Image store where users upload and retrieve images using Google Cloud Vision API object tags, HashMap-based search, MongoDB, React.js, and AWS with load balancing
-3. Hive (Multi-Agent Harness for Production AI): Open-source project on GitHub — multi-agent orchestration system for production AI workloads
-
-TECHNICAL SKILLS:
-- Languages: Python, Java, Ruby, Bash, TypeScript, JavaScript, SQL, HTML5, CSS3, Shell
-- Cloud/Infra: AWS, Google Cloud Platform, Kubernetes, Docker, CI/CD, Jenkins, Git, RESTful APIs, RPC, Load Balancing
-- Frameworks: AWS CDK, React, Node.js, Express.js, Flask, Django, Apache Spark, Bootstrap, Springboot, Kafka
-- Databases: AWS RDS, DynamoDB, PostgreSQL, MongoDB, Firebase
-- AI/ML: TensorFlow, PyTorch, JAX, LangChain, VertexAI, FAISS, Scikit-learn, OpenCV, Pandas, NumPy, TensorRT, Keras, MCP, Sagemaker, LLMs, RAG, NLP, Computer Vision
-
-PERSONALITY & INTERESTS:
-- Passionate about AI/ML, distributed systems, and cloud-native engineering
-- Enjoys working at the intersection of infrastructure and AI
-- Has hands-on experience with both research (autonomous vehicles, computer vision) and production systems (AWS scale infrastructure)
-- Active on GitHub and writes on Hashnode
-
-Answer questions about Siddhant accurately based on the above. If asked something you don't know about Siddhant, say so honestly. Keep responses concise and helpful. Be engaging and conversational.`;
+async function getLiveContext(
+  env: Bindings,
+  conversationId: number
+): Promise<LiveContext> {
+  const key = `jarvis:live:${conversationId}`;
+  const cached = await env.KV.get(key);
+  if (cached) {
+    try {
+      return JSON.parse(cached) as LiveContext;
+    } catch {
+      return {};
+    }
+  }
+  return {};
+}
 
 openaiRoutes.post("/conversations", async (c) => {
   const ip = c.req.header("CF-Connecting-IP") ?? "unknown";
@@ -92,7 +124,28 @@ openaiRoutes.post("/conversations", async (c) => {
       .values({ title: crypto.randomUUID() })
       .returning();
 
-    return c.json({ id: String(conversation!.id), createdAt: conversation!.createdAt }, 201);
+    const convId = conversation!.id;
+
+    const [spotify, hashnode] = await Promise.allSettled([
+      fetchSpotifyContext(c.env),
+      fetchHashnodeContext(),
+    ]);
+
+    const live: LiveContext = {
+      spotify: spotify.status === "fulfilled" ? spotify.value : undefined,
+      hashnode: hashnode.status === "fulfilled" ? hashnode.value : undefined,
+    };
+
+    await c.env.KV.put(
+      `jarvis:live:${convId}`,
+      JSON.stringify(live),
+      { expirationTtl: LIVE_CTX_TTL }
+    );
+
+    return c.json(
+      { id: String(convId), createdAt: conversation!.createdAt },
+      201
+    );
   } catch {
     return c.json({ error: "Failed to create conversation" }, 500);
   }
@@ -149,21 +202,26 @@ openaiRoutes.post("/conversations/:id/messages", async (c) => {
   try {
     await db.insert(messages).values({ conversationId, role: "user", content: userContent });
 
-    const history = await db
-      .select()
-      .from(messages)
-      .where(eq(messages.conversationId, conversationId))
-      .orderBy(messages.createdAt);
+    const [history, live] = await Promise.all([
+      db
+        .select()
+        .from(messages)
+        .where(eq(messages.conversationId, conversationId))
+        .orderBy(messages.createdAt),
+      getLiveContext(c.env, conversationId),
+    ]);
+
+    const systemPrompt = buildSystemPrompt(live);
 
     const chatMessages = [
-      { role: "system" as const, content: SIDDHANT_SYSTEM_PROMPT },
+      { role: "system" as const, content: systemPrompt },
       ...history.map((m) => ({ role: m.role as "user" | "assistant", content: m.content })),
     ];
 
-    const aiStream = await c.env.AI.run("@cf/meta/llama-3.3-70b-instruct-fp8-fast", {
-      messages: chatMessages,
-      stream: true,
-    }) as ReadableStream;
+    const aiStream = (await c.env.AI.run(
+      "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+      { messages: chatMessages, stream: true }
+    )) as ReadableStream;
 
     const { readable, writable } = new TransformStream<Uint8Array, Uint8Array>();
     const writer = writable.getWriter();
@@ -211,7 +269,9 @@ openaiRoutes.post("/conversations/:id/messages", async (c) => {
 
         await writer.write(encoder.encode(`data: ${JSON.stringify({ done: true })}\n\n`));
       } catch {
-        await writer.write(encoder.encode(`data: ${JSON.stringify({ error: "Stream interrupted" })}\n\n`));
+        await writer.write(
+          encoder.encode(`data: ${JSON.stringify({ error: "Stream interrupted" })}\n\n`)
+        );
       } finally {
         await writer.close();
       }
