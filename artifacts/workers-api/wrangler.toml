@@ -21,5 +21,8 @@ preview_id = "0cd1f312f273402996ceecd4d8d31336"
 #   SPOTIFY_REFRESH_TOKEN
 #   HASHNODE_TOKEN        — (optional) Hashnode API token
 
+[ai]
+binding = "AI"
+
 [vars]
 ALLOWED_ORIGIN = "https://siddhantsancheti.com"

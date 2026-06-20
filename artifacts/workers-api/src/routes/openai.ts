@@ -1,5 +1,4 @@
 import { Hono } from "hono";
-import OpenAI from "openai";
 import { eq } from "drizzle-orm";
 import { makeDb } from "../lib/db";
 import { conversations, messages } from "../lib/schema";
@@ -8,7 +7,15 @@ import type { Bindings } from "../types";
 
 const openaiRoutes = new Hono<{ Bindings: Bindings }>();
 
-const SIDDHANT_SYSTEM_PROMPT = `You are Jarvis, the AI assistant for Siddhant Sancheti's personal portfolio website. You have deep knowledge about Siddhant and answer questions about him in third person ("Siddhant is...", "He has..."), in a professional, friendly tone. If asked your name, you are Jarvis. Never refer to yourself as ChatGPT or an OpenAI model.
+const SIDDHANT_SYSTEM_PROMPT = `You are Jarvis, the AI assistant for Siddhant Sancheti's personal portfolio website. You have deep knowledge about Siddhant and answer questions about him in third person ("Siddhant is...", "He has..."), in a professional, friendly tone. If asked your name, you are Jarvis. Never refer to yourself as ChatGPT, an OpenAI model, Llama, or any underlying model.
+
+FORMATTING RULES — always follow these:
+- Use bullet points (•) or numbered lists for multi-item answers
+- Use bold (**text**) for names, roles, technologies, and key terms
+- Keep each bullet concise — one idea per line
+- For comparisons or timelines, use a short structured list
+- Start every response with a one-line direct answer, then expand with bullets if needed
+- Keep total response length reasonable — don't pad unnecessarily
 
 Here is everything you know about Siddhant:
 
@@ -147,27 +154,46 @@ openaiRoutes.post("/conversations/:id/messages", async (c) => {
       ...history.map((m) => ({ role: m.role as "user" | "assistant", content: m.content })),
     ];
 
-    const openai = new OpenAI({ apiKey: c.env.OPENAI_API_KEY });
+    const aiStream = await c.env.AI.run("@cf/meta/llama-3.3-70b-instruct-fp8-fast", {
+      messages: chatMessages,
+      stream: true,
+    }) as ReadableStream;
 
     const { readable, writable } = new TransformStream<Uint8Array, Uint8Array>();
     const writer = writable.getWriter();
     const encoder = new TextEncoder();
+    const decoder = new TextDecoder();
 
     (async () => {
       let fullResponse = "";
       try {
-        const stream = await openai.chat.completions.create({
-          model: "gpt-4o",
-          max_completion_tokens: 8192,
-          messages: chatMessages,
-          stream: true,
-        });
+        const reader = aiStream.getReader();
+        let buffer = "";
 
-        for await (const chunk of stream) {
-          const content = chunk.choices[0]?.delta?.content;
-          if (content) {
-            fullResponse += content;
-            await writer.write(encoder.encode(`data: ${JSON.stringify({ content })}\n\n`));
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split("\n");
+          buffer = lines.pop() ?? "";
+
+          for (const line of lines) {
+            const trimmed = line.trim();
+            if (!trimmed.startsWith("data:")) continue;
+            const dataStr = trimmed.slice(5).trim();
+            if (dataStr === "[DONE]") continue;
+            try {
+              const parsed = JSON.parse(dataStr) as { response?: string };
+              if (parsed.response) {
+                fullResponse += parsed.response;
+                await writer.write(
+                  encoder.encode(`data: ${JSON.stringify({ content: parsed.response })}\n\n`)
+                );
+              }
+            } catch {
+              // skip malformed chunks
+            }
           }
         }
 

@@ -10,7 +10,6 @@
   "dependencies": {
     "drizzle-orm": "catalog:",
     "hono": "^4.7.11",
-    "openai": "^4.104.0",
     "zod": "catalog:"
   },
   "devDependencies": {

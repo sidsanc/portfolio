@@ -1,6 +1,6 @@
 export type Bindings = {
   DB: D1Database;
-  OPENAI_API_KEY: string;
+  AI: Ai;
   SPOTIFY_CLIENT_ID: string;
   SPOTIFY_CLIENT_SECRET: string;
   SPOTIFY_REFRESH_TOKEN: string;
