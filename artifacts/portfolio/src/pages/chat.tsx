@@ -4,6 +4,8 @@ import { Send, User, Loader2, Sparkles, RefreshCw } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
+const STORAGE_KEY = "jarvis_conv_id";
+
 interface Message {
   id: string;
   role: "user" | "assistant";
@@ -20,6 +22,9 @@ const SUGGESTED_QUESTIONS = [
   "Where did Siddhant study and what were his grades?",
 ];
 
+const apiBase = () =>
+  (import.meta.env.VITE_API_URL ?? import.meta.env.BASE_URL).replace(/\/$/, "");
+
 export default function Chat() {
   const [conversationId, setConversationId] = useState<string | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -29,6 +34,7 @@ export default function Chat() {
   const [error, setError] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -41,25 +47,58 @@ export default function Chat() {
     setIsCreating(true);
     setError(null);
     try {
-      const apiBase = (import.meta.env.VITE_API_URL ?? import.meta.env.BASE_URL).replace(/\/$/, "");
-      const res = await fetch(`${apiBase}/api/openai/conversations`, {
+      const res = await fetch(`${apiBase()}/api/openai/conversations`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
       });
       if (!res.ok) throw new Error("Failed to create conversation");
-      const data = await res.json();
+      const data = await res.json() as { id: string };
+      localStorage.setItem(STORAGE_KEY, data.id);
       setConversationId(data.id);
       setMessages([]);
-    } catch (err) {
+    } catch {
       setError("Could not start a conversation. Please try again.");
     } finally {
       setIsCreating(false);
     }
   }, []);
 
-  useEffect(() => {
-    createConversation();
+  const loadConversation = useCallback(async (id: string) => {
+    setIsCreating(true);
+    setError(null);
+    try {
+      const res = await fetch(`${apiBase()}/api/openai/conversations/${id}/messages`);
+      if (res.status === 404 || res.status === 400) {
+        localStorage.removeItem(STORAGE_KEY);
+        await createConversation();
+        return;
+      }
+      if (!res.ok) throw new Error("Failed to load history");
+      const data = await res.json() as { id: number; role: string; content: string }[];
+      setConversationId(id);
+      setMessages(
+        data.map((m) => ({
+          id: String(m.id),
+          role: m.role as "user" | "assistant",
+          content: m.content,
+        }))
+      );
+    } catch {
+      localStorage.removeItem(STORAGE_KEY);
+      await createConversation();
+    } finally {
+      setIsCreating(false);
+    }
   }, [createConversation]);
+
+  useEffect(() => {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored) {
+      loadConversation(stored);
+    } else {
+      createConversation();
+    }
+  }, [createConversation, loadConversation]);
 
   const sendMessage = async (content: string) => {
     if (!content.trim() || !conversationId || isLoading) return;
@@ -84,9 +123,8 @@ export default function Chat() {
     setIsLoading(true);
 
     try {
-      const apiBase = (import.meta.env.VITE_API_URL ?? import.meta.env.BASE_URL).replace(/\/$/, "");
       const res = await fetch(
-        `${apiBase}/api/openai/conversations/${conversationId}/messages`,
+        `${apiBase()}/api/openai/conversations/${conversationId}/messages`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -129,9 +167,7 @@ export default function Chat() {
             if (data.done) {
               setMessages((prev) =>
                 prev.map((m) =>
-                  m.id === assistantMsgId
-                    ? { ...m, streaming: false }
-                    : m
+                  m.id === assistantMsgId ? { ...m, streaming: false } : m
                 )
               );
             }
@@ -139,7 +175,7 @@ export default function Chat() {
           }
         }
       }
-    } catch (err) {
+    } catch {
       setError("Something went wrong. Please try again.");
       setMessages((prev) => prev.filter((m) => m.id !== assistantMsgId));
     } finally {
@@ -157,6 +193,7 @@ export default function Chat() {
   };
 
   const resetChat = () => {
+    localStorage.removeItem(STORAGE_KEY);
     createConversation();
   };
 
@@ -245,9 +282,7 @@ export default function Chat() {
               <div className={`neo-inset p-2.5 rounded-xl h-fit shrink-0 ${msg.role === "user" ? "text-secondary" : "text-primary"}`}>
                 {msg.role === "user" ? <User className="w-4 h-4" /> : <Sparkles className="w-4 h-4" />}
               </div>
-              <div
-                className={`neo-card px-4 py-3 sm:px-5 sm:py-4 max-w-[88%] sm:max-w-[80%] text-sm leading-relaxed text-foreground`}
-              >
+              <div className="neo-card px-4 py-3 sm:px-5 sm:py-4 max-w-[88%] sm:max-w-[80%] text-sm leading-relaxed text-foreground">
                 {msg.role === "assistant" && msg.content ? (
                   <>
                     <ReactMarkdown
