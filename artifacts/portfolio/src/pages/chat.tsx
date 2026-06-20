@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Send, User, Loader2, Sparkles, RefreshCw } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { getGetMessagesQueryKey } from "@workspace/api-client-react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 interface Message {
   id: string;
@@ -253,15 +255,33 @@ export default function Chat() {
                 {msg.role === "user" ? <User className="w-4 h-4" /> : <Sparkles className="w-4 h-4" />}
               </div>
               <div
-                className={`neo-card px-4 py-3 sm:px-5 sm:py-4 max-w-[88%] sm:max-w-[80%] text-sm leading-relaxed ${
-                  msg.role === "user"
-                    ? "text-foreground"
-                    : "text-foreground"
-                }`}
+                className={`neo-card px-4 py-3 sm:px-5 sm:py-4 max-w-[88%] sm:max-w-[80%] text-sm leading-relaxed text-foreground`}
               >
-                {msg.content || (msg.streaming && <span className="inline-block w-2 h-4 bg-primary animate-pulse rounded-sm" />)}
-                {msg.streaming && msg.content && (
-                  <span className="inline-block w-2 h-4 bg-primary animate-pulse rounded-sm ml-0.5 align-text-bottom" />
+                {msg.role === "assistant" && msg.content ? (
+                  <>
+                    <ReactMarkdown
+                      remarkPlugins={[remarkGfm]}
+                      components={{
+                        p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
+                        ul: ({ children }) => <ul className="list-disc pl-4 mb-2 space-y-1">{children}</ul>,
+                        ol: ({ children }) => <ol className="list-decimal pl-4 mb-2 space-y-1">{children}</ol>,
+                        li: ({ children }) => <li className="leading-snug">{children}</li>,
+                        strong: ({ children }) => <strong className="font-semibold text-primary">{children}</strong>,
+                        h3: ({ children }) => <h3 className="font-semibold text-foreground mt-3 mb-1">{children}</h3>,
+                        code: ({ children }) => <code className="bg-muted px-1 py-0.5 rounded text-xs font-mono">{children}</code>,
+                      }}
+                    >
+                      {msg.content}
+                    </ReactMarkdown>
+                    {msg.streaming && <span className="inline-block w-2 h-4 bg-primary animate-pulse rounded-sm ml-0.5 align-text-bottom" />}
+                  </>
+                ) : (
+                  <>
+                    {msg.content || (msg.streaming && <span className="inline-block w-2 h-4 bg-primary animate-pulse rounded-sm" />)}
+                    {msg.streaming && msg.content && (
+                      <span className="inline-block w-2 h-4 bg-primary animate-pulse rounded-sm ml-0.5 align-text-bottom" />
+                    )}
+                  </>
                 )}
               </div>
             </motion.div>
