@@ -157,6 +157,15 @@ openaiRoutes.get("/conversations/:id/messages", async (c) => {
 
   try {
     const db = makeDb(c.env.DB);
+
+    const [conv] = await db
+      .select({ id: conversations.id })
+      .from(conversations)
+      .where(eq(conversations.id, id))
+      .limit(1);
+
+    if (!conv) return c.json({ error: "Conversation not found" }, 404);
+
     const msgs = await db
       .select()
       .from(messages)
