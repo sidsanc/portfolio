@@ -17,6 +17,19 @@ const experiences = [
     tags: ["CDK", "Java", "Python", "IAM", "Aurora PostgreSQL", "Lambda", "DynamoDB", "Multi-Agent AI"],
   },
   {
+    company: "Mercor",
+    role: "Web Development and Design Expert — OpenAI Contract",
+    location: "Remote",
+    period: "Jan 2025 – May 2025",
+    current: false,
+    highlights: [
+      "Evaluated AI-generated React web applications for functionality, performance, and UI/UX, ensuring alignment with user requirements.",
+      "Reviewed design consistency, feature integration, and accessibility standards to identify opportunities for improvement and maintain high-quality user experiences.",
+      "Provided looped feedback to project teams, continuously refining features and design elements to meet evolving user needs and industry best practices.",
+    ],
+    tags: ["React", "UI/UX", "OpenAI", "Web Development", "Accessibility", "Design Review"],
+  },
+  {
     company: "GrantAide",
     role: "Software Engineer",
     location: "San Jose, CA",
