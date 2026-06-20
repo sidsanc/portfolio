@@ -1,8 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Send, User, Loader2, Sparkles, RefreshCw } from "lucide-react";
-import { useQueryClient } from "@tanstack/react-query";
-import { getGetMessagesQueryKey } from "@workspace/api-client-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
@@ -31,8 +29,6 @@ export default function Chat() {
   const [error, setError] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const queryClient = useQueryClient();
-
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -138,11 +134,6 @@ export default function Chat() {
                     : m
                 )
               );
-              if (conversationId) {
-                queryClient.invalidateQueries({
-                  queryKey: getGetMessagesQueryKey(conversationId),
-                });
-              }
             }
           } catch {
           }
