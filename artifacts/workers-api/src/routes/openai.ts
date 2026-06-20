@@ -42,7 +42,7 @@ PREVIOUS EXPERIENCE:
    - Reviewed design consistency, feature integration, and accessibility standards to identify opportunities for improvement
    - Provided looped feedback to project teams, continuously refining features and design elements to meet evolving user needs
 
-2. GrantAide (Software Engineer) — Sept 2024–Jan 2025, San Jose
+2. GrantAide (Software Engineer - ML/AI) — Sept 2024–Jan 2025, San Jose
    - Built and scaled an AI-driven grant writing platform using React, GPT-4, Flask, AWS (S3, Amplify, EC2, Elastic Beanstalk), and Stripe APIs — improving platform responsiveness 5x
    - Engineered RAG workflows with Material-UI, Firebase, Vertex AI, LangChain, and FAISS — reducing frontend load times by 35%, query latency from 200ms to 50ms, improving response accuracy by 80%, and increasing grant application success rates by 85%
 

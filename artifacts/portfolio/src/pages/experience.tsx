@@ -31,7 +31,7 @@ const experiences = [
   },
   {
     company: "GrantAide",
-    role: "Software Engineer",
+    role: "Software Engineer - ML/AI",
     location: "San Jose, CA",
     period: "Sept 2024 – Jan 2025",
     current: false,
